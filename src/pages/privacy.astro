@@ -1,53 +1,77 @@
 ---
 import SubpageLayout from '../layouts/SubpageLayout.astro';
+import {
+  privacyCrossReferences,
+  privacyDocument,
+  privacyRiferimenti,
+  privacySections,
+} from '../data/privacy';
+
+const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline';
+const lead =
+  "Informativa quadro sul trattamento dei dati personali per il portale istituzionale NexStudio (sede operativa: Bangkok, Thailandia) e per le interazioni corporate con i servizi SaaS LexAura e MediAura. " +
+  privacyCrossReferences.lead;
 ---
 
 <SubpageLayout
   title="Privacy — NexStudio"
-  description="Informativa sul trattamento dei dati personali NexStudio."
+  description="Informativa privacy quadro NexStudio: sito istituzionale, contatti corporate, rimandi ai dettagli privacy dei SaaS LexAura (Legal Tech) e MediAura (Health Tech)."
   heading="Informativa sulla privacy"
-  lead="Documento provvisorio: va adattato alla vostra organizzazione e revisionato da un legale prima della pubblicazione definitiva."
+  lead={lead}
 >
-  <p>
-    Questa pagina descrive, in forma generica, come NexStudio intende trattare i
-    dati personali raccolti attraverso il sito web e i canali di contatto. Le
-    finalità, le basi giuridiche e i destinatari vanno definiti in base alle
-    vostre attività reali (es. gestione richieste, newsletter, analytics).
-  </p>
+  <div>
+    <p class="border-l-2 border-sky-500/35 pl-4 text-sm leading-relaxed text-nx-muted">
+      <span class="font-medium text-nx-fg">Versione</span> {privacyDocument.version}
+      <span class="text-nx-muted/80"> · </span>
+      <span class="font-medium text-nx-fg">In vigore dal</span> {privacyDocument.inVigoreDal}
+      <span class="text-nx-muted/80"> · </span>
+      <span class="font-medium text-nx-fg">Ultimo aggiornamento</span>{' '}
+      {privacyDocument.ultimoAggiornamento}
+    </p>
 
-  <h2>Titolare del trattamento</h2>
-  <p>
-    Indicare ragione sociale, sede, P.IVA e modalità di contatto (es. email
-    dedicata privacy). Per richieste degli interessati potete rimandare alla
-    sezione <a class="text-sky-400/90 hover:text-sky-300" href="/#contatti"
-      >Contatti</a
-    > o a un indirizzo PEC / form strutturato.
-  </p>
+    <p class="!mt-5 text-sm text-nx-muted sm:text-base">
+      Documenti connessi:{' '}
+      {
+        privacyRiferimenti.map((r, i) => (
+          <span>
+            {i > 0 && <span class="text-nx-muted/80"> · </span>}
+            <a class={link} href={r.href}>{r.label}</a>
+          </span>
+        ))
+      }
+    </p>
 
-  <h2>Tipologie di dati e finalità</h2>
-  <p>
-    Esempi da personalizzare: dati di navigazione e log tecnici; dati forniti
-    volontariamente tramite moduli o chat; eventuali cookie di profilazione (da
-    collegare alla <a class="text-sky-400/90 hover:text-sky-300" href="/cookies"
-      >informativa cookie</a
-    >). Per ogni trattamento indicare la base giuridica (contratto, legittimo
-    interesse, consenso, obbligo legale).
-  </p>
+    <h2 id="indice" class="!mt-8">Indice</h2>
+    <ol class="!mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed sm:text-base">
+      {
+        privacySections.map((s) => (
+          <li>
+            <a class={link} href={`#${s.id}`}>{s.title}</a>
+          </li>
+        ))
+      }
+    </ol>
 
-  <h2>Conservazione e sicurezza</h2>
-  <p>
-    Specificare tempi di conservazione per categoria di dati e misure di
-    sicurezza adottate (crittografia, controllo accessi, fornitori cloud, sede
-    dei dati).
-  </p>
-
-  <h2>Diritti degli interessati</h2>
-  <p>
-    Gli interessati possono esercitare i diritti previsti dal Reg. (UE) 2016/679
-    (accesso, rettifica, cancellazione, limitazione, portabilità, opposizione,
-    revoca del consenso). Dettagli operativi nella pagina <a
-      class="text-sky-400/90 hover:text-sky-300"
-      href="/gdpr">GDPR</a
-    >.
-  </p>
+    {
+      privacySections.map((s) => (
+        <section class="mt-10" id={s.id}>
+          <h2
+            class="scroll-mt-8 text-lg font-semibold text-nx-fg sm:text-xl"
+          >
+            {s.title}
+          </h2>
+          {s.paragraphs.map((p) => (
+            <p class="mt-3 text-sm leading-relaxed text-nx-muted sm:text-base">{p}</p>
+          ))}
+          {s.bullets && s.bullets.length > 0 ? (
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm sm:text-base">
+              {s.bullets.map((b) => (
+                <li class="text-nx-muted">{b}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ))
+    }
+  </div>
 </SubpageLayout>

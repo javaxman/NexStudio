@@ -240,7 +240,7 @@
   align-items: center;
   justify-content: center;
   min-height: 3rem;
-  opacity: 0.72;
+  opacity: 0.76;
   transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
@@ -257,27 +257,27 @@
 }
 
 .nx-tech-slider__logo {
-  height: 2.5rem;
+  height: 2.9rem;
   width: auto;
-  max-width: 8.5rem;
+  max-width: 10rem;
   object-fit: contain;
 }
 
 @media (min-width: 640px) {
   .nx-tech-slider__logo {
-    height: 2.875rem;
-    max-width: 9.5rem;
+    height: 3.25rem;
+    max-width: 11rem;
   }
 }
 
 /* Badge testuale HL7 FHIR: più largo ma stessa altezza riga */
 .nx-tech-slider__logo--fhir {
-  max-width: 11.5rem;
+  max-width: 13rem;
 }
 
 @media (min-width: 640px) {
   .nx-tech-slider__logo--fhir {
-    max-width: 12.5rem;
+    max-width: 14.5rem;
   }
 }
 

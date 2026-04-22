@@ -4,7 +4,7 @@
  */
 export const services = {
   eyebrow: 'I nostri servizi',
-  title: 'Supporto, implementazione ed evoluzione',
+  title: 'Implementazione, evoluzione e supporto',
   lead:
     'In NexStudio, il nostro impegno non si esaurisce con la fornitura della licenza software. Il nostro modello di servizio è progettato per garantire che ogni professionista e struttura possa estrarre il massimo valore dalle potenzialità dell’Intelligenza Artificiale integrata in LexAura e MediAura.',
   cards: [

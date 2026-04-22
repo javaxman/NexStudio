@@ -17,7 +17,6 @@ export const footer = {
     { label: 'Servizi', href: '/#servizi' },
     { label: 'Stack', href: '/#stack' },
     { label: 'FAQ', href: '/#faq' },
-    { label: 'Contattaci', href: '/#contatti' },
   ] as const,
 
   /** Pannello preferenze (CMP): non è un documento legale; tenuto fuori dalla colonna Normative */
@@ -50,8 +49,7 @@ export const footer = {
     { label: 'Chi siamo', href: '/about' },
     { label: 'Codice etico', href: '/codice-etico' },
     { label: 'Modello organizzativo', href: '/modello-organizzativo' },
-    /** `href` vuoto = etichetta senza link (es. in attesa di pagina) */
-    { label: 'Dove siamo', href: '' },
+    { label: 'Dove siamo', href: '/dove-siamo' },
   ] as const,
 
   /**

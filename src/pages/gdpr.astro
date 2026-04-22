@@ -1,55 +1,74 @@
 ---
 import SubpageLayout from '../layouts/SubpageLayout.astro';
+import {
+  gdprCrossReferences,
+  gdprDocument,
+  gdprRiferimenti,
+  gdprSections,
+} from '../data/gdpr';
+
+const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline';
+const lead =
+  "Diritti degli interessati e modalita' di esercizio ai sensi del Regolamento (UE) 2016/679, in coerenza con l'informativa privacy quadro del portale NexStudio. " +
+  gdprCrossReferences.lead;
 ---
 
 <SubpageLayout
   title="GDPR — NexStudio"
-  description="Informazioni sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)."
+  description="Pagina GDPR NexStudio: diritti degli interessati, modalita' operative, ruoli tra portale corporate e SaaS LexAura/MediAura, coordinamento con privacy dedicate."
   heading="GDPR e diritti degli interessati"
-  lead="Documento provvisorio: integrare riferimenti contrattuali, responsabile della protezione dei dati (DPO) se nominato, e procedure interne."
+  lead={lead}
 >
-  <p>
-    Il Regolamento (UE) 2016/679 (GDPR) disciplina il trattamento dei dati
-    personali nel territorio dell’Unione. La presente pagina riassume i diritti
-    riconosciuti agli interessati e come possono esercitarli nei confronti di
-    NexStudio, senza sostituire l’informativa privacy completa.
-  </p>
+  <div>
+    <p class="border-l-2 border-sky-500/35 pl-4 text-sm leading-relaxed text-nx-muted">
+      <span class="font-medium text-nx-fg">Versione</span> {gdprDocument.version}
+      <span class="text-nx-muted/80"> · </span>
+      <span class="font-medium text-nx-fg">In vigore dal</span> {gdprDocument.inVigoreDal}
+      <span class="text-nx-muted/80"> · </span>
+      <span class="font-medium text-nx-fg">Ultimo aggiornamento</span> {gdprDocument.ultimoAggiornamento}
+    </p>
 
-  <h2>Diritti riconosciuti</h2>
-  <ul>
-    <li>Accesso ai propri dati e copia in formato intelligibile</li>
-    <li>Rettifica di dati inesatti o incompleti</li>
-    <li>Cancellazione (“diritto all’oblio”) nei casi previsti dalla legge</li>
-    <li>Limitazione del trattamento</li>
-    <li>Portabilità dei dati forniti con consenso o contratto, ove applicabile</li>
-    <li>Opposizione al trattamento basato su legittimo interesse o per fini di marketing</li>
-    <li>Revoca del consenso in qualsiasi momento, senza pregiudicare la liceità del trattamento precedente</li>
-    <li>Reclamo all’autorità di controllo competente</li>
-  </ul>
+    <p class="!mt-5 text-sm text-nx-muted sm:text-base">
+      Documenti connessi:{' '}
+      {
+        gdprRiferimenti.map((r, i) => (
+          <span>
+            {i > 0 && <span class="text-nx-muted/80"> · </span>}
+            <a class={link} href={r.href}>{r.label}</a>
+          </span>
+        ))
+      }
+    </p>
 
-  <h2>Modalità di esercizio</h2>
-  <p>
-    Indicare un canale dedicato (es. email privacy@…, modulo PEC o ticket). Per
-    richieste generiche potete anche utilizzare la sezione <a
-      class="text-sky-400/90 hover:text-sky-300"
-      href="/#contatti">Contatti</a
-    > sul sito principale, specificando oggetto e dati utili a identificare la
-    pratica.
-  </p>
+    <h2 id="indice" class="!mt-8">Indice</h2>
+    <ol class="!mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed sm:text-base">
+      {
+        gdprSections.map((s) => (
+          <li>
+            <a class={link} href={`#${s.id}`}>{s.title}</a>
+          </li>
+        ))
+      }
+    </ol>
 
-  <h2>Trasferimenti extra-UE</h2>
-  <p>
-    Se utilizzate fornitori con sede fuori dallo Spazio Economico Europeo,
-    descrivete garanzie (Clausole contrattuali tipo, decisioni di adeguatezza,
-    norme vincolanti d’impresa) e il riferimento documentale.
-  </p>
-
-  <h2>Documenti correlati</h2>
-  <p>
-    <a class="text-sky-400/90 hover:text-sky-300" href="/privacy"
-      >Informativa privacy</a
-    >
-    ·
-    <a class="text-sky-400/90 hover:text-sky-300" href="/cookies">Informativa cookie</a>
-  </p>
+    {
+      gdprSections.map((s) => (
+        <section class="mt-10" id={s.id}>
+          <h2 class="scroll-mt-8 text-lg font-semibold text-nx-fg sm:text-xl">
+            {s.title}
+          </h2>
+          {s.paragraphs.map((p) => (
+            <p class="mt-3 text-sm leading-relaxed text-nx-muted sm:text-base">{p}</p>
+          ))}
+          {s.bullets && s.bullets.length > 0 ? (
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm sm:text-base">
+              {s.bullets.map((b) => (
+                <li class="text-nx-muted">{b}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ))
+    }
+  </div>
 </SubpageLayout>

@@ -148,10 +148,10 @@ const techSliderItems = stackSection.techSlider.items;
         </div>
         <div class="relative z-10 mx-auto max-w-6xl">
           <p
-            class="mb-6 inline-flex items-center gap-2 rounded-full border border-nx-border bg-nx-surface/60 px-3 py-1 text-xs font-medium text-sky-300/90"
+            class="mb-6 inline-flex items-center gap-2.5 rounded-full border border-nx-border bg-nx-surface/60 px-4 py-1.5 text-sm font-medium text-sky-300/90 sm:px-5 sm:py-2"
           >
             <span
-              class="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></span>
+              class="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_10px_#38bdf8]"></span>
             {hero.badge}
           </p>
           <h1
@@ -229,18 +229,32 @@ const techSliderItems = stackSection.techSlider.items;
             {productsSection.lead}
           </p>
 
-          <div
-            class="mt-14 grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-stretch"
-          >
+          <div class="relative mt-14">
+            <div
+              class="pointer-events-none absolute -top-28 left-1/2 z-0 h-64 w-[min(96%,60rem)] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(125,211,252,0.34)_0%,rgba(96,165,250,0.2)_36%,rgba(16,24,40,0)_74%)] blur-3xl"
+              aria-hidden="true"
+            />
+            <div
+              class="pointer-events-none absolute -top-14 left-1/2 z-0 h-40 w-[min(88%,54rem)] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(186,230,253,0.16)_0%,rgba(16,24,40,0)_70%)] blur-2xl"
+              aria-hidden="true"
+            />
+            <div
+              class="relative z-10 grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-stretch"
+            >
             {productsSection.items.map((product, pi) => (
               <article
                 class:list={[
-                  'flex flex-col rounded-2xl border p-6 sm:p-8',
+                  'relative flex flex-col overflow-hidden rounded-2xl border p-6 -translate-y-1 shadow-2xl shadow-black/30 sm:p-8',
                   pi === 0
-                    ? 'border-sky-500/25 bg-gradient-to-b from-sky-950/30 to-nx-surface/30'
-                    : 'border-emerald-500/20 bg-gradient-to-b from-emerald-950/25 to-nx-surface/30',
+                    ? 'border-sky-400/45 bg-gradient-to-b from-sky-950/30 to-nx-surface/30'
+                    : 'border-emerald-400/40 bg-gradient-to-b from-emerald-950/25 to-nx-surface/30',
                 ]}
               >
+                <div
+                  class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.12),transparent_62%)]"
+                  aria-hidden="true"
+                />
+                <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-60" aria-hidden="true"></div>
                 <div class="flex flex-wrap items-baseline justify-between gap-2">
                   <h3 class="text-2xl font-semibold tracking-tight text-nx-fg">
                     {product.name}
@@ -249,8 +263,8 @@ const techSliderItems = stackSection.techSlider.items;
                     class:list={[
                       'rounded-full px-2.5 py-0.5 text-xs font-medium',
                       pi === 0
-                        ? 'bg-sky-500/15 text-sky-200/95'
-                        : 'bg-emerald-500/15 text-emerald-200/95',
+                        ? 'bg-sky-500/25 text-sky-200/95'
+                        : 'bg-emerald-500/25 text-emerald-200/95',
                     ]}
                   >
                     {product.badge}
@@ -298,6 +312,7 @@ const techSliderItems = stackSection.techSlider.items;
                 ) : null}
               </article>
             ))}
+            </div>
           </div>
         </div>
       </section>
@@ -464,7 +479,7 @@ const techSliderItems = stackSection.techSlider.items;
           </div>
 
           <div
-            class="nx-tech-slider mt-10"
+            class="nx-tech-slider mt-6 sm:mt-7"
             role="region"
             aria-label={stackSection.techSlider.ariaLabel}
           >

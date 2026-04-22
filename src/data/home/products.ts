@@ -12,11 +12,11 @@ export const productsSection = {
       tagline: 'Il supporto analitico per l’eccellenza legale.',
       focus: 'Gestione dati, memorie e contrattualistica.',
       body:
-        'LexAura è la piattaforma SaaS di NexStudio dedicata ai professionisti del diritto. Sviluppata per ottimizzare la gestione di carichi informativi elevati, LexAura utilizza l’Intelligenza Artificiale per l’incrocio dinamico di leggi, sentenze e normative.',
+        'LexAura è la piattaforma SaaS di NexStudio dedicata ai professionisti del diritto. Sviluppata per ottimizzare la gestione di carichi informativi elevati, LexAura utilizza l’Intelligenza Artificiale per l’incrocio dinamico di leggi, sentenze e normative, garantendo una base analitica solida e tempestiva.',
       highlights: [
         {
           title: 'Sintesi normativa',
-          text: 'Analisi accelerata dei precedenti e delle fonti.',
+          text: 'Analisi accelerata dei precedenti, delle fonti e dei contesti.',
         },
         {
           title: 'Drafting assistito',
@@ -27,8 +27,6 @@ export const productsSection = {
           text: 'Automazione dei processi documentali per lo studio legale moderno.',
         },
       ] as const,
-      closing:
-        'L’obiettivo di LexAura non è sostituire l’avvocato, ma liberarne il tempo, garantendo una base analitica solida e tempestiva.',
     },
     {
       id: 'mediaura',

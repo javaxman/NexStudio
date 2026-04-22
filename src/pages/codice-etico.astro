@@ -1,5 +1,13 @@
 ---
 import SubpageLayout from '../layouts/SubpageLayout.astro';
+import {
+  getCodiceEticoPremessa,
+  codiceEticoConformityBlocks,
+  qualitaValidazioneProdotto,
+  getCodiceEticoProductListPhrase,
+  notePraticheDPIA,
+  codiceEticoTutelaDatiRuoli,
+} from '../data/codice-etico';
 
 const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline';
 ---
@@ -23,9 +31,29 @@ const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underl
       <li><a class={link} href="#ambito">Ambito di applicazione</a></li>
       <li><a class={link} href="#valori">Valori e principi fondamentali</a></li>
       <li>
-        <a class={link} href="#conformita">Conformità normativa specifica (ambito legale e medico)</a>
+        <a class={link} href="#conformita">Conformità normativa (per perimetro: piattaforma, legale, sanitario)</a>
+        <ol class="mt-2 list-decimal space-y-1 pl-5 text-nx-muted/95">
+          <li>
+            <a class={link} href="#conformita-piattaforma">4.1 Piattaforma e SaaS (orizzontale)</a>
+          </li>
+          <li>
+            <a class={link} href="#conformita-legal">4.2 Ambito legale (LexAura)</a>
+          </li>
+          <li>
+            <a class={link} href="#conformita-sanitario">4.3 Ambito sanitario (MediAura)</a>
+          </li>
+        </ol>
       </li>
-      <li><a class={link} href="#tutela-dati">Tutela dei dati personali e dati sensibili</a></li>
+      <li>
+        <a class={link} href="#tutela-dati">Tutela dei dati personali e dati sensibili</a>
+        <ol class="mt-2 list-decimal space-y-1 pl-5 text-nx-muted/95">
+          <li>
+            <a class={link} href="#tutela-dati-ruoli"
+              >5.1 Ruoli: pazienti, clienti, abbonati, Società</a
+            >
+          </li>
+        </ol>
+      </li>
       <li>
         <a class={link} href="#sicurezza">Sicurezza dell’informazione e resilienza operativa</a>
       </li>
@@ -70,11 +98,7 @@ const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underl
 
     <h2 id="premessa">1. Premessa</h2>
     <p>
-      Questo Codice Etico stabilisce i principi, i doveri e le regole di comportamento che tutti i
-      soggetti coinvolti in <strong>NexStudio</strong> (di seguito «Società») devono osservare nello
-      sviluppo, nella commercializzazione e nella gestione di soluzioni SaaS destinate ai settori
-      legale e medico. Mira a garantire conformità normativa, tutela della privacy, sicurezza,
-      qualità tecnica, protezione dei diritti degli utenti e responsabilità professionale.
+      {getCodiceEticoPremessa()}
     </p>
 
     <h2 id="ambito">2. Ambito di applicazione</h2>
@@ -95,37 +119,68 @@ const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underl
       <li>Miglioramento continuo e accountability.</li>
     </ul>
 
-    <h2 id="conformita">4. Conformità normativa specifica (ambito legale e medico)</h2>
-    <p>La Società osserva, fra gli altri:</p>
-    <ul>
-      <li>Thailand Personal Data Protection Act (PDPA).</li>
-      <li>
-        Regolamento generale sulla protezione dei dati (GDPR), quando applicabile per utenti o
-        servizi nell’Unione europea.
-      </li>
-      <li>
-        Normative sanitarie e standard locali o internazionali pertinenti (ad esempio requisiti
-        nazionali per la gestione dei dati clinici, standard ISO rilevanti).
-      </li>
-      <li>
-        Requisiti normativi per dispositivi medici o software medicale (ad esempio EU MDR,
-        regolamenti locali) se le funzionalità rientrano nella definizione di dispositivo medico.
-      </li>
-      <li>
-        Norme professionali e di segreto professionale per avvocati e operatori sanitari;
-        rispetto di privilegi professionali (<em>attorney–client privilege</em>, segreto medico).
-      </li>
-      <li>
-        Se applicabile per mercati esteri: HIPAA per dati sanitari negli Stati Uniti e normative
-        sull’esportazione di dati o tecnologie.
-      </li>
-    </ul>
+    <h2 id="conformita">4. Conformità normativa specifica</h2>
     <p>
+      I riferimenti sotto sono raggruppati: obblighi orizzontali a tutte le offerte
+      <strong>SaaS</strong>, riferimenti distinti per il perimetro
+      <strong>Legal Tech / LexAura</strong> e per <strong>Health Tech / MediAura</strong> (ciascuna
+      linea può estendersi o diversificare secondo prodotto e mercato, senza commistione indebita
+      ad altri perimetri). Riepilogo riga prodotto:
+      <span class="text-nx-fg">{getCodiceEticoProductListPhrase()}</span>.
+    </p>
+    {
+      codiceEticoConformityBlocks.map((block, i) => (
+        <section
+          class:list={['', i > 0 && 'mt-5']}
+          data-conformity-block={block.id}
+        >
+          <h3
+            id={block.anchorId}
+            class="scroll-mt-8 text-base font-semibold text-nx-fg"
+          >
+            {block.title}
+          </h3>
+          {block.lead ? <p class="text-sm text-nx-muted sm:text-base">{block.lead}</p> : null}
+          <ul class="mt-2 list-disc pl-5">
+            {block.items.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+    <p class="mt-6 text-sm sm:text-base">
       La Società effettua DPIA (Data Protection Impact Assessment) per trattamenti ad alto rischio e
-      consulta autorità o <em>regulatory counsel</em> quando necessario.
+      consulta autorità o <em>regulatory counsel</em> quando necessario, con riferimenti
+      <strong>per ciascun trattamento</strong> al perimetro (piattaforma, legale, sanitario) ove
+      interessa.
     </p>
 
     <h2 id="tutela-dati">5. Tutela dei dati personali e dati sensibili</h2>
+    <p class="text-nx-muted sm:text-base">{codiceEticoTutelaDatiRuoli.intro}</p>
+    <h3
+      id={codiceEticoTutelaDatiRuoli.anchorId}
+      class="!mt-6 text-base font-semibold text-nx-fg"
+    >
+      {codiceEticoTutelaDatiRuoli.title}
+    </h3>
+    {
+      codiceEticoTutelaDatiRuoli.rows.map((r) => (
+        <p class="mt-3 sm:text-base">
+          <span class="font-semibold text-nx-fg">{r.label}.</span>{' '}
+          {r.text}
+        </p>
+      ))
+    }
+    <p
+      class="mt-4 border-l-2 border-sky-500/30 pl-4 text-sm leading-relaxed text-nx-muted"
+    >
+      {codiceEticoTutelaDatiRuoli.note}
+    </p>
+    <p class="mt-8 text-sm font-medium text-nx-fg sm:text-base">
+      Nella concreta operatività, la Società e i collaboratori si attengono ai principi operativi
+      seguenti (complementari ai ruoli sopra):
+    </p>
     <ul>
       <li><strong>Minimizzazione:</strong> raccogliere solo i dati necessari e pertinenti.</li>
       <li>
@@ -202,11 +257,14 @@ const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underl
         <strong>Test e copertura:</strong> definire copertura minima per componenti critici; test di
         integrazione, performance e sicurezza.
       </li>
-      <li>
-        <strong>Validazione clinica:</strong> per funzionalità che assistono decisioni cliniche o
-        legali, procedere a validazione con esperti (clinici e legali), studi pilota, documentazione
-        di limitazioni e avvertenze.
-      </li>
+      {
+        qualitaValidazioneProdotto.map((v) => (
+          <li>
+            <strong>Validazione (per {v.id === 'legal' ? 'perimetro legale' : 'perimetro sanitario'}):</strong>{' '}
+            {v.text}
+          </li>
+        ))
+      }
       <li>
         <strong>Classificazione del rischio:</strong> valutare impatto su salute o diritti e
         applicare misure di mitigazione proporzionate.
@@ -338,8 +396,9 @@ const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underl
     <ul>
       <li>
         Onboarding obbligatorio su: sicurezza informatica, privacy (PDPA e GDPR), gestione dati
-        sensibili, normative mediche e legali rilevanti, uso responsabile dell’AI, pratiche di coding
-        sicuro.
+        sensibili, requisiti e documentazione riferibili a ciascuna linea prodotto
+        (oggi: {getCodiceEticoProductListPhrase()}; estendere il curriculum quando l’elenco
+        cresce), uso responsabile dell’AI, pratiche di coding sicuro.
       </li>
       <li>Formazione annuale obbligatoria e formazione aggiuntiva per ruoli critici.</li>
       <li>Registrazione e conservazione dei record di formazione.</li>
@@ -475,20 +534,7 @@ const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underl
         Predisporre un piano di formazione di 90 giorni per l’onboarding e formazione ricorrente
         annuale.
       </li>
-      <li>
-        Eseguire DPIA per i trattamenti sanitari e legali critici e verificare se parti del prodotto
-        rientrano nella definizione di dispositivo medico ai fini di registrazione o approvazione
-        normativa.
-      </li>
+      {notePraticheDPIA.map((t) => <li>{t}</li>)}
     </ul>
-
-    <h2>Collegamenti</h2>
-    <p>
-      <a class={link} href="/modello-organizzativo">Modello organizzativo</a>
-      <span class="text-nx-muted"> · </span>
-      <a class={link} href="/about">Chi siamo</a>
-      <span class="text-nx-muted"> · </span>
-      <a class={link} href="#indice">Torna all’indice</a>
-    </p>
   </div>
 </SubpageLayout>

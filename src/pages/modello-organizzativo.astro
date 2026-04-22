@@ -1,22 +1,38 @@
 ---
 import SubpageLayout from '../layouts/SubpageLayout.astro';
+import {
+  modelloOrganizzativo,
+  modelloOrganizzativoRuoli,
+  modelloOrganizzativoGovernance,
+  modelloOrganizzativoResponsabilitaSintesi,
+  modelloOrganizzativoControlliLean,
+  modelloOrganizzativoKpi,
+  modelloOrganizzativoDocumentazione,
+  modelloOrganizzativoPiano30,
+  modelloOrganizzativoOutsourcing,
+  modelloOrganizzativoNote,
+  modelloOrganizzativoFlussiDecisionali,
+} from '../data/modello-organizzativo';
 
 const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline';
-const tbl = 'mt-4 w-full border-collapse text-left text-sm';
+const tbl = 'min-w-[22rem] w-full border-collapse text-left text-sm';
 const th = 'border border-nx-border bg-nx-surface/60 px-3 py-2 font-semibold text-nx-fg';
 const td = 'border border-nx-border px-3 py-2 align-top text-nx-muted';
+const tableWrap = 'mt-2 overflow-x-auto';
 ---
 
 <SubpageLayout
   title="Modello organizzativo — NexStudio"
-  description="Modello organizzativo NexStudio: ruoli, governance, RACI, controlli lean, KPI e piano operativo a 30 giorni."
+  description="Modello organizzativo NexStudio: governance, ruoli, RACI, controlli lean, KPI, piano 30 giorni — per le linee LexAura (Legal Tech) e MediAura (Health Tech)."
   heading="Modello organizzativo"
-  lead="Schema di ruoli, ritmi di governo e responsabilità per una software company snella (SaaS legal/med). Non sostituisce valutazioni legali (es. D.Lgs. 231/2001): va allineato a società, organi e consulenti."
+  lead="Ruoli, ritmi di governo, processi e controlli «lean» in una software house con SaaS a elevata regolamentazione. Complementare al codice etico. Non sostituisce statuti, modelli di compliance societari (es. 231) né pareri legali: andate in parallelo con struttura reale e consulenti."
 >
   <div class="[&_h3]:mt-6 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-nx-fg">
     <p class="border-l-2 border-sky-500/35 pl-4 text-sm leading-relaxed text-nx-muted">
-      Documento operativo per <strong class="text-nx-fg">NexStudio</strong> (sede Bangkok). Ruoli
-      numerici indicativi: adattare al team reale e formalizzare nomine e deleghe per iscritto.
+      {modelloOrganizzativo.introBox}
+    </p>
+    <p class="mt-3 text-sm leading-relaxed text-nx-muted sm:text-base">
+      {modelloOrganizzativo.perimetro}
     </p>
 
     <h2 id="indice" class="!mt-8">Indice</h2>
@@ -36,107 +52,36 @@ const td = 'border border-nx-border px-3 py-2 align-top text-nx-muted';
 
     <h2 id="ruoli">1. Ruoli e perimetro</h2>
     <p>
-      Elenco sintetico delle funzioni, con attese di impegno (full-time, part-time, frazionale o
-      esternalizzato). I numeri tra parentesi sono orientativi per una fase early-stage.
+      Elenco sintetico delle funzioni e delle attese di impegno. Per allineare il dominio
+      prodotto (Legal Tech, Health Tech) a ruoli e consiglieri, fate riferimento anche a <a
+        class={link}
+        href="/codice-etico">codice etico</a
+      > e, per i trattamenti di dati, a privacy policy e DPA.
     </p>
-
     <ul>
-      <li>
-        <strong>Founder / CEO (1):</strong> strategia, approvazione delle policy, contatti con board
-        e investitori, accountability complessiva anche verso obblighi di legge e contratti.
-      </li>
-      <li>
-        <strong>CTO / Head of Product (1):</strong> architettura, roadmap, quality gate di prodotto,
-        responsabilità tecnica end-to-end.
-      </li>
-      <li>
-        <strong>Lead Engineer (1–2):</strong> sviluppo, code review, esecuzione CI/CD e qualità del
-        codice in reparto.
-      </li>
-      <li>
-        <strong>DevOps / Platform (1, oppure outsourcing):</strong> deploy, KMS, backup e
-        disaster recovery, governo dell’ambiente di produzione.
-      </li>
-      <li>
-        <strong>Security &amp; Privacy Lead (1, ruolo ibrido o contractor):</strong> sicurezza
-        operativa, gestione delle vulnerabilità, coordinamento con il DPO.
-      </li>
-      <li>
-        <strong>DPO / Privacy Responsible (frazionale o outsourcing):</strong> DPIA, gestione dei
-        diritti degli interessati, coerenza dell’informativa privacy.
-      </li>
-      <li>
-        <strong>Legal &amp; Compliance (frazionale o legale interno):</strong> contratti, NDA,
-        revisione delle normative di settore legale e medico pertinenti ai prodotti.
-      </li>
-      <li>
-        <strong>Product / Clinical Advisor (part-time o consulente):</strong> validazione di
-        funzionalità con impatto medico o legale, limiti d’uso e avvertenze.
-      </li>
-      <li>
-        <strong>Customer Success / Support (1):</strong> onboarding clienti, gestione richieste,
-        escalation verso tecnici e governance.
-      </li>
-      <li>
-        <strong>Operations / HR (1, part-time):</strong> onboarding del personale, formazione,
-        gestione delle segnalazioni interne.
-      </li>
-      <li>
-        <strong>Finance (1, part-time o outsourcing):</strong> contabilità, pagamenti, policy su
-        incassi e fornitori.
-      </li>
+      {
+        modelloOrganizzativoRuoli.map((r) => (
+          <li>
+            <strong>{r.label}:</strong> {r.text}
+          </li>
+        ))
+      }
     </ul>
 
     <h2 id="governance">2. Governance essenziale</h2>
     <ul>
-      <li>
-        <strong>Weekly Tactical</strong> (Founder, CTO, Security/Privacy Lead, Customer Success):
-        priorità operative, incidenti aperti, rilasci critici in corso.
-      </li>
-      <li>
-        <strong>Biweekly Product Sync</strong> (CTO, Lead Engineer, Product Advisor): backlog,
-        piano di release, checkpoint di compliance di prodotto.
-      </li>
-      <li>
-        <strong>Monthly Compliance Check</strong> (Founder/CEO, Legal, DPO, Security Lead): revisione
-        DPIA, vendor ad alto rischio, sintesi incidenti e azioni correttive.
-      </li>
-      <li>
-        <strong>Quarterly Board / Founders review:</strong> strategia, budget, rischi maggiori e
-        capacità organizzative.
-      </li>
+      {
+        modelloOrganizzativoGovernance.map((g) => (
+          <li>
+            <strong>{g.nome}:</strong> {g.partecipanti}. <span class="text-nx-muted/95">— {g.nota}</span>
+          </li>
+        ))
+      }
     </ul>
 
     <h2 id="responsabilita">3. Principali responsabilità (sintesi)</h2>
     <ul>
-      <li>
-        <strong>Codice etico e policy:</strong> owner <em>Legal &amp; Compliance</em> — approvatore
-        <em>CEO</em>.
-      </li>
-      <li>
-        <strong>Sicurezza operativa e incident response:</strong> owner <em>Security Lead</em> —
-        esecutore tecnico <em>CTO</em>.
-      </li>
-      <li>
-        <strong>Privacy, trattamenti sensibili e DPIA:</strong> owner <em>DPO</em> — supporto
-        <em>Legal</em>.
-      </li>
-      <li>
-        <strong>Rilasci in produzione:</strong> accountable <em>CTO</em> — responsible <em>Lead
-        Engineer</em> — consulted <em>Security</em>, <em>DPO</em>, <em>Product Advisor</em>.
-      </li>
-      <li>
-        <strong>Fornitori e sub-processori:</strong> owner <em>Operations</em> + <em>Legal</em> —
-        due diligence <em>Security</em> / <em>DPO</em>.
-      </li>
-      <li>
-        <strong>Richieste degli interessati (DSR):</strong> owner <em>DPO</em> — esecuzione operativa
-        <em>Customer Success</em> (ove applicabile).
-      </li>
-      <li>
-        <strong>Segnalazioni e whistleblowing:</strong> owner <em>Operations</em> / <em>HR</em> —
-        supporto investigativo <em>Legal</em>.
-      </li>
+      {modelloOrganizzativoResponsabilitaSintesi.map((l) => <li>{l}</li>)}
     </ul>
 
     <h2 id="raci">4. RACI sintetico per processi critici</h2>
@@ -145,306 +90,248 @@ const td = 'border border-nx-border px-3 py-2 align-top text-nx-muted';
       <strong>C</strong> = Consulted, <strong>I</strong> = Informed.
     </p>
 
-    <h3>Rilascio in produzione</h3>
-    <table class={tbl}>
-      <thead>
-        <tr>
-          <th class={th}>Ruolo</th>
-          <th class={th}>R</th>
-          <th class={th}>A</th>
-          <th class={th}>C</th>
-          <th class={th}>I</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class={td}>Lead Engineer</td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>CTO</td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>Security Lead, DPO, Product Advisor</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>CEO, Customer Success</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-        </tr>
-      </tbody>
-    </table>
+    <h3 class="!mt-5" id="raci-release">Rilascio in produzione</h3>
+    <div class={tableWrap}>
+      <table class={tbl}>
+        <thead>
+          <tr>
+            <th class={th} scope="col">Ruolo</th>
+            <th class={th} scope="col">R</th>
+            <th class={th} scope="col">A</th>
+            <th class={th} scope="col">C</th>
+            <th class={th} scope="col">I</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class={td}>Lead engineer</td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>CTO</td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>Security lead, DPO, product advisor</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>CEO, customer success</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h3>Incident response (violazione dei dati)</h3>
-    <table class={tbl}>
-      <thead>
-        <tr>
-          <th class={th}>Ruolo</th>
-          <th class={th}>R</th>
-          <th class={th}>A</th>
-          <th class={th}>C</th>
-          <th class={th}>I</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class={td}>Security Lead</td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>CEO</td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>DPO, Legal, CTO</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>Clienti coinvolti, Board (se impatto elevato)</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-        </tr>
-      </tbody>
-    </table>
+    <h3 id="raci-incident">Incident response (violazione dei dati o incidente P0)</h3>
+    <div class={tableWrap}>
+      <table class={tbl}>
+        <thead>
+          <tr>
+            <th class={th} scope="col">Ruolo</th>
+            <th class={th} scope="col">R</th>
+            <th class={th} scope="col">A</th>
+            <th class={th} scope="col">C</th>
+            <th class={th} scope="col">I</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class={td}>Security lead</td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>CEO</td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>DPO, legal, CTO</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>Clienti interessati, board (se impatto elevato)</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h3>Onboarding vendor (sub-processore)</h3>
-    <table class={tbl}>
-      <thead>
-        <tr>
-          <th class={th}>Ruolo</th>
-          <th class={th}>R</th>
-          <th class={th}>A</th>
-          <th class={th}>C</th>
-          <th class={th}>I</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class={td}>Operations</td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>Legal</td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>Security Lead, DPO</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>CTO, Finance</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-        </tr>
-      </tbody>
-    </table>
+    <h3 id="raci-vendor">Onboarding vendor (sub-processore)</h3>
+    <div class={tableWrap}>
+      <table class={tbl}>
+        <thead>
+          <tr>
+            <th class={th} scope="col">Ruolo</th>
+            <th class={th} scope="col">R</th>
+            <th class={th} scope="col">A</th>
+            <th class={th} scope="col">C</th>
+            <th class={th} scope="col">I</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class={td}>Operations</td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>Legal</td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>Security lead, DPO</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>CTO, finance</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h3>DPIA per modulo sanitario o legale</h3>
-    <table class={tbl}>
-      <thead>
-        <tr>
-          <th class={th}>Ruolo</th>
-          <th class={th}>R</th>
-          <th class={th}>A</th>
-          <th class={th}>C</th>
-          <th class={th}>I</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class={td}>DPO</td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>Legal</td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>Product Advisor, CTO, Security Lead</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-          <td class={td}></td>
-        </tr>
-        <tr>
-          <td class={td}>CEO</td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}></td>
-          <td class={td}>●</td>
-        </tr>
-      </tbody>
-    </table>
+    <h3 id="raci-dpia">DPIA (per perimetro: LexAura, MediAura, piattaforma)</h3>
+    <p class="text-sm text-nx-muted sm:text-base">
+      La matrice RACI non sostituisce il criterio legale (chi è titolare, chi responsabile) definito
+      in contratti e in <a class={link} href="/codice-etico#tutela-dati-ruoli">§5.1 del codice etico</a
+      >. Qui: chi coordina l’esercizio interno della valutazione d’impatto.
+    </p>
+    <div class={tableWrap}>
+      <table class={tbl}>
+        <thead>
+          <tr>
+            <th class={th} scope="col">Ruolo</th>
+            <th class={th} scope="col">R</th>
+            <th class={th} scope="col">A</th>
+            <th class={th} scope="col">C</th>
+            <th class={th} scope="col">I</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class={td}>DPO</td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>Legal</td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>Product advisor, CTO, security lead</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+            <td class={td}></td>
+          </tr>
+          <tr>
+            <td class={td}>CEO</td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}></td>
+            <td class={td}>●</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <h2 id="flussi">5. Flussi decisionali rapidi</h2>
     <ul>
-      <li>
-        <strong>Decisione tecnica ordinaria:</strong> Lead Engineer → CTO (documentare su ticket se
-        impatta rischio o contratti).
-      </li>
-      <li>
-        <strong>Rilascio con impatto privacy o sicurezza:</strong> approvazione obbligatoria di
-        <em>Security Lead</em> e <em>DPO</em> (target: entro 48 ore lavorative).
-      </li>
-      <li>
-        <strong>Incident P0:</strong> <em>Security Lead</em> notifica CEO, DPO e Legal entro 4 ore;
-        escalation al Board se l’impatto è elevato (clienti, regolatori, volumi o classi di dati).
-      </li>
+      {
+        modelloOrganizzativoFlussiDecisionali.map((f) => (
+          <li>
+            <strong>{f.titolo}:</strong> {f.testo}
+          </li>
+        ))
+      }
     </ul>
 
     <h2 id="controlli">6. Controlli minimi obbligatori (lean)</h2>
     <ul>
-      <li>IAM con MFA per accesso a produzione e a segreti.</li>
-      <li>CI/CD con SAST e scansione automatica delle dipendenze.</li>
-      <li>SBOM generato automaticamente per ogni release.</li>
-      <li>TLS in transito; cifratura a riposo per dati sensibili.</li>
-      <li>Backup giornalieri e test DR trimestrale (ripristino documentato).</li>
-      <li>Log degli accessi e alerting su anomalie (SIEM o servizio gestito).</li>
-      <li>Checklist pre-release (security/privacy) con traccia digitale di approvazione.</li>
+      {modelloOrganizzativoControlliLean.map((c) => <li>{c}</li>)}
     </ul>
 
-    <h2 id="kpi">7. KPI essenziali (core metrics)</h2>
+    <h2 id="kpi">7. KPI essenziali</h2>
     <ul>
-      <li>
-        <strong>Security:</strong> percentuale di patch critiche entro SLA; MTTD e MTTR per
-        incidenti.
-      </li>
-      <li>
-        <strong>Privacy:</strong> tempo medio di risposta alle DSR; numero di DPIA completate / in
-        corso.
-      </li>
-      <li>
-        <strong>Product:</strong> tempo di ciclo del deploy; copertura test sui moduli critici.
-      </li>
-      <li>
-        <strong>Operations:</strong> uptime rispetto a SLA; tempo medio di risposta del supporto;
-        segnalazioni chiuse nel periodo.
-      </li>
+      {
+        modelloOrganizzativoKpi.map((k) => (
+          <li>
+            <strong>{k.area}:</strong> {k.testo}
+          </li>
+        ))
+      }
     </ul>
 
     <h2 id="documentazione">8. Documentazione minima da mantenere</h2>
     <ul>
-      <li>Codice etico firmato e registro delle adesioni.</li>
-      <li>Informativa privacy e template di DPA (Data Processing Agreement).</li>
-      <li>DPIA per trattamenti critici.</li>
-      <li>Security whitepaper breve (1–2 pagine) per clienti e audit.</li>
-      <li>Incident response playbook (versione esecutiva).</li>
-      <li>SBOM e registro fornitori / sub-processori.</li>
-      <li>Checklist pre-release e log delle approvazioni.</li>
+      {modelloOrganizzativoDocumentazione.map((d) => <li>{d}</li>)}
     </ul>
 
     <h2 id="piano-30">9. Primo piano operativo (30 giorni)</h2>
     <ol>
-      <li>
-        <strong>Giorni 0–3:</strong> nomina formale dei ruoli chiave (Security Lead, DPO frazionale,
-        Legal frazionale).
-      </li>
-      <li>
-        <strong>Giorni 4–10:</strong> integrare la checklist pre-release in CI/CD; abilitare MFA e
-        policy IAM coerenti con il minimo sopra.
-      </li>
-      <li>
-        <strong>Giorni 11–17:</strong> avviare DPIA sul modulo medico/legale più critico; due
-        diligence sui fornitori ad alto rischio.
-      </li>
-      <li>
-        <strong>Giorni 18–24:</strong> pubblicare una Trust Center di base (link al Codice etico,
-        contatti DPO/security, materiali privacy/DPA se disponibili).
-      </li>
-      <li>
-        <strong>Giorni 25–30:</strong> tabletop su incident response; test di rollback deploy e
-        ripristino backup; formazione iniziale obbligatoria (security e privacy).
-      </li>
+      {
+        modelloOrganizzativoPiano30.map((p) => (
+          <li>
+            <strong>{p.quando}:</strong> {p.testo}
+          </li>
+        ))
+      }
     </ol>
 
     <h2 id="outsourcing">10. Outsourcing consigliato (per restare snelli)</h2>
     <ul>
-      <li>
-        <strong>Security Ops / SOC:</strong> servizio gestito per log, alerting e penetration test
-        periodici.
-      </li>
-      <li>
-        <strong>DPO e Legal:</strong> consulenti frazionali con esperienza PDPA, GDPR e contesto
-        medico-legale locale.
-      </li>
-      <li>
-        <strong>DevOps / Platform:</strong> servizi cloud gestiti (es. KMS, database gestiti) per
-        ridurre carico operativo interno.
-      </li>
+      {
+        modelloOrganizzativoOutsourcing.map((o) => (
+          <li>
+            <strong>{o.titolo}:</strong> {o.testo}
+          </li>
+        ))
+      }
     </ul>
 
     <h2 id="note">11. Note pratiche e raccomandazioni</h2>
     <ul>
-      <li>
-        Mantenere <strong>separazione dei compiti</strong> sui controlli critici (es. chi sviluppa
-        non approva da solo gli accessi a produzione).
-      </li>
-      <li>
-        <strong>Automatizzare</strong> controlli ripetitivi (SAST, SBOM, scansioni dipendenze) nella
-        pipeline.
-      </li>
-      <li>
-        <strong>Documentare</strong> decisioni su rischio e accettazioni (log nel sistema di
-        ticketing) per audit e post-mortem.
-      </li>
-      <li>
-        Coinvolgere <strong>advisor clinici e legali</strong> esterni per convalide su funzionalità ad
-        alto rischio.
-      </li>
-      <li>
-        Prevedere <strong>revisione trimestrale</strong> del modello e aggiornamento delle
-        responsabilità man mano che la società cresce.
-      </li>
+      {modelloOrganizzativoNote.map((n) => <li>{n}</li>)}
     </ul>
-
-    <h2>Collegamenti</h2>
-    <p>
-      <a class={link} href="/codice-etico">Codice etico</a>
-      <span class="text-nx-muted"> · </span>
-      <a class={link} href="/about">Chi siamo</a>
-      <span class="text-nx-muted"> · </span>
-      <a class={link} href="#indice">Torna all’indice</a>
-    </p>
   </div>
 </SubpageLayout>

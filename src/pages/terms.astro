@@ -1,25 +1,69 @@
 ---
 import SubpageLayout from '../layouts/SubpageLayout.astro';
+import { termsDocument, termsSections, termsRiferimenti, termsCrossReferences } from '../data/terms';
+
+const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline';
+const lead =
+  "Si applicano alla navigazione e all'uso del sito informativo pubblico di NexStudio (sede: Bangkok, Thailandia). I contratti d'abbonamento o d'acquisto sui prodotti software restano retti da offerte, ordini o accordi separati. " +
+  termsCrossReferences.leadNote;
 ---
 
 <SubpageLayout
   title="Condizioni d’uso — NexStudio"
-  description="Termini e condizioni d’uso dei siti e servizi NexStudio."
+  description="Condizioni d’uso del sito web NexStudio: accettazione, utilizzo lecito, responsabilità, legge applicabile. Bangkok, LexAura e MediAura, servizi B2B per contratto a parte."
   heading="Condizioni d’uso"
-  lead="Bozza: definire condizioni d’uso del sito, limitazioni di responsabilità, proprietà intellettuale e legge applicabile con supporto legale."
+  lead={lead}
 >
-  <p>
-    Questa pagina ospiterà le condizioni d’uso per il sito
-    pubblico e, se del caso, per l’accesso a demo o aree riservate. Struttura
-    tipica: oggetto, utente, servizi offerti, obblighi dell’utente, limitazione
-    di responsabilità, sospensione, legge e foro competente.
-  </p>
-  <h2>Collegamenti</h2>
-  <p>
-    <a class="text-sky-400/90 hover:text-sky-300" href="/privacy">Privacy</a>
-    ·
-    <a class="text-sky-400/90 hover:text-sky-300" href="/cookies">Informativa cookie</a>
-    ·
-    <a class="text-sky-400/90 hover:text-sky-300" href="/gdpr">Diritti privacy (GDPR)</a>
-  </p>
+  <div>
+    <p class="border-l-2 border-sky-500/35 pl-4 text-sm leading-relaxed text-nx-muted">
+      <span class="font-medium text-nx-fg">Versione</span> {termsDocument.version}
+      <span class="text-nx-muted/80"> · </span>
+      <span class="font-medium text-nx-fg">In vigore dal</span> {termsDocument.inVigoreDal}
+    </p>
+
+    <p class="!mt-5 text-sm text-nx-muted sm:text-base">
+      Documenti connessi:{' '}
+      {
+        termsRiferimenti.map((r, i) => (
+          <span>
+            {i > 0 && <span class="text-nx-muted/80"> · </span>}
+            <a class={link} href={r.href}>{r.label}</a>
+          </span>
+        ))
+      }
+    </p>
+
+    <h2 id="indice" class="!mt-8">Indice</h2>
+    <ol class="!mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed sm:text-base">
+      {
+        termsSections.map((s) => (
+          <li>
+            <a class={link} href={`#${s.id}`}>{s.title}</a>
+          </li>
+        ))
+      }
+    </ol>
+
+    {
+      termsSections.map((s) => (
+        <section class="mt-10" id={s.id}>
+          <h2
+            class="scroll-mt-8 text-lg font-semibold text-nx-fg sm:text-xl"
+          >
+            {s.title}
+          </h2>
+          {s.paragraphs.map((p) => (
+            <p class="mt-3 text-sm leading-relaxed text-nx-muted sm:text-base">{p}</p>
+          ))}
+          {s.bullets && s.bullets.length > 0 ? (
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm sm:text-base">
+              {s.bullets.map((b) => (
+                <li class="text-nx-muted">{b}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ))
+    }
+  </div>
 </SubpageLayout>
