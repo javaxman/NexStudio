@@ -1,0 +1,472 @@
+---
+import SubpageLayout from '../layouts/SubpageLayout.astro';
+import { cookieConsentMeta, cookieCategories } from '../data/cookie-consent';
+
+const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline';
+const tbl = 'mt-4 w-full border-collapse text-left text-sm';
+const th = 'border border-nx-border bg-nx-surface/60 px-3 py-2 font-semibold text-nx-fg';
+const td = 'border border-nx-border px-3 py-2 align-top text-nx-muted';
+---
+
+<SubpageLayout
+  title="Cookie Policy — NexStudio"
+  description="Cookie Policy NexStudio: categorie, base giuridica, consenso, terze parti, diritti e contatti. Sede Bangkok."
+  heading="Cookie Policy"
+  lead="Per NexStudio — sede: Bangkok, Thailandia. Versione documento 1.0, in vigore dal 21 aprile 2026. Integra l’uso del modulo di consenso first-party descritto sotto; per il trattamento dei dati personali vedi l’Informativa privacy."
+>
+  <div class="[&_h3]:mt-6 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-nx-fg">
+    <p class="border-l-2 border-sky-500/35 pl-4 text-sm leading-relaxed text-nx-muted">
+      <span class="font-medium text-nx-fg">Versione</span> 1.0
+      <span class="text-nx-muted/80"> · </span>
+      <span class="font-medium text-nx-fg">In vigore dal</span> 21 aprile 2026
+      <span class="text-nx-muted/80"> · </span>
+      <span class="font-medium text-nx-fg">Versione tecnica consenso</span>{' '}
+      <code class="rounded bg-nx-elevated px-1.5 py-0.5 font-mono text-xs text-sky-300/90"
+        >v{cookieConsentMeta.policyVersion}</code
+      >
+    </p>
+
+    <h2 id="indice" class="!mt-8">Indice</h2>
+    <ol class="!mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed sm:text-base">
+      <li><a class={link} href="#premessa">Premessa</a></li>
+      <li><a class={link} href="#definizioni">Definizioni</a></li>
+      <li><a class={link} href="#finalita">Finalità dei cookie e categorie</a></li>
+      <li><a class={link} href="#elenco">Elenco dei cookie (modello da compilare)</a></li>
+      <li><a class={link} href="#sanitario-legale">Base giuridica e ambito sanitario/legale</a></li>
+      <li><a class={link} href="#consenso">Modalità di raccolta del consenso e registro</a></li>
+      <li><a class={link} href="#revoca">Gestione e revoca del consenso</a></li>
+      <li><a class={link} href="#browser">Disabilitazione via browser e impatto</a></li>
+      <li><a class={link} href="#terze-parti">Cookie di terze parti e responsabilità</a></li>
+      <li><a class={link} href="#retention">Conservazione e criteri di retention</a></li>
+      <li><a class={link} href="#trasferimenti">Trasferimenti internazionali</a></li>
+      <li><a class={link} href="#minori">Minori età</a></li>
+      <li><a class={link} href="#sicurezza">Misure di sicurezza</a></li>
+      <li><a class={link} href="#advertising">Consenso per scopi pubblicitari e profiling</a></li>
+      <li><a class={link} href="#effetti">Effetti di rifiuto o accettazione</a></li>
+      <li><a class={link} href="#modifiche">Modifiche alla Cookie Policy</a></li>
+      <li><a class={link} href="#diritti">Diritti degli interessati e contatti</a></li>
+      <li><a class={link} href="#appendice-tabella">Registro dei cookie (appendice)</a></li>
+      <li><a class={link} href="#implementazione">Implementazione tecnica e strumenti</a></li>
+      <li><a class={link} href="#test-qc">Test e controllo qualità</a></li>
+      <li><a class={link} href="#banner-testi">Esempio di testi per il banner (IT / EN)</a></li>
+      <li><a class={link} href="#note-legali">Note legali</a></li>
+      <li><a class={link} href="#versioning">Versioning e storico revisioni</a></li>
+    </ol>
+
+    <h2 id="premessa">1. Premessa</h2>
+    <p>
+      Questa Cookie Policy descrive le tipologie di cookie e tecnologie simili utilizzate sul sito
+      web di <strong>NexStudio</strong> (di seguito «Società», «noi»), con sede a Bangkok,
+      Thailandia, e spiega come gestire le preferenze. Per il trattamento dei dati personali e per i
+      diritti degli interessati si rimanda all’<a class={link} href="/privacy"
+        >Informativa privacy</a
+      >.
+    </p>
+
+    <h2 id="definizioni">2. Definizioni</h2>
+    <ul>
+      <li>
+        <strong>Cookie:</strong> piccolo file di testo inviato dal sito al browser e memorizzato sul
+        dispositivo, re-inviato al sito alle visite successive.
+      </li>
+      <li>
+        <strong>Cookie di prima parte:</strong> impostati dal dominio del sito che l’utente visita.
+      </li>
+      <li>
+        <strong>Cookie di terze parti:</strong> impostati da domini diversi (fornitori esterni,
+        embed, CDN, strumenti di misura).
+      </li>
+      <li>
+        <strong>Tecnologie simili:</strong> web beacon, pixel, <em>local storage</em>, e in generale
+        identificatori lato client. Tecnologie invasive (es. fingerprinting) richiedono base legale
+        adeguata e massima trasparenza.
+      </li>
+    </ul>
+
+    <h2 id="finalita">3. Finalità dei cookie e categorie</h2>
+    <p>I cookie sul sito possono essere raggruppati come segue.</p>
+
+    <h3>3.1 Cookie strettamente necessari (essenziali)</h3>
+    <ul>
+      <li>
+        <strong>Finalità:</strong> navigazione, sicurezza, gestione sessione ove prevista,
+        memorizzazione delle preferenze di consenso.
+      </li>
+      <li>
+        <strong>Base giuridica:</strong> esecuzione di misure precontrattuali / necessità tecnica e,
+        ove applicabile, interesse legittimo limitato al funzionamento del servizio richiesto
+        dall’utente.
+      </li>
+      <li>
+        <strong>Esempi tipici:</strong> token di sessione, cookie anti-CSRF, chiave di consenso in
+        <em>local storage</em> (se usata al posto di cookie HTTP).
+      </li>
+    </ul>
+
+    <h3>3.2 Cookie di preferenza / funzionali</h3>
+    <ul>
+      <li>
+        <strong>Finalità:</strong> lingua, regione, tema o altre impostazioni di interfaccia non
+        strettamente indispensabili.
+      </li>
+      <li><strong>Base giuridica:</strong> consenso, salvo trattamenti minimi e non invasivi.</li>
+      <li><strong>Esempi:</strong> <code class="font-mono text-xs text-sky-300/90">lang</code>, preferenze UI.</li>
+    </ul>
+
+    <h3>3.3 Cookie di performance / analytics</h3>
+    <ul>
+      <li>
+        <strong>Finalità:</strong> statistiche aggregate su visite e percorsi per migliorare il
+        sito.
+      </li>
+      <li>
+        <strong>Base giuridica:</strong> consenso, salvo misurazione strettamente anonimizzata e
+        non identificativa secondo orientamenti applicabili.
+      </li>
+      <li>
+        <strong>Esempi:</strong> <code class="font-mono text-xs text-sky-300/90">_ga</code>, <code
+          class="font-mono text-xs text-sky-300/90">_gid</code
+        > (Google Analytics), strumenti tipo Hotjar, se integrati.
+      </li>
+    </ul>
+
+    <h3>3.4 Cookie per advertising e targeting</h3>
+    <ul>
+      <li>
+        <strong>Finalità:</strong> pubblicità mirata, remarketing, misura delle campagne.
+      </li>
+      <li><strong>Base giuridica:</strong> consenso esplicito.</li>
+      <li>
+        <strong>Esempi:</strong> identificatori di reti pubblicitarie, pixel di retargeting, cookie
+        DSP.
+      </li>
+    </ul>
+
+    <h3>3.5 Cookie di terze parti e integrazioni social</h3>
+    <ul>
+      <li>
+        <strong>Finalità:</strong> video incorporati, pulsanti social, mappe, chat di terze parti.
+      </li>
+      <li>
+        <strong>Nota:</strong> il trattamento da parte di terzi è regolato dalle rispettive policy;
+        NexStudio non controlla cookie impostati senza adeguata configurazione e consenso.
+      </li>
+    </ul>
+
+    <h2 id="elenco">4. Elenco dei cookie utilizzati (modello da compilare)</h2>
+    <p>
+      Per ogni cookie reale indicare: nome, fornitore, categoria, finalità, durata, prima o terza
+      parte, base giuridica, link alla privacy del fornitore e, se utile, opt-out.
+    </p>
+    <p>
+      La tabella sotto è <strong>esemplificativa</strong>: va sostituita con l’inventario aggiornato
+      (ideale: hash o versione e data di aggiornamento in calce alla tabella pubblicata).
+    </p>
+    <table class={tbl}>
+      <thead>
+        <tr>
+          <th class={th}>Nome</th>
+          <th class={th}>Provider</th>
+          <th class={th}>Categoria</th>
+          <th class={th}>Durata</th>
+          <th class={th}>Tipo</th>
+          <th class={th}>Base giuridica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class={td}><code class="font-mono text-xs">_ga</code> (es.)</td>
+          <td class={td}>Google LLC</td>
+          <td class={td}>Analytics</td>
+          <td class={td}>24 mesi (tipico)</td>
+          <td class={td}>3rd</td>
+          <td class={td}>Consenso</td>
+        </tr>
+        <tr>
+          <td class={td}>
+            <code class="font-mono text-xs">{cookieConsentMeta.storageKey}</code> (non cookie HTTP)
+          </td>
+          <td class={td}>NexStudio</td>
+          <td class={td}>Necessario</td>
+          <td class={td}>Fino a revoca / aggiornamento policy</td>
+          <td class={td}>1st (local)</td>
+          <td class={td}>Necessario / consenso informato</td>
+        </tr>
+        <tr>
+          <td class={td}><code class="font-mono text-xs">_fbp</code> (es.)</td>
+          <td class={td}>Meta</td>
+          <td class={td}>Advertising</td>
+          <td class={td}>90 giorni (tipico)</td>
+          <td class={td}>3rd</td>
+          <td class={td}>Consenso</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="sanitario-legale">5. Base giuridica e trattamento in ambito sanitario o legale</h2>
+    <ul>
+      <li>
+        Per cookie che comportano trattamento di dati particolari (salute, dati giudiziari o
+        assimilabili) è richiesto <strong>consenso esplicito</strong> informato e misure tecniche e
+        organizzative aggiuntive, salvo diversa base prevista dalla legge applicabile.
+      </li>
+      <li>
+        Nei servizi SaaS medico-legali la raccolta tramite cookie sul sito vetrina è da
+        <strong>limitare e segregare</strong>; per test e analytics privilegiare dati sintetici o
+        anonimizzazione efficace.
+      </li>
+    </ul>
+
+    <h2 id="consenso">6. Modalità di raccolta del consenso e registro</h2>
+    <p>
+      Il sito utilizza una <strong>CMP first-party</strong> sviluppata per NexStudio, orientata ai
+      requisiti di trasparenza e granularità (inclusi riferimenti GDPR e PDPA tailandese come quadro
+      di riferimento per le descrizioni). Al primo accesso, o dopo aumento della versione della
+      policy tecnica, viene mostrato un banner con:
+    </p>
+    <ul>
+      <li><strong>Rifiuta non essenziali</strong></li>
+      <li><strong>Personalizza</strong> (apertura pannello categorie)</li>
+      <li><strong>Accetta tutto</strong></li>
+    </ul>
+    <p>
+      La prova della scelta è memorizzata nel browser in <em>local storage</em> alla chiave{' '}
+      <code class="rounded bg-nx-elevated px-1.5 py-0.5 font-mono text-xs text-sky-300/90"
+        >{cookieConsentMeta.storageKey}</code
+      >, con versione <code class="rounded bg-nx-elevated px-1.5 py-0.5 font-mono text-xs text-sky-300/90"
+        >v{cookieConsentMeta.policyVersion}</code
+      >, timestamp di aggiornamento e stato per categoria. I cookie strettamente necessari possono
+      restare attivi compatibilmente con informativa chiara. Per audit avanzati si può integrare in
+      futuro un log lato server (IP, user-agent, ID sessione) con informativa dedicata.
+    </p>
+    <p class="font-medium text-nx-fg">Categorie gestite dal modulo attuale</p>
+    <ul>
+      {
+        cookieCategories.map((c) => (
+          <li>
+            <strong class="text-nx-fg">{c.label}</strong>
+            {c.required ? ' — sempre attiva.' : ' — attiva solo se accettata.'}{' '}
+            {c.description}
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      Il codice espone <code class="rounded bg-nx-elevated px-1.5 py-0.5 font-mono text-xs text-sky-300/90"
+        >window.NexStudioCookieConsent</code
+      > e l’evento <code class="rounded bg-nx-elevated px-1.5 py-0.5 font-mono text-xs text-sky-300/90"
+        >nexstudio:cookie-consent</code
+      > per caricare script non necessari solo dopo consenso.
+    </p>
+
+    <h2 id="revoca">7. Gestione e revoca del consenso</h2>
+    <ul>
+      <li>Tramite il banner o il pannello <strong>Personalizza</strong> al primo accesso.</li>
+      <li>
+        In qualsiasi momento tramite <strong>Impostazioni cookie</strong> nel footer del sito (sotto
+        le colonne di navigazione).
+      </li>
+      <li>
+        Cancellando i dati locali del sito dalle impostazioni del browser (inclusa la voce di{' '}
+        <em>local storage</em> citata sopra): al successivo caricamento il banner si ripresenta.
+      </li>
+    </ul>
+    <p>
+      Dopo la revoca non devono essere impostati cookie non essenziali; alcune funzioni (es.
+      preferenze memorizzate, statistiche) possono risultare limitate.
+    </p>
+
+    <h2 id="browser">8. Disabilitazione via browser e impatto</h2>
+    <p>
+      È possibile bloccare o cancellare i cookie dalle impostazioni del browser (Chrome, Firefox,
+      Safari, Edge e altri). Disabilitando i cookie possono smettere di funzionare login, preferenze
+      o strumenti che ne dipendono.
+    </p>
+
+    <h2 id="terze-parti">9. Cookie di terze parti e responsabilità</h2>
+    <p>
+      Il sito può integrare strumenti di terze parti (analytics, CDN, social, gateway di pagamento,
+      video). Le terze parti possono impostare cookie propri e trattare dati secondo le loro policy.
+    </p>
+    <p>
+      <strong>Esempi di fornitori</strong> spesso usati in contesti analoghi (elenco da adattare al
+      sito reale): Google Analytics, Google Tag Manager, Cloudflare, Stripe, Vimeo, YouTube, Meta,
+      LinkedIn, Hotjar. Per ciascuno vanno indicati link a privacy/cookie policy e strumenti di
+      opt-out ove disponibili.
+    </p>
+
+    <h2 id="retention">10. Conservazione e criteri di retention</h2>
+    <ul>
+      <li>
+        Le durate dei singoli cookie seguono le tabelle pubblicate e le policy dei fornitori (es.
+        finestra indicativa <strong>24 mesi</strong> per dati aggregati di analytics, salvo obblighi
+        di legge o contratto diversi — da confermare con il legale).
+      </li>
+      <li>
+        Prove di consenso e gestione DSR: periodi di conservazione da definire nella retention
+        policy (orientamento comune per documentazione di conformità: <strong
+          >3–7 anni</strong
+        >, da calibrare su base legale e rischio — non vincolante in questa pagina).
+      </li>
+    </ul>
+
+    <h2 id="trasferimenti">11. Trasferimenti internazionali</h2>
+    <p>
+      Alcuni fornitori possono trattare dati in Paesi terzi (es. Stati Uniti). Ove applicabile si
+      adottano garanzie come clausole contrattuali standard, decisioni di adeguatezza o altre basi
+      previste dalla legge. Per dettagli su trasferimenti specifici contattare il referente privacy
+      indicato sotto.
+    </p>
+
+    <h2 id="minori">12. Minori età</h2>
+    <p>
+      Il sito non è rivolto alla raccolta intenzionale di dati di minori. Per utenti sotto la soglia
+      prevista dalla legge locale, i trattamenti non essenziali richiedono consenso del titore
+      della responsabilità genitoriale ove imposto dalla normativa applicabile.
+    </p>
+
+    <h2 id="sicurezza">13. Misure di sicurezza</h2>
+    <p>
+      Si applicano misure tecniche e organizzative appropriate: trasmissione su TLS, accesso
+      limitato ai log, principio di minimizzazione, monitoraggio anomalie ove in uso.
+    </p>
+
+    <h2 id="advertising">14. Consenso per scopi pubblicitari e profiling</h2>
+    <p>
+      Profilazione e pubblicità comportano <strong>consenso esplicito</strong> e tracciabilità
+      della scelta. Ove si usino reti pubblicitarie, fornire link agli strumenti di opt-out del
+      fornitore (es. impostazioni annunci Google).
+    </p>
+
+    <h2 id="effetti">15. Effetti di rifiuto o accettazione</h2>
+    <ul>
+      <li>
+        <strong>Accettando</strong> le categorie opzionali si abilitano preferenze avanzate,
+        analytics e, se configurate, funzioni di marketing.
+      </li>
+      <li>
+        <strong>Rifiutando</strong> i non essenziali il sito resta navigabile con funzioni core; le
+        altre possono essere limitate.
+      </li>
+    </ul>
+
+    <h2 id="modifiche">16. Modifiche alla Cookie Policy</h2>
+    <p>
+      La Policy può essere aggiornata quando cambiano cookie, fornitori o norme. Sarà indicata la
+      data di revisione; ove richiesto dalla legge o dall’impatto del cambiamento, si richiederà un
+      nuovo consenso (incrementando la versione tecnica nel modulo).
+    </p>
+
+    <h2 id="diritti">17. Diritti degli interessati e contatti</h2>
+    <p>
+      Diritti: accesso, rettifica, cancellazione, limitazione, portabilità, opposizione e revoca del
+      consenso ove previsti. Per esercitarli: <a class={link} href="mailto:privacy@nexstudio.com"
+        >privacy@nexstudio.com</a
+      > (DPO o referente privacy, da formalizzare).
+    </p>
+
+    <h2 id="appendice-tabella">18. Registro dei cookie e informazioni tecniche (appendice)</h2>
+    <p>
+      Pubblicare qui la tabella completa con colonne: nome, provider, categoria, descrizione
+      tecnica, durata, 1st/3rd, link opt-out, link privacy, note (GTM, embed, CDN, ecc.).
+    </p>
+    <table class={tbl}>
+      <thead>
+        <tr>
+          <th class={th}>Nome</th>
+          <th class={th}>Provider</th>
+          <th class={th}>Categoria</th>
+          <th class={th}>Scopo / durata</th>
+          <th class={th}>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class={td} colspan="5">
+            <em>Da compilare dopo scansione del sito in staging e produzione.</em>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="implementazione">19. Implementazione tecnica e strumenti</h2>
+    <ul>
+      <li>
+        <strong>CMP:</strong> modulo first-party NexStudio (nessun OneTrust/Cookiebot obbligatorio
+        in questa build); estensibile verso CMP commerciali se richiesto da clienti o policy
+        aziendale.
+      </li>
+      <li>
+        <strong>Log consenso:</strong> attualmente payload JSON in <em>local storage</em> con
+        versione policy, timestamp ISO e booleani per categoria; valutare integrazione server-side
+        per audit e correlazione sessione.
+      </li>
+      <li>
+        <strong>Banner:</strong> testo breve, link a questa Cookie Policy, tre azioni come da §6.
+      </li>
+      <li>
+        <strong>Sviluppo:</strong> caricare script di analytics, marketing o embed solo dopo lettura
+        del consenso tramite API/evento sopra citati.
+      </li>
+    </ul>
+
+    <h2 id="test-qc">20. Test e controllo qualità</h2>
+    <ul>
+      <li>Scansione periodica del sito per elenco cookie (strumenti automatici + revisione manuale).</li>
+      <li>Allineamento tra tabella pubblicata, CMP e script effettivamente caricati.</li>
+      <li>Audit trimestrale delle terze parti e aggiornamento categorie/testi.</li>
+    </ul>
+
+    <h2 id="banner-testi">21. Esempio di testi per il banner (IT / EN)</h2>
+    <ul>
+      <li>
+        <strong>Italiano (allineato al sito):</strong> «Utilizziamo cookie e memorizzazione locale.
+        Seleziona le categorie che preferisci. I necessari restano attivi per registrare la tua
+        scelta. Dettagli nell’informativa cookie.» — pulsanti: <strong>Rifiuta non essenziali</strong
+        >, <strong>Personalizza</strong>, <strong>Accetta tutto</strong>.
+      </li>
+      <li>
+        <strong>English (per versione bilingue futura):</strong> «We use cookies and local storage.
+        Choose the categories you prefer. Necessary ones stay on to record your choice. See our
+        cookie policy.» — <strong>Reject non-essential</strong>, <strong>Customize</strong>, <strong
+          >Accept all</strong
+        >.
+      </li>
+    </ul>
+
+    <h2 id="note-legali">22. Note legali</h2>
+    <p>
+      Questa Cookie Policy <strong>integra ma non sostituisce</strong> l’Informativa privacy. Per
+      aspetti di trattamento dei dati personali collegati ai cookie fare riferimento anche a{' '}
+      <a class={link} href="/gdpr">GDPR</a> / documenti privacy pubblicati e al counsel locale per
+      Thailandia, UE o altri mercati serviti.
+    </p>
+
+    <h2 id="versioning">23. Versioning e storico revisioni</h2>
+    <ul>
+      <li><strong>Versione 1.0</strong> — 21 aprile 2026 — Prima pubblicazione strutturata.</li>
+    </ul>
+
+    <h2>Appendice: checklist tecnica per il rilascio</h2>
+    <ul class="list-none space-y-2 pl-0 [&_li]:flex [&_li]:gap-2">
+      <li><span class="text-nx-muted">☐</span> Scansione cookie completa e tabella aggiornata</li>
+      <li><span class="text-nx-muted">☐</span> CMP e prova consenso / revoca funzionanti</li>
+      <li><span class="text-nx-muted">☐</span> Traduzioni banner (es. EN / TH) se richieste dal mercato</li>
+      <li><span class="text-nx-muted">☐</span> Script non essenziali bloccati fino a consenso</li>
+      <li><span class="text-nx-muted">☐</span> Tabella cookie con metadati e versioning pubblico</li>
+      <li><span class="text-nx-muted">☐</span> Procedure DSR e revoca collegate dall’informativa privacy</li>
+      <li><span class="text-nx-muted">☐</span> Link a privacy e contatti DPO/referente nel footer</li>
+    </ul>
+
+    <h2>Collegamenti</h2>
+    <p>
+      <a class={link} href="/privacy">Informativa privacy</a>
+      <span class="text-nx-muted"> · </span>
+      <a class={link} href="/codice-etico">Codice etico</a>
+      <span class="text-nx-muted"> · </span>
+      <a class={link} href="/modello-organizzativo">Modello organizzativo</a>
+      <span class="text-nx-muted"> · </span>
+      <a class={link} href="#indice">Torna all’indice</a>
+    </p>
+  </div>
+</SubpageLayout>

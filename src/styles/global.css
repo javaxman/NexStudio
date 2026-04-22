@@ -1,0 +1,476 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-nx-bg: #030712;
+  --color-nx-surface: #0b1220;
+  --color-nx-elevated: #111c2e;
+  --color-nx-border: rgba(148, 163, 184, 0.12);
+  --color-nx-muted: #94a3b8;
+  --color-nx-fg: #f1f5f9;
+  --color-nx-accent: #38bdf8;
+  --color-nx-accent-2: #a78bfa;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-nx-bg text-nx-fg antialiased;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .nx-nav-link {
+    @apply inline-block transition-colors duration-200;
+    transition-property: color, filter, text-shadow, opacity;
+  }
+  .nx-nav-link[data-nav-active='false'] {
+    @apply text-nx-muted hover:text-nx-fg;
+  }
+}
+
+/* Canvas particelle: dentro .nx-grid-bg, sopra lo sfondo della sezione */
+.nx-particle-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Subtle grid (Vercel-like) + vignette */
+.nx-grid-bg {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.85), rgba(3, 7, 18, 0.95)),
+    linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 64px 64px, 64px 64px;
+  background-position: 0 0, -1px -1px, -1px -1px;
+}
+
+/* Code window title bar dots */
+.nx-dot {
+  @apply size-2.5 rounded-full;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+/* Hero: flusso dati a destra, altezza piena sezione — maschere morbide (no tagli netti) */
+.nx-hero-ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.nx-hero-ambient__inner {
+  position: absolute;
+  top: 0;
+  right: -14%;
+  bottom: 0;
+  width: min(56vw, 560px);
+  height: 100%;
+  opacity: 0.62;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%),
+    linear-gradient(to left, black 0%, black 42%, transparent 88%);
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%),
+    linear-gradient(to left, black 0%, black 42%, transparent 88%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.nx-hero-dataflow-svg {
+  display: block;
+  min-height: 100%;
+}
+
+.nx-hero-dataflow-svg .nx-flow-line--a {
+  animation: nx-dataflow-dash 20s linear infinite;
+}
+.nx-hero-dataflow-svg .nx-flow-line--b {
+  animation: nx-dataflow-dash 28s linear infinite;
+  animation-direction: reverse;
+}
+.nx-hero-dataflow-svg .nx-flow-line--c {
+  animation: nx-dataflow-dash 24s linear infinite;
+}
+.nx-hero-dataflow-svg .nx-flow-line--d {
+  animation: nx-dataflow-dash 32s linear infinite;
+  animation-direction: reverse;
+}
+
+@keyframes nx-dataflow-dash {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+@media (max-width: 768px) {
+  .nx-hero-ambient__inner {
+    opacity: 0.42;
+    width: min(78vw, 420px);
+    right: -18%;
+  }
+}
+
+/* Spine: prolunga i flussi hero verso la fascia “Prodotti” (dietro al contenuto) */
+.nx-dataflow-spine {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.46;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent max(9vh, 64px),
+    rgba(0, 0, 0, 0.28) min(20vh, 180px),
+    rgba(0, 0, 0, 0.88) min(36vh, 400px),
+    black min(72%, 100%),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent max(9vh, 64px),
+    rgba(0, 0, 0, 0.28) min(20vh, 180px),
+    rgba(0, 0, 0, 0.88) min(36vh, 400px),
+    black min(72%, 100%),
+    transparent 100%
+  );
+}
+
+.nx-dataflow-spine-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.nx-dataflow-spine-svg .nx-flow-line--a {
+  animation: nx-dataflow-dash 24s linear infinite;
+}
+.nx-dataflow-spine-svg .nx-flow-line--b {
+  animation: nx-dataflow-dash 34s linear infinite;
+  animation-direction: reverse;
+}
+.nx-dataflow-spine-svg .nx-flow-line--c {
+  animation: nx-dataflow-dash 26s linear infinite;
+}
+.nx-dataflow-spine-svg .nx-flow-line--d {
+  animation: nx-dataflow-dash 36s linear infinite;
+  animation-direction: reverse;
+}
+
+@media (max-width: 768px) {
+  .nx-dataflow-spine {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-hero-dataflow-svg .nx-flow-line--a,
+  .nx-hero-dataflow-svg .nx-flow-line--b,
+  .nx-hero-dataflow-svg .nx-flow-line--c,
+  .nx-hero-dataflow-svg .nx-flow-line--d {
+    animation: none;
+  }
+  .nx-dataflow-spine-svg .nx-flow-line--a,
+  .nx-dataflow-spine-svg .nx-flow-line--b,
+  .nx-dataflow-spine-svg .nx-flow-line--c,
+  .nx-dataflow-spine-svg .nx-flow-line--d {
+    animation: none;
+  }
+}
+
+/* Stats: alone morbido attorno alla card (sky / violet) */
+.nx-stats-card {
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.55),
+    0 0 56px -12px rgba(56, 189, 248, 0.24),
+    0 0 96px -24px rgba(167, 139, 250, 0.14);
+}
+
+/* Stack: carosello loghi (marquee), fade ai bordi */
+.nx-tech-slider__viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+}
+
+/* Un’unica fila di link: lo stesso gap vale anche tra ultima e prima copia (niente OpenAI “incollato” a Cloudflare) */
+.nx-tech-slider__track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: max-content;
+  gap: clamp(2.75rem, 8vw, 5rem);
+  animation: nx-tech-marquee 60s linear infinite;
+  will-change: transform;
+}
+
+.nx-tech-slider__link {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  opacity: 0.72;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.nx-tech-slider__link:hover {
+  opacity: 1;
+  filter: brightness(1.15);
+}
+
+.nx-tech-slider__link:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.45);
+  outline-offset: 4px;
+  border-radius: 0.25rem;
+  opacity: 1;
+}
+
+.nx-tech-slider__logo {
+  height: 2.5rem;
+  width: auto;
+  max-width: 8.5rem;
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .nx-tech-slider__logo {
+    height: 2.875rem;
+    max-width: 9.5rem;
+  }
+}
+
+/* Badge testuale HL7 FHIR: più largo ma stessa altezza riga */
+.nx-tech-slider__logo--fhir {
+  max-width: 11.5rem;
+}
+
+@media (min-width: 640px) {
+  .nx-tech-slider__logo--fhir {
+    max-width: 12.5rem;
+  }
+}
+
+@keyframes nx-tech-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-tech-slider__link--dup {
+    display: none;
+  }
+
+  .nx-tech-slider__viewport {
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .nx-tech-slider__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 52rem;
+    margin-inline: auto;
+    row-gap: 1.25rem;
+  }
+}
+
+/* --- Stampa: pagine con `nx-print-sheet` (SubpageLayout, `printFriendly` predefinito true) --- */
+@media print {
+  @page {
+    margin: 14mm 16mm;
+  }
+
+  #nx-chat-gate-overlay,
+  #nx-cc-banner,
+  #nx-cc-dialog,
+  #particleCanvas {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .nx-print-sheet {
+    min-height: 0 !important;
+    background: #fff !important;
+    background-image: none !important;
+  }
+
+  .nx-print-sheet header {
+    position: static !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    background: #fff !important;
+    backdrop-filter: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .nx-print-sheet header a {
+    color: #0f172a !important;
+  }
+
+  .nx-print-sheet main {
+    padding-top: 0.75rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .nx-print-sheet .nx-print-meta {
+    display: block !important;
+    border-color: #cbd5e1 !important;
+    color: #475569 !important;
+  }
+
+  .nx-print-sheet h1,
+  .nx-print-sheet .text-nx-fg {
+    color: #0f172a !important;
+  }
+
+  .nx-print-sheet h2 {
+    color: #0f172a !important;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .nx-print-sheet p,
+  .nx-print-sheet li,
+  .nx-print-sheet .text-nx-muted {
+    color: #334155 !important;
+  }
+
+  .nx-print-sheet a {
+    color: #0369a1 !important;
+    text-decoration: underline;
+  }
+
+  .nx-print-sheet a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.78em;
+    font-weight: 400;
+    word-break: break-all;
+  }
+
+  .nx-print-sheet footer {
+    border-color: #cbd5e1 !important;
+    background: #fff !important;
+    break-inside: avoid;
+  }
+
+  .nx-print-sheet footer [data-nx-footer-print-collapsible] {
+    display: none !important;
+  }
+
+  .nx-print-sheet article {
+    max-width: 100% !important;
+  }
+
+  .nx-print-sheet table,
+  .nx-print-sheet th,
+  .nx-print-sheet td {
+    border-color: #94a3b8 !important;
+  }
+
+  .nx-print-sheet th {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+  }
+
+  .nx-print-sheet td {
+    color: #334155 !important;
+  }
+}
+
+/**
+ * Stato attivo menu home: fuori da @layer così vince su utilities Tailwind.
+ * Sottolineatura luminosa + ombre (testo + filtro) ben visibili su header nero.
+ */
+header a.nx-nav-link[data-nav-active='true'] {
+  position: relative;
+  z-index: 0;
+  color: #f8fafc;
+  font-weight: 500;
+  text-shadow:
+    0 0 1px #fff,
+    0 0 14px rgba(255, 255, 255, 0.5),
+    0 0 24px rgba(56, 189, 248, 0.55);
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+}
+
+header a.nx-nav-link[data-nav-active='true']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.5rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 15%,
+    #e0f2fe 50%,
+    rgba(255, 255, 255, 0.2) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 8px 1px rgba(255, 255, 255, 0.4),
+    0 0 16px 3px rgba(56, 189, 248, 0.4);
+  pointer-events: none;
+}
+
+header a.nx-nav-link[data-nav-active='false'] {
+  filter: none;
+  text-shadow: none;
+}
+
+header a.nx-nav-link[data-nav-active='false']::after {
+  content: none;
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header a.nx-nav-link[data-nav-active='true'] {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    filter: none;
+  }
+  header a.nx-nav-link[data-nav-active='true']::after {
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.3);
+  }
+}

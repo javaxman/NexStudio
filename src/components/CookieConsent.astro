@@ -1,0 +1,156 @@
+---
+import { cookieConsentMeta, cookieCategories } from '../data/cookie-consent';
+
+const model = {
+  storageKey: cookieConsentMeta.storageKey,
+  policyVersion: cookieConsentMeta.policyVersion,
+  categories: cookieCategories.map((c) => ({ id: c.id, required: c.required })),
+};
+---
+
+<script
+  type="application/json"
+  id="nx-cc-model"
+  set:html={JSON.stringify(model)}
+/>
+<div
+  id="nx-cc-banner"
+  class="fixed inset-x-0 bottom-0 z-[200] border-t border-nx-border bg-nx-elevated/95 px-4 py-4 shadow-[0_-12px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:px-6"
+  role="region"
+  aria-labelledby="nx-cc-banner-title"
+  aria-describedby="nx-cc-banner-desc"
+  aria-hidden="true"
+  hidden
+>
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+    <div class="min-w-0 flex-1">
+      <p
+        id="nx-cc-banner-title"
+        class="text-sm font-semibold tracking-tight text-nx-fg"
+      >
+        Utilizziamo cookie e memorizzazione locale
+      </p>
+      <p
+        id="nx-cc-banner-desc"
+        class="mt-1 text-xs leading-relaxed text-nx-muted sm:text-sm"
+      >
+        Seleziona le categorie che preferisci. I necessari restano attivi per
+        registrare la tua scelta. Dettagli nella{' '}
+        <a class="text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline" href="/cookies">informativa cookie</a>.
+      </p>
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-end"
+    >
+      <button
+        type="button"
+        data-nx-cc-reject
+        class="order-3 h-10 rounded-lg border border-nx-border px-4 text-sm font-medium text-nx-muted hover:border-sky-500/30 hover:text-nx-fg sm:order-1"
+      >
+        Rifiuta non essenziali
+      </button>
+      <button
+        type="button"
+        data-nx-cc-customize
+        class="order-2 h-10 rounded-lg border border-nx-border px-4 text-sm font-medium text-nx-fg hover:border-sky-500/40 sm:order-2"
+      >
+        Personalizza
+      </button>
+      <button
+        type="button"
+        data-nx-cc-accept
+        class="order-1 inline-flex h-10 items-center justify-center rounded-lg bg-gradient-to-r from-sky-500 to-violet-500 px-4 text-sm font-semibold text-white shadow-lg shadow-sky-500/20 hover:brightness-110 sm:order-3"
+      >
+        Accetta tutto
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--
+  Overlay custom (no <dialog>): in dev Cloudflare/Vite il top layer nativo
+  può dare focus e clic incoerenti; qui usiamo hidden + flex come il banner.
+-->
+<div
+  id="nx-cc-dialog"
+  class="fixed inset-0 z-[201] flex items-center justify-center bg-black/70 p-4 sm:p-6"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="nx-cc-dialog-title"
+  aria-hidden="true"
+  hidden
+>
+  <div
+    class="flex max-h-[min(90vh,32rem)] w-full max-w-md flex-col overflow-hidden rounded-xl border border-nx-border bg-nx-elevated text-nx-fg shadow-2xl"
+    data-nx-cc-panel
+  >
+    <div class="border-b border-nx-border px-5 py-4">
+      <h2 id="nx-cc-dialog-title" class="text-base font-semibold tracking-tight">
+        Preferenze cookie
+      </h2>
+      <p class="mt-1 text-xs leading-relaxed text-nx-muted">
+        Versione informativa v{cookieConsentMeta.policyVersion}. Puoi modificare
+        le scelte in qualsiasi momento dal footer.
+      </p>
+    </div>
+    <div
+      class="max-h-[min(52vh,22rem)] space-y-4 overflow-y-auto overscroll-contain px-5 py-4"
+    >
+      {
+        cookieCategories.map((cat) => (
+          <div class="rounded-lg border border-nx-border/80 bg-nx-bg/40 px-3 py-3">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-sm font-medium text-nx-fg">{cat.label}</p>
+                <p class="mt-1 text-xs leading-relaxed text-nx-muted">
+                  {cat.description}
+                </p>
+              </div>
+              {cat.required ? (
+                <span class="shrink-0 rounded-md bg-nx-border/40 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-nx-muted">
+                  Sempre attivi
+                </span>
+              ) : (
+                <label
+                  class="relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full border border-nx-border bg-nx-surface transition has-[:checked]:border-sky-500/40 has-[:checked]:bg-sky-500/10"
+                >
+                  <input
+                    type="checkbox"
+                    data-nx-cc-cat={cat.id}
+                    class="peer sr-only"
+                  />
+                  <span
+                    aria-hidden="true"
+                    class="pointer-events-none absolute left-0.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full bg-nx-muted shadow peer-checked:left-[calc(100%-1.375rem)] peer-checked:bg-sky-400"
+                  />
+                </label>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-col-reverse gap-2 border-t border-nx-border bg-nx-bg/30 px-5 py-4 sm:flex-row sm:justify-end"
+    >
+      <button
+        type="button"
+        data-nx-cc-cancel
+        class="h-10 rounded-lg border border-nx-border px-4 text-sm font-medium text-nx-muted hover:text-nx-fg"
+      >
+        Chiudi
+      </button>
+      <button
+        type="button"
+        data-nx-cc-save
+        class="h-10 rounded-lg bg-nx-fg px-4 text-sm font-semibold text-nx-bg hover:bg-white"
+      >
+        Salva preferenze
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/nx-cookie-consent.ts';
+</script>

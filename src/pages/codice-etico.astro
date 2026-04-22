@@ -1,0 +1,494 @@
+---
+import SubpageLayout from '../layouts/SubpageLayout.astro';
+
+const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline';
+---
+
+<SubpageLayout
+  title="Codice etico — NexStudio"
+  description="Codice etico definitivo NexStudio: valori, conformità legale e sanitaria, privacy, sicurezza, AI, governance e segnalazioni."
+  heading="Codice etico definitivo"
+  lead="Per NexStudio — sede: Bangkok, Thailandia. Versione 1.0, in vigore dal 21 aprile 2026. Documento interno ed esterno: principi, obblighi e procedure operative per chi collabora con la Società."
+>
+  <div class="[&_h3]:mt-6 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-nx-fg">
+    <p class="border-l-2 border-sky-500/35 pl-4 text-sm leading-relaxed text-nx-muted">
+      <span class="font-medium text-nx-fg">Versione</span> 1.0
+      <span class="text-nx-muted/80"> · </span>
+      <span class="font-medium text-nx-fg">Entrata in vigore</span>: 21 aprile 2026
+    </p>
+
+    <h2 id="indice" class="!mt-8">Indice sintetico</h2>
+    <ol class="!mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed sm:text-base">
+      <li><a class={link} href="#premessa">Premessa</a></li>
+      <li><a class={link} href="#ambito">Ambito di applicazione</a></li>
+      <li><a class={link} href="#valori">Valori e principi fondamentali</a></li>
+      <li>
+        <a class={link} href="#conformita">Conformità normativa specifica (ambito legale e medico)</a>
+      </li>
+      <li><a class={link} href="#tutela-dati">Tutela dei dati personali e dati sensibili</a></li>
+      <li>
+        <a class={link} href="#sicurezza">Sicurezza dell’informazione e resilienza operativa</a>
+      </li>
+      <li>
+        <a class={link} href="#qualita"
+          >Qualità del software, validazione clinica e rischio per gli utenti</a
+        >
+      </li>
+      <li>
+        <a class={link} href="#proprieta-intellettuale"
+          >Proprietà intellettuale e uso di componenti esterni</a
+        >
+      </li>
+      <li><a class={link} href="#ai-ml">Uso responsabile di AI/ML e automazione</a></li>
+      <li>
+        <a class={link} href="#conflitti">Conflitti di interesse e integrità commerciale</a>
+      </li>
+      <li>
+        <a class={link} href="#linee-operative"
+          >Linee operative: sviluppo, rilascio e gestione vulnerabilità</a
+        >
+      </li>
+      <li><a class={link} href="#governance">Governance, ruoli e responsabilità</a></li>
+      <li>
+        <a class={link} href="#onboarding">Onboarding, formazione e certificazione</a>
+      </li>
+      <li>
+        <a class={link} href="#segnalazioni"
+          >Segnalazioni, protezione del segnalante e investigazioni</a
+        >
+      </li>
+      <li><a class={link} href="#violazioni">Gestione delle violazioni e sanzioni</a></li>
+      <li>
+        <a class={link} href="#monitoraggio">Monitoraggio, audit e miglioramento continuo</a>
+      </li>
+      <li>
+        <a class={link} href="#documentazione">Documentazione obbligatoria e registri</a>
+      </li>
+      <li><a class={link} href="#allegati">Allegati e moduli</a></li>
+      <li><a class={link} href="#approvazione">Approvazione e contatti utili</a></li>
+    </ol>
+
+    <h2 id="premessa">1. Premessa</h2>
+    <p>
+      Questo Codice Etico stabilisce i principi, i doveri e le regole di comportamento che tutti i
+      soggetti coinvolti in <strong>NexStudio</strong> (di seguito «Società») devono osservare nello
+      sviluppo, nella commercializzazione e nella gestione di soluzioni SaaS destinate ai settori
+      legale e medico. Mira a garantire conformità normativa, tutela della privacy, sicurezza,
+      qualità tecnica, protezione dei diritti degli utenti e responsabilità professionale.
+    </p>
+
+    <h2 id="ambito">2. Ambito di applicazione</h2>
+    <p>
+      Si applica a: fondatori, dirigenti, dipendenti (full-time, part-time), collaboratori esterni,
+      consulenti, appaltatori e fornitori. Copre tutte le attività: analisi, progettazione,
+      sviluppo, test, rilascio, manutenzione, supporto, marketing, vendite e ricerca.
+    </p>
+
+    <h2 id="valori">3. Valori e principi fondamentali</h2>
+    <ul>
+      <li>Integrità, onestà e trasparenza.</li>
+      <li>Rispetto della dignità umana, inclusione e non discriminazione.</li>
+      <li>Responsabilità tecnico-professionale e qualità del servizio.</li>
+      <li>Riservatezza e protezione dei dati personali e sensibili.</li>
+      <li>Sicurezza e resilienza operativa.</li>
+      <li>Conformità legale e regolamentare.</li>
+      <li>Miglioramento continuo e accountability.</li>
+    </ul>
+
+    <h2 id="conformita">4. Conformità normativa specifica (ambito legale e medico)</h2>
+    <p>La Società osserva, fra gli altri:</p>
+    <ul>
+      <li>Thailand Personal Data Protection Act (PDPA).</li>
+      <li>
+        Regolamento generale sulla protezione dei dati (GDPR), quando applicabile per utenti o
+        servizi nell’Unione europea.
+      </li>
+      <li>
+        Normative sanitarie e standard locali o internazionali pertinenti (ad esempio requisiti
+        nazionali per la gestione dei dati clinici, standard ISO rilevanti).
+      </li>
+      <li>
+        Requisiti normativi per dispositivi medici o software medicale (ad esempio EU MDR,
+        regolamenti locali) se le funzionalità rientrano nella definizione di dispositivo medico.
+      </li>
+      <li>
+        Norme professionali e di segreto professionale per avvocati e operatori sanitari;
+        rispetto di privilegi professionali (<em>attorney–client privilege</em>, segreto medico).
+      </li>
+      <li>
+        Se applicabile per mercati esteri: HIPAA per dati sanitari negli Stati Uniti e normative
+        sull’esportazione di dati o tecnologie.
+      </li>
+    </ul>
+    <p>
+      La Società effettua DPIA (Data Protection Impact Assessment) per trattamenti ad alto rischio e
+      consulta autorità o <em>regulatory counsel</em> quando necessario.
+    </p>
+
+    <h2 id="tutela-dati">5. Tutela dei dati personali e dati sensibili</h2>
+    <ul>
+      <li><strong>Minimizzazione:</strong> raccogliere solo i dati necessari e pertinenti.</li>
+      <li>
+        <strong>Base giuridica:</strong> documentare la base legale per ogni trattamento (consenso,
+        esecuzione del contratto, obbligo legale, interesse legittimo valutato).
+      </li>
+      <li>
+        <strong>Informativa e consenso:</strong> fornire informative chiare e ottenere consensi
+        quando richiesto; gestire il consenso in modo verificabile.
+      </li>
+      <li>
+        <strong>Classificazione:</strong> definire categorie (PII, dati sanitari, informazioni legali
+        privilegiate) e applicare misure differenziate.
+      </li>
+      <li>
+        <strong>Conservazione e cancellazione:</strong> politiche di retention documentate;
+        anonimizzazione o cancellazione al termine delle finalità.
+      </li>
+      <li>
+        <strong>Trasferimenti internazionali:</strong> valutare basi legali (clausole contrattuali
+        standard, decisioni di adeguatezza, misure tecniche) per trasferimenti fuori dalla
+        Thailandia.
+      </li>
+      <li>
+        <strong>Diritti degli interessati:</strong> procedure per accesso, rettifica, cancellazione,
+        limitazione, portabilità e opposizione, con tempi e log documentati.
+      </li>
+      <li>
+        <strong>Sub-processori:</strong> contratti che impongono misure di sicurezza equivalenti,
+        obblighi di notifica in caso di violazione (<em>breach</em>) e divieti di ulteriori
+        sub-affidamenti non autorizzati.
+      </li>
+    </ul>
+
+    <h2 id="sicurezza">6. Sicurezza dell’informazione e resilienza operativa</h2>
+    <ul>
+      <li>
+        <strong>Security by design</strong> e <strong>privacy by design:</strong> integrazione di
+        sicurezza e privacy nel ciclo di vita del prodotto.
+      </li>
+      <li>
+        <strong>Controlli di accesso:</strong> principio del privilegio minimo, MFA obbligatorio per
+        accesso a risorse sensibili, gestione centralizzata delle identità.
+      </li>
+      <li>
+        <strong>Crittografia:</strong> cifratura a riposo e in transito con algoritmi aggiornati;
+        gestione sicura delle chiavi.
+      </li>
+      <li>
+        <strong>Logging e monitoraggio:</strong> log immutabili per accessi e operazioni su dati
+        sensibili e ambienti di produzione.
+      </li>
+      <li>
+        <strong>Vulnerability management:</strong> scansioni automatiche, penetration test
+        periodici, processo di patching e programma di responsible disclosure o bug bounty.
+      </li>
+      <li>
+        <strong>Continuità operativa e disaster recovery:</strong> piani testati regolarmente con
+        RTO/RPO definiti.
+      </li>
+      <li>
+        <strong>Gestione incidenti:</strong> playbook documentato (identificazione, containment,
+        eradicazione, recovery, post-mortem), ruoli e tempi di notifica interni ed esterni.
+      </li>
+    </ul>
+
+    <h2 id="qualita">7. Qualità del software, validazione clinica e rischio per gli utenti</h2>
+    <ul>
+      <li>
+        <strong>Standard di sviluppo:</strong> codice leggibile, test automatici, code review
+        obbligatorie, CI/CD sicuro.
+      </li>
+      <li>
+        <strong>Test e copertura:</strong> definire copertura minima per componenti critici; test di
+        integrazione, performance e sicurezza.
+      </li>
+      <li>
+        <strong>Validazione clinica:</strong> per funzionalità che assistono decisioni cliniche o
+        legali, procedere a validazione con esperti (clinici e legali), studi pilota, documentazione
+        di limitazioni e avvertenze.
+      </li>
+      <li>
+        <strong>Classificazione del rischio:</strong> valutare impatto su salute o diritti e
+        applicare misure di mitigazione proporzionate.
+      </li>
+      <li>
+        <strong>Non sostituzione del professionista:</strong> la piattaforma fornisce supporto e
+        strumenti informativi; non si presenta come sostitutiva di pareri professionali senza
+        esplicita supervisione e avallo professionale.
+      </li>
+      <li>
+        <strong>Registri ed evidenze:</strong> mantenere documentazione di test clinici, valutazioni
+        di rischio e approvazioni regolatorie.
+      </li>
+    </ul>
+
+    <h2 id="proprieta-intellettuale">8. Proprietà intellettuale e uso di componenti esterni</h2>
+    <ul>
+      <li>
+        I contributi di dipendenti e consulenti inerenti a software, documentazione e know-how sono
+        di proprietà della Società, salvo diverso accordo scritto.
+      </li>
+      <li>
+        <strong>Open source:</strong> mantenere SBOM (Software Bill of Materials), verificare la
+        compatibilità delle licenze, rispettare obblighi di disclosure e aggiornamento delle patch.
+      </li>
+      <li>
+        Divieto di uso non autorizzato di codice o proprietà intellettuale di terzi; gestione dei
+        rischi di contaminazione IP.
+      </li>
+    </ul>
+
+    <h2 id="ai-ml">9. Uso responsabile di AI/ML e automazione</h2>
+    <ul>
+      <li>Documentare dataset di training, provenienza, pre-elaborazione e limiti noti.</li>
+      <li>
+        <strong>Bias assessment:</strong> condurre analisi per identificare e mitigare pregiudizi
+        che possano discriminare o causare danni.
+      </li>
+      <li>
+        <strong>Supervisione umana:</strong> per decisioni che influenzano salute, procedimenti
+        legali o diritti fondamentali, prevedere supervisione umana e avvisi chiari sui limiti del
+        sistema.
+      </li>
+      <li>
+        <strong>Explainability e responsabilità:</strong> fornire informazioni comprensibili su
+        come i modelli supportano le decisioni e su prestazioni e affidabilità.
+      </li>
+      <li>
+        <strong>Monitoraggio post-release:</strong> misurare le prestazioni in produzione e
+        correggere drift o comportamenti inattesi.
+      </li>
+    </ul>
+
+    <h2 id="conflitti">10. Conflitti di interesse e integrità commerciale</h2>
+    <ul>
+      <li>
+        Dichiarazione obbligatoria di conflitti reali o potenziali (investimenti, relazioni con
+        fornitori o clienti).
+      </li>
+      <li>Politiche anticorruzione e anti-tangenti conformi a leggi nazionali e internazionali.</li>
+      <li>
+        Comunicazioni commerciali veritiere; non ingannare su capacità, approvazioni regolatorie o
+        risultati.
+      </li>
+      <li>
+        Trasparenza contrattuale: SLA, limitazioni di responsabilità e condizioni d’uso chiare e
+        accessibili.
+      </li>
+    </ul>
+
+    <h2 id="linee-operative">11. Linee operative: sviluppo, rilascio e gestione vulnerabilità</h2>
+    <ul>
+      <li>
+        <strong>Sviluppo:</strong> strategia di branch, code review obbligatoria, merge solo con CI
+        positiva, checklist pre-release (sicurezza, privacy, compliance).
+      </li>
+      <li>
+        <strong>Ambiente di test:</strong> uso di dati sintetici o anonimizzati; accesso a dati
+        reali solo su base minima e autorizzata, in ambienti isolati.
+      </li>
+      <li>
+        <strong>Deployment:</strong> CI/CD standardizzato con piano di rollback e rilasci graduali
+        per funzionalità critiche.
+      </li>
+      <li>
+        <strong>Gestione vulnerabilità:</strong> canale pubblico o privato per segnalazioni (bug
+        bounty o indirizzo dedicato <em>security@</em>), conferma di ricezione entro 72 ore, piano di
+        remediation con tempi stimati.
+      </li>
+      <li>
+        <strong>Patch management:</strong> tempi di rilascio delle patch definiti in base alla
+        severità.
+      </li>
+      <li>
+        <strong>Documentazione di rilascio:</strong> changelog, impatti noti e raccomandazioni
+        operative.
+      </li>
+    </ul>
+
+    <h2 id="governance">12. Governance, ruoli e responsabilità</h2>
+    <ul>
+      <li><strong>Board / fondatori:</strong> approvano le politiche, definiscono strategia e risorse.</li>
+      <li><strong>CEO:</strong> responsabilità complessiva di conformità e governance.</li>
+      <li><strong>CTO:</strong> qualità tecnica, architettura e pratiche di sviluppo.</li>
+      <li>
+        <strong>CISO / responsabile sicurezza:</strong> sicurezza operativa, risposta agli incidenti,
+        gestione delle vulnerabilità.
+      </li>
+      <li>
+        <strong>DPO / referente privacy:</strong> conformità PDPA e GDPR, DPIA, gestione richieste
+        degli interessati.
+      </li>
+      <li>
+        <strong>Legal &amp; compliance:</strong> supervisione legale, contratti e valutazioni
+        regolatorie.
+      </li>
+      <li><strong>HR:</strong> formazione, codice di condotta e gestione disciplinare.</li>
+      <li>
+        <strong>Team lead / PM:</strong> applicano le policy operative e garantiscono conformità
+        quotidiana.
+      </li>
+      <li>
+        <strong>Comitato etico (consigliato):</strong> gruppo multidisciplinare per valutare casi
+        complessi (impatti clinici o legali, conflitti), con riunioni periodiche e su richiesta.
+      </li>
+    </ul>
+
+    <h2 id="onboarding">13. Onboarding, formazione e certificazione</h2>
+    <ul>
+      <li>
+        Onboarding obbligatorio su: sicurezza informatica, privacy (PDPA e GDPR), gestione dati
+        sensibili, normative mediche e legali rilevanti, uso responsabile dell’AI, pratiche di coding
+        sicuro.
+      </li>
+      <li>Formazione annuale obbligatoria e formazione aggiuntiva per ruoli critici.</li>
+      <li>Registrazione e conservazione dei record di formazione.</li>
+    </ul>
+
+    <h2 id="segnalazioni">14. Segnalazioni, protezione del segnalante e investigazioni</h2>
+    <ul>
+      <li>
+        <strong>Canali:</strong> almeno un canale confidenziale interno (es. <a
+          class={link}
+          href="mailto:ethics@nexstudio.com">ethics@nexstudio.com</a
+        >), piattaforma anonima esterna o servizio terzo; contatto per escalation indipendente.
+      </li>
+      <li>
+        <strong>Protezione:</strong> divieto di ritorsioni; misure disciplinari per ritorsioni
+        comprovate.
+      </li>
+      <li>
+        <strong>Indagini:</strong> condotte in modo imparziale, documentato e con tempi definiti;
+        comunicazione dei risultati alla persona segnalante e alle parti interessate, nei limiti
+        della riservatezza.
+      </li>
+    </ul>
+
+    <h2 id="violazioni">15. Gestione delle violazioni e sanzioni</h2>
+    <ul>
+      <li>
+        Azioni proporzionate alla gravità: formazione correttiva, richiamo, riassegnazione,
+        sospensione, risoluzione del rapporto contrattuale, azioni legali se necessario.
+      </li>
+      <li>Registro delle infrazioni e delle azioni intraprese; diritto di difesa dell’interessato.</li>
+    </ul>
+
+    <h2 id="monitoraggio">16. Monitoraggio, audit e miglioramento continuo</h2>
+    <ul>
+      <li>Audit interni ed esterni regolari su sicurezza, privacy, compliance e controllo qualità.</li>
+      <li>
+        <strong>KPI (esempi):</strong> numero di incidenti, tempo medio di remediation, percentuale
+        di copertura dei test, percentuale di formazione completata, tempo medio di risposta alle
+        segnalazioni.
+      </li>
+      <li>
+        Revisione del Codice: almeno annuale o in caso di cambiamenti normativi, tecnologici o di
+        mercato.
+      </li>
+    </ul>
+
+    <h2 id="documentazione">17. Documentazione obbligatoria e registri</h2>
+    <p>La Società mantiene e aggiorna, tra l’altro:</p>
+    <ul>
+      <li>registro dei trattamenti e DPIA;</li>
+      <li>SBOM e inventario dei componenti (open source);</li>
+      <li>log di accesso e audit trail;</li>
+      <li>registro incidenti e violazioni dei dati;</li>
+      <li>contratti con fornitori e sub-processori;</li>
+      <li>record di formazione e dichiarazioni di adesione al Codice.</li>
+    </ul>
+
+    <h2 id="allegati">18. Allegati e moduli (inclusi)</h2>
+    <ul>
+      <li>Dichiarazione personale di adesione al Codice (da firmare in onboarding).</li>
+      <li>Template NDA e clausole minime per fornitori e sub-processori.</li>
+      <li>Checklist pre-release (security e privacy).</li>
+      <li>Flowchart gestione incidenti e template di notifica.</li>
+      <li>Modello DPIA semplificato ed esempio compilato.</li>
+      <li>Modello informativa privacy e modulo consenso per utenti o pazienti.</li>
+      <li>Template SBOM.</li>
+      <li>Policy di retention dei dati (tempi e giustificazioni).</li>
+      <li>Template per valutazione d’impatto AI/ML.</li>
+    </ul>
+
+    <h2 id="approvazione">19. Approvazione e contatti utili</h2>
+    <ul>
+      <li>
+        <strong>Approvato da:</strong> organo competente / amministratore delegato (nome e cognome
+        alla firma).
+      </li>
+      <li>
+        <strong>Responsabile aggiornamenti:</strong> Legal &amp; compliance, con supporto di DPO
+        e CISO.
+      </li>
+      <li>
+        <strong>Revisione:</strong> minimo annuale o a fronte di mutamenti rilevanti.
+      </li>
+    </ul>
+    <p class="font-medium text-nx-fg">Contatti</p>
+    <ul>
+      <li>
+        DPO / referente privacy: <a class={link} href="mailto:privacy@nexstudio.com"
+          >privacy@nexstudio.com</a
+        >
+      </li>
+      <li>
+        Security / incident response: <a class={link} href="mailto:security@nexstudio.com"
+          >security@nexstudio.com</a
+        >
+      </li>
+      <li>
+        Segnalazioni confidenziali: <a class={link} href="mailto:ethics@nexstudio.com"
+          >ethics@nexstudio.com</a
+        >
+        (o link a piattaforma anonima dedicata)
+      </li>
+      <li>
+        Legal: <a class={link} href="mailto:legal@nexstudio.com">legal@nexstudio.com</a>
+      </li>
+      <li>HR: <a class={link} href="mailto:hr@nexstudio.com">hr@nexstudio.com</a></li>
+    </ul>
+
+    <h2 id="clausola-adesione">Clausola finale di adesione (da firmare in onboarding)</h2>
+    <p>
+      Dichiaro di aver letto e compreso il Codice Etico di <strong>NexStudio</strong> e mi impegno a
+      rispettarne i principi e le procedure. Mi impegno inoltre a segnalare, in buona fede, eventuali
+      violazioni di cui dovessi venire a conoscenza.
+    </p>
+    <p class="mt-4 text-nx-fg">
+      Firma: <span class="inline-block min-w-[12rem] border-b border-nx-border"> </span>
+      <span class="mx-3 text-nx-muted">·</span>
+      Data: <span class="inline-block min-w-[6rem] border-b border-nx-border"> </span>
+    </p>
+
+    <h2 id="note-pratiche">Note pratiche e prossimi passi consigliati</h2>
+    <ul>
+      <li>
+        Personalizzare il documento con il nome ufficiale della società (se diverso dal marchio
+        operativo), firme e riferimenti legali locali a Bangkok.
+      </li>
+      <li>
+        Allegare i template elencati come documenti separati e implementare i canali tecnici per
+        segnalazioni e bug bounty.
+      </li>
+      <li>
+        Predisporre un piano di formazione di 90 giorni per l’onboarding e formazione ricorrente
+        annuale.
+      </li>
+      <li>
+        Eseguire DPIA per i trattamenti sanitari e legali critici e verificare se parti del prodotto
+        rientrano nella definizione di dispositivo medico ai fini di registrazione o approvazione
+        normativa.
+      </li>
+    </ul>
+
+    <h2>Collegamenti</h2>
+    <p>
+      <a class={link} href="/modello-organizzativo">Modello organizzativo</a>
+      <span class="text-nx-muted"> · </span>
+      <a class={link} href="/about">Chi siamo</a>
+      <span class="text-nx-muted"> · </span>
+      <a class={link} href="#indice">Torna all’indice</a>
+    </p>
+  </div>
+</SubpageLayout>

@@ -1,0 +1,84 @@
+---
+/**
+ * Decorazione hero: flusso dati stile “big data” (ciano su trasparente),
+ * percorso verticale verso il basso-destra — ispirazione visiva tipo stock analytics.
+ */
+---
+
+<svg
+  class="nx-hero-dataflow-svg h-full w-full"
+  viewBox="0 0 520 960"
+  preserveAspectRatio="xMaxYMid slice"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <defs>
+    <filter
+      id="nx-flow-glow"
+      x="-30%"
+      y="-30%"
+      width="160%"
+      height="160%"
+      color-interpolation-filters="sRGB"
+    >
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <linearGradient id="nx-flow-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.2" />
+      <stop offset="35%" stop-color="#38bdf8" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#a5f3fc" stop-opacity="0.85" />
+    </linearGradient>
+    <linearGradient id="nx-flow-reflect" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.14" />
+      <stop offset="55%" stop-color="#0ea5e9" stop-opacity="0.04" />
+      <stop offset="100%" stop-color="#030712" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Riflesso leggero in basso (come superficie lucida) -->
+  <ellipse cx="360" cy="915" rx="220" ry="52" fill="url(#nx-flow-reflect)" />
+
+  <!-- Flussi: dall’alto della sezione hero verso basso-destra (escono dal bordo destro) -->
+  <g filter="url(#nx-flow-glow)" opacity="0.9">
+    <path
+      class="nx-flow-line nx-flow-line--a"
+      d="M 228 0 C 232 160 140 280 268 420 C 320 500 200 600 352 720 C 400 780 388 860 508 960"
+      stroke="url(#nx-flow-stroke)"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-dasharray="8 22"
+    />
+    <path
+      class="nx-flow-line nx-flow-line--b"
+      d="M 268 0 C 275 200 185 320 305 460 C 350 540 245 640 395 760 C 438 830 428 900 520 960"
+      stroke="url(#nx-flow-stroke)"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-dasharray="6 18"
+      opacity="0.78"
+    />
+    <path
+      class="nx-flow-line nx-flow-line--c"
+      d="M 188 40 C 195 220 95 340 238 500 C 290 590 165 700 328 820 C 368 880 352 928 472 960"
+      stroke="#67e8f9"
+      stroke-width="1.2"
+      stroke-linecap="round"
+      stroke-dasharray="4 16"
+      opacity="0.48"
+    />
+    <path
+      class="nx-flow-line nx-flow-line--d"
+      d="M 308 20 C 318 240 220 360 338 520 C 385 600 285 710 418 840 C 455 895 442 938 518 960"
+      stroke="#22d3ee"
+      stroke-width="1.4"
+      stroke-linecap="round"
+      stroke-dasharray="5 24"
+      opacity="0.58"
+    />
+  </g>
+</svg>

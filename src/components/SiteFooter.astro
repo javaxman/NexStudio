@@ -1,0 +1,217 @@
+---
+import { footer } from '../data/home';
+
+const hasNewsletterAction =
+  typeof footer.newsletter.actionUrl === 'string' &&
+  footer.newsletter.actionUrl.length > 0;
+
+const nl = footer.newsletter;
+const nextUrl =
+  typeof nl.successRedirect === 'string' && nl.successRedirect.length > 0
+    ? nl.successRedirect
+    : '';
+const notifySubject =
+  typeof nl.notifySubject === 'string' && nl.notifySubject.length > 0
+    ? nl.notifySubject
+    : '';
+
+const linkClass =
+  'text-sm text-sky-400/90 transition-colors hover:text-sky-300';
+---
+
+<footer class="relative z-[1] border-t border-nx-border px-4 py-12 sm:px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="border-b border-nx-border pb-10">
+      <a
+        href="/"
+        class="inline-block text-base font-semibold tracking-tight text-nx-fg hover:text-white sm:text-lg"
+        >{footer.brandName}</a
+      >
+      <p class="mt-2 max-w-xl text-sm leading-relaxed text-nx-muted">
+        {footer.tagline}
+      </p>
+    </div>
+
+    <!-- Quattro colonne omogenee (solo link / elenchi); preferenze cookie sotto, staccate -->
+    <div class="border-b border-nx-border py-10">
+      <div
+        class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:items-start lg:gap-x-10 xl:gap-x-12"
+      >
+        <div class="min-w-0">
+          <p
+            class="mb-4 text-xs font-semibold uppercase tracking-wider text-nx-fg"
+          >
+            {footer.columnTitles.sections}
+          </p>
+          <ul class="space-y-2.5">
+            {footer.homeNav.map((link) => (
+              <li>
+                <a class={linkClass} href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="min-w-0">
+          <p
+            class="mb-4 text-xs font-semibold uppercase tracking-wider text-nx-fg"
+          >
+            {footer.columnTitles.legal}
+          </p>
+          <ul class="space-y-2.5">
+            {footer.legalColumnNav.map((link) => (
+              <li>
+                <a class={linkClass} href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="min-w-0">
+          <p
+            class="mb-4 text-xs font-semibold uppercase tracking-wider text-nx-fg"
+          >
+            {footer.columnTitles.social}
+          </p>
+          <ul class="space-y-2.5 text-sm">
+            {footer.socialLinks.map((item) => (
+              <li>
+                {item.href ? (
+                  <a
+                    class={linkClass}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <span
+                    class="cursor-not-allowed text-nx-muted opacity-50"
+                    title="URL da configurare in footer.ts"
+                  >
+                    {item.label}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="min-w-0">
+          <p
+            class="mb-4 text-xs font-semibold uppercase tracking-wider text-nx-fg"
+          >
+            {footer.columnTitles.company}
+          </p>
+          <ul class="space-y-2.5">
+            {footer.companyNav.map((link) => (
+              <li>
+                {link.href ? (
+                  <a class={linkClass} href={link.href}>
+                    {link.label}
+                  </a>
+                ) : (
+                  <span class="text-sm text-nx-muted" title="Collegamento in arrivo">
+                    {link.label}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="mt-10 flex flex-col gap-3 border-t border-nx-border/70 pt-8 sm:flex-row sm:items-center sm:gap-6"
+        data-nx-footer-print-collapsible
+      >
+        <button
+          type="button"
+          class="inline-flex h-10 shrink-0 items-center justify-center self-start rounded-lg border border-nx-border bg-nx-bg/50 px-4 text-sm font-medium text-sky-400/90 transition-colors hover:border-sky-500/35 hover:bg-sky-500/5 hover:text-sky-300 sm:self-auto"
+          data-nx-cc-open
+        >
+          {footer.cookiePreferences.label}
+        </button>
+        <p class="max-w-xl text-xs leading-relaxed text-nx-muted sm:flex-1">
+          {footer.cookiePreferences.hint}
+        </p>
+      </div>
+    </div>
+
+    <!-- Una sola area newsletter, allineata a sinistra come la colonna Sezioni -->
+    <div class="pt-10 lg:max-w-md" data-nx-footer-print-collapsible>
+      <p class="text-xs font-semibold uppercase tracking-wider text-nx-fg">
+        {footer.newsletter.title}
+      </p>
+      <p class="mt-1.5 text-xs leading-relaxed text-nx-muted">
+        {footer.newsletter.description}
+      </p>
+      {
+        hasNewsletterAction ? (
+          <form
+            class="relative mt-3 flex flex-col gap-2 sm:flex-row sm:items-stretch"
+            action={nl.actionUrl}
+            method="post"
+            accept-charset="UTF-8"
+          >
+            {nextUrl ? <input type="hidden" name="_next" value={nextUrl} /> : null}
+            {notifySubject ? (
+              <input type="hidden" name="_subject" value={notifySubject} />
+            ) : null}
+            <input
+              type="text"
+              name="_gotcha"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              class="pointer-events-none absolute -left-[9999px] h-0 w-0 opacity-0"
+            />
+            <input
+              type="email"
+              name={nl.fieldName}
+              required
+              autocomplete="email"
+              placeholder={nl.placeholder}
+              class="min-h-10 w-full rounded-lg border border-nx-border bg-nx-bg/80 px-3 text-sm text-nx-fg placeholder:text-nx-muted/70 outline-none ring-sky-500/30 focus:border-sky-500/40 focus:ring-2"
+            />
+            <button
+              type="submit"
+              class="inline-flex h-10 shrink-0 items-center justify-center rounded-lg bg-nx-fg px-4 text-sm font-semibold text-nx-bg hover:bg-white sm:px-5"
+            >
+              {nl.buttonLabel}
+            </button>
+          </form>
+        ) : (
+          <div class="mt-3 space-y-2">
+            <input
+              type="email"
+              disabled
+              placeholder={nl.placeholder}
+              class="min-h-10 w-full cursor-not-allowed rounded-lg border border-nx-border bg-nx-bg/40 px-3 text-sm text-nx-muted opacity-60"
+              aria-describedby="nx-newsletter-hint"
+            />
+            <button
+              type="button"
+              disabled
+              class="inline-flex h-10 w-full cursor-not-allowed items-center justify-center rounded-lg border border-nx-border bg-nx-elevated/50 text-sm font-medium text-nx-muted opacity-70 sm:w-auto sm:px-5"
+            >
+              {nl.buttonLabel}
+            </button>
+            <p id="nx-newsletter-hint" class="text-xs leading-relaxed text-nx-muted">
+              Iscrizione in arrivo: configura l’endpoint nel progetto per attivare il modulo.
+            </p>
+          </div>
+        )
+      }
+    </div>
+
+    <p class="pt-8 text-xs leading-relaxed text-nx-muted sm:text-sm">
+      © {new Date().getFullYear()} NexStudio. {footer.legalLine}
+    </p>
+  </div>
+</footer>

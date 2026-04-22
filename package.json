@@ -1,0 +1,29 @@
+{
+  "name": "nexstudio",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "dev:fresh": "node -e \"require('fs').rmSync('node_modules/.vite',{recursive:true,force:true});\" && astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate-types": "wrangler types"
+  },
+  "dependencies": {
+    "@astrojs/alpinejs": "^0.5.0",
+    "@astrojs/cloudflare": "^13.1.10",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/alpinejs": "^3.13.11",
+    "alpinejs": "^3.15.11",
+    "astro": "^6.1.8",
+    "tailwindcss": "^4.2.2",
+    "wrangler": "^4.83.0"
+  },
+  "overrides": {
+    "vite": "^7"
+  }
+}

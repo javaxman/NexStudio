@@ -1,0 +1,187 @@
+---
+import { chat } from '../data/home';
+
+const pc = chat.prechat;
+const hasFormspree =
+  typeof pc.actionUrl === 'string' && pc.actionUrl.length > 0;
+const nextUrl =
+  typeof pc.successRedirect === 'string' && pc.successRedirect.length > 0
+    ? pc.successRedirect
+    : '';
+const notifySubject =
+  typeof pc.notifySubject === 'string' && pc.notifySubject.length > 0
+    ? pc.notifySubject
+    : '';
+
+const model = {
+  entryUrl: chat.entryUrl,
+  openInNewTab: chat.openInNewTab,
+  actionUrl: pc.actionUrl,
+  mailto: pc.mailto,
+  notifySubject: pc.notifySubject,
+  successRedirect: pc.successRedirect,
+  fieldName: pc.fieldName,
+  fieldEmail: pc.fieldEmail,
+  openChatAfterSubmit: pc.openChatAfterSubmit,
+};
+---
+
+<script
+  type="application/json"
+  id="nx-chat-gate-model"
+  set:html={JSON.stringify(model)}
+/>
+
+<div
+  id="nx-chat-gate-overlay"
+  class="fixed inset-0 z-[203] flex items-center justify-center bg-black/70 p-4 sm:p-6"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="nx-chat-gate-title"
+  aria-hidden="true"
+  hidden
+>
+  <div
+    class="flex max-h-[min(92vh,40rem)] w-full max-w-lg flex-col overflow-hidden rounded-xl border border-nx-border bg-nx-elevated text-nx-fg shadow-2xl"
+    data-nx-chat-gate-panel
+  >
+    <div class="border-b border-nx-border px-5 py-4">
+      <h2 id="nx-chat-gate-title" class="text-lg font-semibold tracking-tight">
+        {pc.title}
+      </h2>
+      <p class="mt-1 text-sm leading-relaxed text-nx-muted">{pc.intro}</p>
+      <div
+        class="mt-4 rounded-lg border border-sky-500/25 bg-sky-500/10 px-3 py-2.5"
+        role="status"
+      >
+        <p
+          class="text-xs font-semibold uppercase tracking-wide text-sky-200/95"
+        >
+          {chat.availability.badge}
+        </p>
+        <p class="mt-1.5 text-sm leading-relaxed text-nx-muted">
+          {chat.availability.body}
+        </p>
+      </div>
+    </div>
+
+    <div class="relative min-h-0 flex-1 overflow-y-auto px-5 py-4">
+      <div id="nx-chat-gate-step-form">
+        <form
+          id="nx-chat-gate-form"
+          class="flex flex-col gap-4"
+          method="post"
+          action={hasFormspree ? pc.actionUrl : '#'}
+          accept-charset="UTF-8"
+        >
+          {
+            hasFormspree && nextUrl ? (
+              <input type="hidden" name="_next" value={nextUrl} />
+            ) : null
+          }
+          {
+            hasFormspree && notifySubject ? (
+              <input type="hidden" name="_subject" value={notifySubject} />
+            ) : null
+          }
+          {
+            hasFormspree ? (
+              <input
+                type="text"
+                name="_gotcha"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+                class="pointer-events-none absolute -left-[9999px] h-0 w-0 opacity-0"
+              />
+            ) : null
+          }
+
+          <div>
+            <label
+              class="block text-xs font-medium text-nx-muted"
+              for="nx-cg-name"
+            >
+              {pc.nameLabel}
+            </label>
+            <input
+              id="nx-cg-name"
+              type="text"
+              name={pc.fieldName}
+              autocomplete="name"
+              class="mt-1.5 min-h-10 w-full rounded-lg border border-nx-border bg-nx-bg/80 px-3 text-sm text-nx-fg outline-none ring-sky-500/30 focus:border-sky-500/40 focus:ring-2"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-xs font-medium text-nx-muted"
+              for="nx-cg-email"
+            >
+              {pc.emailLabel}
+            </label>
+            <input
+              id="nx-cg-email"
+              type="email"
+              name={pc.fieldEmail}
+              required
+              autocomplete="email"
+              class="mt-1.5 min-h-10 w-full rounded-lg border border-nx-border bg-nx-bg/80 px-3 text-sm text-nx-fg outline-none ring-sky-500/30 focus:border-sky-500/40 focus:ring-2"
+            />
+          </div>
+
+          <p
+            id="nx-chat-gate-form-error"
+            class="hidden text-sm leading-relaxed text-red-400/90"
+            role="alert"
+          >
+          </p>
+
+          <div class="flex flex-col-reverse gap-2 pt-1 sm:flex-row sm:justify-end">
+            <button
+              type="button"
+              data-nx-chat-gate-close
+              class="h-10 rounded-lg border border-nx-border px-4 text-sm font-medium text-nx-muted hover:text-nx-fg"
+            >
+              {pc.closeLabel}
+            </button>
+            <button
+              type="submit"
+              class="inline-flex h-10 items-center justify-center rounded-lg bg-nx-fg px-5 text-sm font-semibold text-nx-bg hover:bg-white"
+            >
+              {pc.submitLabel}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="nx-chat-gate-step-success" class="hidden">
+        <p
+          id="nx-chat-gate-success-text"
+          class="text-sm leading-relaxed text-nx-muted"
+        >
+          {pc.successMessage}
+        </p>
+        <div class="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <button
+            type="button"
+            data-nx-chat-gate-close
+            class="h-10 rounded-lg border border-nx-border px-4 text-sm font-medium text-nx-muted hover:text-nx-fg"
+          >
+            {pc.closeLabel}
+          </button>
+          <button
+            type="button"
+            id="nx-chat-gate-open-chat"
+            class="inline-flex h-10 items-center justify-center rounded-lg bg-nx-fg px-5 text-sm font-semibold text-nx-bg hover:bg-white"
+          >
+            {pc.enterChatLabel}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/nx-chat-gate-modal.ts';
+</script>

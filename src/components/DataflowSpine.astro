@@ -1,0 +1,82 @@
+---
+/**
+ * Continuazione dei flussi dati dell'hero: dalla destra verso sinistra,
+ * inclinazione verso il basso, fino alla fascia del titolo "Prodotti".
+ * Dietro a testo e card (main ha stacking; questo blocco è z-0).
+ */
+---
+
+<div class="nx-dataflow-spine" aria-hidden="true">
+  <svg
+    class="nx-dataflow-spine-svg"
+    viewBox="0 0 1480 2800"
+    preserveAspectRatio="none"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <filter
+        id="nx-spine-glow"
+        x="-30%"
+        y="-30%"
+        width="160%"
+        height="160%"
+        color-interpolation-filters="sRGB"
+      >
+        <feGaussianBlur stdDeviation="2.2" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      <linearGradient id="nx-spine-stroke" x1="100%" y1="0%" x2="0%" y2="60%">
+        <stop offset="0%" stop-color="#a5f3fc" stop-opacity="0.75" />
+        <stop offset="40%" stop-color="#38bdf8" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.25" />
+      </linearGradient>
+    </defs>
+
+    <g filter="url(#nx-spine-glow)" opacity="0.72">
+      <!-- Entrata da dx (fuori canvas) → curva verso sx con pendenza verso il basso; fascia ~y 980–1280 = titolo Prodotti su viewport tipiche -->
+      <path
+        class="nx-flow-line nx-flow-line--a"
+        vector-effect="non-scaling-stroke"
+        d="M 1460 80 C 1320 320 1240 520 1080 720 C 920 920 680 1020 400 1080 C 260 1100 140 1140 60 1180"
+        stroke="url(#nx-spine-stroke)"
+        stroke-width="2.1"
+        stroke-linecap="round"
+        stroke-dasharray="8 22"
+      />
+      <path
+        class="nx-flow-line nx-flow-line--b"
+        vector-effect="non-scaling-stroke"
+        d="M 1420 200 C 1280 440 1180 660 1020 860 C 860 1060 600 1120 340 1180 C 200 1210 100 1240 40 1280"
+        stroke="url(#nx-spine-stroke)"
+        stroke-width="1.55"
+        stroke-linecap="round"
+        stroke-dasharray="6 18"
+        opacity="0.78"
+      />
+      <path
+        class="nx-flow-line nx-flow-line--c"
+        vector-effect="non-scaling-stroke"
+        d="M 1380 40 C 1240 260 1140 480 960 680 C 800 880 520 960 280 1020 C 160 1040 60 1080 20 1120"
+        stroke="#67e8f9"
+        stroke-width="1.15"
+        stroke-linecap="round"
+        stroke-dasharray="4 16"
+        opacity="0.45"
+      />
+      <path
+        class="nx-flow-line nx-flow-line--d"
+        vector-effect="non-scaling-stroke"
+        d="M 1440 280 C 1300 520 1200 740 1040 940 C 880 1140 640 1200 380 1260 C 240 1290 120 1320 80 1360"
+        stroke="#22d3ee"
+        stroke-width="1.35"
+        stroke-linecap="round"
+        stroke-dasharray="5 24"
+        opacity="0.52"
+      />
+    </g>
+  </svg>
+</div>

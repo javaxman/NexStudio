@@ -1,0 +1,88 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  heading: string;
+  /** Sottotitolo opzionale sotto l’H1 */
+  lead?: string;
+  /**
+   * Stili `@media print` (sfondo chiaro, moduli footer ridotti, modali nascosti).
+   * Imposta `false` se la pagina non deve attivare il foglio stampa dedicato.
+   */
+  printFriendly?: boolean;
+}
+
+const {
+  title,
+  description = 'NexStudio — software e IA per settori regolamentati.',
+  heading,
+  lead,
+  printFriendly = true,
+} = Astro.props;
+
+const printDate = new Intl.DateTimeFormat('it-IT', {
+  dateStyle: 'long',
+}).format(new Date());
+const printSource = Astro.url.href;
+---
+
+<BaseLayout title={title} description={description}>
+  <div
+    class:list={[
+      'nx-grid-bg relative flex min-h-screen flex-col',
+      printFriendly && 'nx-print-sheet',
+    ]}
+  >
+    <header
+      class="sticky top-0 z-50 border-b border-nx-border/40 bg-black"
+    >
+      <div
+        class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6"
+      >
+        <a
+          href="/"
+          class="text-lg font-semibold tracking-tight text-nx-fg hover:text-white sm:text-xl"
+          >NexStudio</a
+        >
+        <a
+          class="text-sm font-medium text-sky-400/90 hover:text-sky-300"
+          href="/#contatti">Contattaci</a
+        >
+      </div>
+    </header>
+    <main class="relative z-[1] flex-1 px-4 py-12 sm:px-6 sm:py-16">
+      <article class="mx-auto max-w-3xl">
+        {
+          printFriendly ? (
+            <p class="nx-print-meta mb-6 hidden border-b border-slate-300 pb-3 text-xs leading-relaxed text-slate-600">
+              {printDate}
+              <span class="text-slate-500"> · </span>
+              <span class="break-all">{printSource}</span>
+            </p>
+          ) : null
+        }
+        <h1
+          class="text-3xl font-semibold tracking-tight text-nx-fg sm:text-4xl"
+        >
+          {heading}
+        </h1>
+        {
+          lead && (
+            <p class="mt-3 text-base leading-relaxed text-nx-muted sm:text-lg">
+              {lead}
+            </p>
+          )
+        }
+        <div
+          class="mt-10 space-y-6 text-sm leading-relaxed text-nx-muted sm:text-base [&_h2]:mt-10 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:text-nx-fg [&_h2]:first:mt-0 [&_li]:mt-2 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_p]:mt-4 [&_p]:first:mt-0 [&_strong]:text-nx-fg [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5"
+        >
+          <slot />
+        </div>
+      </article>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

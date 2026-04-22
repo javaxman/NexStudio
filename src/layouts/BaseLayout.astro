@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
+import ChatGateModal from '../components/ChatGateModal.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'NexStudio — Software su misura',
+  description = 'Studio di sviluppo software: web app, API, automazioni e prodotti digitali, con focus su qualità e time-to-market.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="it" class="bg-nx-bg">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#030712" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen">
+    <slot />
+    <CookieConsent />
+    <ChatGateModal />
+    <script src="/particle-bg.js" defer></script>
+    <!--
+      Widget chat / analytics: caricare solo dopo consenso, es. ascoltando
+      `nexstudio:cookie-consent` (vedi informativa cookie) o usando
+      `window.NexStudioCookieConsent?.getConsent()`.
+    -->
+  </body>
+</html>

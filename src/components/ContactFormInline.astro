@@ -1,0 +1,196 @@
+---
+import { cta } from '../data/home';
+
+const cf = cta.contactForm;
+const model = {
+  actionUrl: cf.actionUrl,
+  mailto: cf.mailto,
+  notifySubject: cf.notifySubject,
+  successRedirect: cf.successRedirect,
+  fieldName: cf.fieldName,
+  fieldCompany: cf.fieldCompany,
+  fieldCountry: cf.fieldCountry,
+  fieldEmail: cf.fieldEmail,
+  fieldMessage: cf.fieldMessage,
+};
+const hasFormspree =
+  typeof cf.actionUrl === 'string' && cf.actionUrl.length > 0;
+const nextUrl =
+  typeof cf.successRedirect === 'string' && cf.successRedirect.length > 0
+    ? cf.successRedirect
+    : '';
+const notifySubject =
+  typeof cf.notifySubject === 'string' && cf.notifySubject.length > 0
+    ? cf.notifySubject
+    : '';
+const fieldClass =
+  'mt-1.5 min-h-10 w-full rounded-lg border border-nx-border bg-nx-bg/80 px-3 text-sm text-nx-fg outline-none ring-sky-500/30 focus:border-sky-500/40 focus:ring-2';
+---
+
+<script
+  type="application/json"
+  id="nx-contact-model"
+  set:html={JSON.stringify(model)}
+/>
+
+<div
+  class="nx-contact-glossy group relative rounded-2xl p-px shadow-[0_0_0_1px_rgba(255,255,255,0.07),0_22px_60px_-18px_rgba(0,0,0,0.55),0_0_50px_-10px_rgba(56,189,248,0.22),0_0_80px_-20px_rgba(167,139,250,0.12)]"
+>
+  <div
+    class="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-white/35 via-sky-400/25 to-violet-500/30 opacity-90"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-tl from-sky-500/10 via-transparent to-violet-500/15 opacity-70 blur-sm"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="relative overflow-hidden rounded-2xl border border-white/10 bg-nx-elevated/65 p-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.14),inset_0_-1px_0_0_rgba(0,0,0,0.12)] backdrop-blur-md sm:p-5"
+  >
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute -right-6 -top-8 h-28 w-28 rounded-full bg-sky-400/15 blur-2xl"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute -bottom-10 -left-4 h-32 w-40 rounded-full bg-violet-500/10 blur-3xl"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="relative z-[1]">
+  <h3
+    id="nx-contact-form-title"
+    class="text-base font-semibold tracking-tight text-nx-fg drop-shadow-sm"
+  >
+    {cf.title}
+  </h3>
+  <p class="mt-1 text-xs leading-relaxed text-nx-muted sm:text-sm">
+    {cf.description}
+  </p>
+
+  <form
+    id="nx-contact-form"
+    class="relative mt-4 space-y-3.5"
+    method="post"
+    action={hasFormspree ? cf.actionUrl : '#'}
+    accept-charset="UTF-8"
+    aria-labelledby="nx-contact-form-title"
+  >
+    {
+      hasFormspree && nextUrl ? (
+        <input type="hidden" name="_next" value={nextUrl} />
+      ) : null
+    }
+    {
+      hasFormspree && notifySubject ? (
+        <input type="hidden" name="_subject" value={notifySubject} />
+      ) : null
+    }
+    {
+      hasFormspree ? (
+        <input
+          type="text"
+          name="_gotcha"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+          class="pointer-events-none absolute -left-[9999px] h-0 w-0 opacity-0"
+        />
+      ) : null
+    }
+
+    <div>
+      <label class="block text-xs font-medium text-nx-muted" for="nx-cf-name">
+        {cf.nameLabel}
+      </label>
+      <input
+        id="nx-cf-name"
+        type="text"
+        name={cf.fieldName}
+        required
+        autocomplete="name"
+        class={fieldClass}
+      />
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-nx-muted" for="nx-cf-company">
+        {cf.companyLabel}
+      </label>
+      <input
+        id="nx-cf-company"
+        type="text"
+        name={cf.fieldCompany}
+        autocomplete="organization"
+        class={fieldClass}
+      />
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-nx-muted" for="nx-cf-email">
+        {cf.emailLabel}
+      </label>
+      <input
+        id="nx-cf-email"
+        type="email"
+        name={cf.fieldEmail}
+        required
+        autocomplete="email"
+        class={fieldClass}
+      />
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-nx-muted" for="nx-cf-country">
+        {cf.countryLabel}
+      </label>
+      <input
+        id="nx-cf-country"
+        type="text"
+        name={cf.fieldCountry}
+        required
+        autocomplete="country-name"
+        class={fieldClass}
+      />
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-nx-muted" for="nx-cf-msg">
+        {cf.messageLabel}
+      </label>
+      <textarea
+        id="nx-cf-msg"
+        name={cf.fieldMessage}
+        required
+        rows={4}
+        class="mt-1.5 min-h-[6.5rem] w-full resize-y rounded-lg border border-nx-border bg-nx-bg/80 px-3 py-2 text-sm leading-relaxed text-nx-fg outline-none ring-sky-500/30 focus:border-sky-500/40 focus:ring-2"
+      ></textarea>
+    </div>
+
+    <p
+      id="nx-contact-form-error"
+      class="hidden text-sm leading-relaxed text-red-400/90"
+      role="alert"
+    >
+    </p>
+
+    <div class="pt-1">
+      <button
+        type="submit"
+        class="inline-flex h-10 w-full items-center justify-center rounded-lg bg-nx-fg px-5 text-sm font-semibold text-nx-bg hover:bg-white sm:w-auto sm:min-w-[10rem]"
+      >
+        {cf.submitLabel}
+      </button>
+    </div>
+  </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/nx-contact-form.ts';
+</script>

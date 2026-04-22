@@ -1,0 +1,271 @@
+---
+/**
+ * Sfera wireframe geodetica (icosfera) generata a build, solo stroke, sfondo trasparente.
+ * Profondità: opacità da z proiettato come nelle linee canvas delle particelle.
+ */
+type Vec3 = [number, number, number];
+
+function norm(v: Vec3): Vec3 {
+  const L = Math.hypot(v[0], v[1], v[2]);
+  if (L < 1e-8) return [0, 0, 1];
+  return [v[0] / L, v[1] / L, v[2] / L];
+}
+
+function addV(vs: Vec3[], v: Vec3): number {
+  vs.push(norm(v));
+  return vs.length - 1;
+}
+
+const T = (1 + Math.sqrt(5)) / 2;
+const verts: Vec3[] = [
+  [-1, T, 0],
+  [1, T, 0],
+  [-1, -T, 0],
+  [1, -T, 0],
+  [0, -1, T],
+  [0, 1, T],
+  [0, -1, -T],
+  [0, 1, -T],
+  [T, 0, -1],
+  [T, 0, 1],
+  [-T, 0, -1],
+  [-T, 0, 1],
+].map(norm);
+
+/** Ordine vertici come three.js IcosahedronGeometry */
+let faces: [number, number, number][] = [
+  [0, 11, 5],
+  [0, 5, 1],
+  [0, 1, 7],
+  [0, 7, 10],
+  [0, 10, 11],
+  [1, 5, 9],
+  [5, 11, 4],
+  [11, 10, 2],
+  [10, 7, 6],
+  [7, 1, 8],
+  [3, 9, 4],
+  [3, 4, 2],
+  [3, 2, 6],
+  [3, 6, 8],
+  [3, 8, 9],
+  [4, 9, 5],
+  [2, 4, 11],
+  [6, 2, 10],
+  [8, 6, 7],
+  [9, 8, 1],
+];
+
+const midCache = new Map<string, number>();
+function mid(a: number, b: number): number {
+  const z = a < b ? `${a}_${b}` : `${b}_${a}`;
+  if (midCache.has(z)) return midCache.get(z)!;
+  const id = addV(verts, [
+    verts[a][0] + verts[b][0],
+    verts[a][1] + verts[b][1],
+    verts[a][2] + verts[b][2],
+  ]);
+  midCache.set(z, id);
+  return id;
+}
+
+function subdivide(): void {
+  midCache.clear();
+  const next: [number, number, number][] = [];
+  for (const [i, j, k] of faces) {
+    const a = mid(i, j);
+    const b = mid(j, k);
+    const c = mid(k, i);
+    next.push([i, a, c], [j, b, a], [k, c, b], [a, b, c]);
+  }
+  faces = next;
+}
+
+/** 2 suddivisioni → mesh fine tipo riferimento (~162 vertici) */
+subdivide();
+subdivide();
+
+const edges = new Set<string>();
+for (const [i, j, k] of faces) {
+  const pushE = (a: number, b: number) => {
+    const e = a < b ? `${a}_${b}` : `${b}_${a}`;
+    edges.add(e);
+  };
+  pushE(i, j);
+  pushE(j, k);
+  pushE(k, i);
+}
+
+/** Rotazione: sfera “in basso a destra”, bulge verso osservatore */
+function rotY(v: Vec3, ang: number): Vec3 {
+  const c = Math.cos(ang);
+  const s = Math.sin(ang);
+  return [c * v[0] + s * v[2], v[1], -s * v[0] + c * v[2]];
+}
+
+function rotX(v: Vec3, ang: number): Vec3 {
+  const c = Math.cos(ang);
+  const s = Math.sin(ang);
+  return [v[0], c * v[1] - s * v[2], s * v[1] + c * v[2]];
+}
+
+const ry = -0.62;
+const rx = -0.35;
+const rz = 0.12;
+
+function rotZ(v: Vec3, ang: number): Vec3 {
+  const c = Math.cos(ang);
+  const s = Math.sin(ang);
+  return [c * v[0] - s * v[1], s * v[0] + c * v[1], v[2]];
+}
+
+function transform(v: Vec3): Vec3 {
+  let p: Vec3 = [...v] as Vec3;
+  p = rotY(p, ry);
+  p = rotX(p, rx);
+  p = rotZ(p, rz);
+  return p;
+}
+
+const D = 2.65;
+const SCALE = 110;
+
+type P2 = { x: number; y: number; z: number };
+
+const projected: P2[] = verts.map((v) => {
+  const p = transform(v);
+  const d = D - p[2];
+  const s = d > 0.15 ? D / d : 0;
+  return {
+    x: p[0] * s * SCALE,
+    y: -p[1] * s * SCALE,
+    z: p[2],
+  };
+});
+
+let minX = Infinity;
+let minY = Infinity;
+let maxX = -Infinity;
+let maxY = -Infinity;
+for (const p of projected) {
+  minX = Math.min(minX, p.x);
+  maxX = Math.max(maxX, p.x);
+  minY = Math.min(minY, p.y);
+  maxY = Math.max(maxY, p.y);
+}
+
+const pad = 4;
+const vbW = maxX - minX + pad * 2;
+const vbH = maxY - minY + pad * 2;
+
+function toSvg(p: P2): [number, number] {
+  return [p.x - minX + pad, p.y - minY + pad];
+}
+
+const zMin = Math.min(...projected.map((p) => p.z));
+const zMax = Math.max(...projected.map((p) => p.z));
+function depthT(z: number): number {
+  return zMax > zMin ? (z - zMin) / (zMax - zMin) : 0.5;
+}
+
+/** Raggruppa segmenti per profondità per rendere la tridimensionalità più leggibile */
+const buckets: Record<string, string[]> = { b0: [], b1: [], b2: [], b3: [] };
+for (const e of edges) {
+  const [a, b] = e.split('_').map(Number);
+  const pa = projected[a];
+  const pb = projected[b];
+  const [xa, ya] = toSvg(pa);
+  const [xb, yb] = toSvg(pb);
+  const t = depthT((pa.z + pb.z) * 0.5);
+  const key = t < 0.28 ? 'b0' : t < 0.5 ? 'b1' : t < 0.74 ? 'b2' : 'b3';
+  buckets[key].push(`M${xa} ${ya}L${xb} ${yb}`);
+}
+
+const pathD0 = buckets.b0.join('');
+const pathD1 = buckets.b1.join('');
+const pathD2 = buckets.b2.join('');
+const pathD3 = buckets.b3.join('');
+
+const nodeR = Math.max(0.34, Math.min(vbW, vbH) * 0.0038);
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props as Props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 ${vbW} ${vbH}`}
+  class={className}
+  fill="none"
+  aria-hidden="true"
+>
+  <defs>
+    <filter id="nx-globe-front-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.4" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <g stroke-linecap="round">
+    {pathD0 && (
+      <path
+        d={pathD0}
+        stroke="rgb(56 189 248)"
+        stroke-opacity="0.115"
+        stroke-width="0.86"
+        vector-effect="non-scaling-stroke"
+      />
+    )}
+    {pathD1 && (
+      <path
+        d={pathD1}
+        stroke="rgb(56 189 248)"
+        stroke-opacity="0.19"
+        stroke-width="1.05"
+        vector-effect="non-scaling-stroke"
+      />
+    )}
+    {pathD2 && (
+      <path
+        d={pathD2}
+        stroke="rgb(56 189 248)"
+        stroke-opacity="0.24"
+        stroke-width="1.22"
+        vector-effect="non-scaling-stroke"
+      />
+    )}
+    {pathD3 && (
+      <path
+        d={pathD3}
+        stroke="rgb(125 211 252)"
+        stroke-opacity="0.41"
+        stroke-width="1.52"
+        vector-effect="non-scaling-stroke"
+      />
+    )}
+  </g>
+  <g fill="rgb(147 197 253)">
+    {verts.map((_, idx) => {
+      const p = projected[idx];
+      const [cx, cy] = toSvg(p);
+      const t = depthT(p.z);
+      const op = 0.14 + t * 0.62;
+      const radius = nodeR * (0.86 + t * 1.3);
+      const isFront = t > 0.75;
+      return (
+        <circle
+          cx={cx}
+          cy={cy}
+          fill-opacity={op}
+          fill={isFront ? 'rgb(224 242 254)' : 'rgb(147 197 253)'}
+          r={radius}
+          filter={isFront ? 'url(#nx-globe-front-glow)' : undefined}
+        />
+      );
+    })}
+  </g>
+</svg>

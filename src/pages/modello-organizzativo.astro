@@ -1,0 +1,450 @@
+---
+import SubpageLayout from '../layouts/SubpageLayout.astro';
+
+const link = 'text-sky-400/90 underline-offset-2 hover:text-sky-300 hover:underline';
+const tbl = 'mt-4 w-full border-collapse text-left text-sm';
+const th = 'border border-nx-border bg-nx-surface/60 px-3 py-2 font-semibold text-nx-fg';
+const td = 'border border-nx-border px-3 py-2 align-top text-nx-muted';
+---
+
+<SubpageLayout
+  title="Modello organizzativo — NexStudio"
+  description="Modello organizzativo NexStudio: ruoli, governance, RACI, controlli lean, KPI e piano operativo a 30 giorni."
+  heading="Modello organizzativo"
+  lead="Schema di ruoli, ritmi di governo e responsabilità per una software company snella (SaaS legal/med). Non sostituisce valutazioni legali (es. D.Lgs. 231/2001): va allineato a società, organi e consulenti."
+>
+  <div class="[&_h3]:mt-6 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-nx-fg">
+    <p class="border-l-2 border-sky-500/35 pl-4 text-sm leading-relaxed text-nx-muted">
+      Documento operativo per <strong class="text-nx-fg">NexStudio</strong> (sede Bangkok). Ruoli
+      numerici indicativi: adattare al team reale e formalizzare nomine e deleghe per iscritto.
+    </p>
+
+    <h2 id="indice" class="!mt-8">Indice</h2>
+    <ol class="!mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed sm:text-base">
+      <li><a class={link} href="#ruoli">Ruoli e perimetro</a></li>
+      <li><a class={link} href="#governance">Governance essenziale</a></li>
+      <li><a class={link} href="#responsabilita">Principali responsabilità (sintesi)</a></li>
+      <li><a class={link} href="#raci">RACI per processi critici</a></li>
+      <li><a class={link} href="#flussi">Flussi decisionali rapidi</a></li>
+      <li><a class={link} href="#controlli">Controlli minimi obbligatori (lean)</a></li>
+      <li><a class={link} href="#kpi">KPI essenziali</a></li>
+      <li><a class={link} href="#documentazione">Documentazione minima da mantenere</a></li>
+      <li><a class={link} href="#piano-30">Primo piano operativo (30 giorni)</a></li>
+      <li><a class={link} href="#outsourcing">Outsourcing consigliato</a></li>
+      <li><a class={link} href="#note">Note pratiche e raccomandazioni</a></li>
+    </ol>
+
+    <h2 id="ruoli">1. Ruoli e perimetro</h2>
+    <p>
+      Elenco sintetico delle funzioni, con attese di impegno (full-time, part-time, frazionale o
+      esternalizzato). I numeri tra parentesi sono orientativi per una fase early-stage.
+    </p>
+
+    <ul>
+      <li>
+        <strong>Founder / CEO (1):</strong> strategia, approvazione delle policy, contatti con board
+        e investitori, accountability complessiva anche verso obblighi di legge e contratti.
+      </li>
+      <li>
+        <strong>CTO / Head of Product (1):</strong> architettura, roadmap, quality gate di prodotto,
+        responsabilità tecnica end-to-end.
+      </li>
+      <li>
+        <strong>Lead Engineer (1–2):</strong> sviluppo, code review, esecuzione CI/CD e qualità del
+        codice in reparto.
+      </li>
+      <li>
+        <strong>DevOps / Platform (1, oppure outsourcing):</strong> deploy, KMS, backup e
+        disaster recovery, governo dell’ambiente di produzione.
+      </li>
+      <li>
+        <strong>Security &amp; Privacy Lead (1, ruolo ibrido o contractor):</strong> sicurezza
+        operativa, gestione delle vulnerabilità, coordinamento con il DPO.
+      </li>
+      <li>
+        <strong>DPO / Privacy Responsible (frazionale o outsourcing):</strong> DPIA, gestione dei
+        diritti degli interessati, coerenza dell’informativa privacy.
+      </li>
+      <li>
+        <strong>Legal &amp; Compliance (frazionale o legale interno):</strong> contratti, NDA,
+        revisione delle normative di settore legale e medico pertinenti ai prodotti.
+      </li>
+      <li>
+        <strong>Product / Clinical Advisor (part-time o consulente):</strong> validazione di
+        funzionalità con impatto medico o legale, limiti d’uso e avvertenze.
+      </li>
+      <li>
+        <strong>Customer Success / Support (1):</strong> onboarding clienti, gestione richieste,
+        escalation verso tecnici e governance.
+      </li>
+      <li>
+        <strong>Operations / HR (1, part-time):</strong> onboarding del personale, formazione,
+        gestione delle segnalazioni interne.
+      </li>
+      <li>
+        <strong>Finance (1, part-time o outsourcing):</strong> contabilità, pagamenti, policy su
+        incassi e fornitori.
+      </li>
+    </ul>
+
+    <h2 id="governance">2. Governance essenziale</h2>
+    <ul>
+      <li>
+        <strong>Weekly Tactical</strong> (Founder, CTO, Security/Privacy Lead, Customer Success):
+        priorità operative, incidenti aperti, rilasci critici in corso.
+      </li>
+      <li>
+        <strong>Biweekly Product Sync</strong> (CTO, Lead Engineer, Product Advisor): backlog,
+        piano di release, checkpoint di compliance di prodotto.
+      </li>
+      <li>
+        <strong>Monthly Compliance Check</strong> (Founder/CEO, Legal, DPO, Security Lead): revisione
+        DPIA, vendor ad alto rischio, sintesi incidenti e azioni correttive.
+      </li>
+      <li>
+        <strong>Quarterly Board / Founders review:</strong> strategia, budget, rischi maggiori e
+        capacità organizzative.
+      </li>
+    </ul>
+
+    <h2 id="responsabilita">3. Principali responsabilità (sintesi)</h2>
+    <ul>
+      <li>
+        <strong>Codice etico e policy:</strong> owner <em>Legal &amp; Compliance</em> — approvatore
+        <em>CEO</em>.
+      </li>
+      <li>
+        <strong>Sicurezza operativa e incident response:</strong> owner <em>Security Lead</em> —
+        esecutore tecnico <em>CTO</em>.
+      </li>
+      <li>
+        <strong>Privacy, trattamenti sensibili e DPIA:</strong> owner <em>DPO</em> — supporto
+        <em>Legal</em>.
+      </li>
+      <li>
+        <strong>Rilasci in produzione:</strong> accountable <em>CTO</em> — responsible <em>Lead
+        Engineer</em> — consulted <em>Security</em>, <em>DPO</em>, <em>Product Advisor</em>.
+      </li>
+      <li>
+        <strong>Fornitori e sub-processori:</strong> owner <em>Operations</em> + <em>Legal</em> —
+        due diligence <em>Security</em> / <em>DPO</em>.
+      </li>
+      <li>
+        <strong>Richieste degli interessati (DSR):</strong> owner <em>DPO</em> — esecuzione operativa
+        <em>Customer Success</em> (ove applicabile).
+      </li>
+      <li>
+        <strong>Segnalazioni e whistleblowing:</strong> owner <em>Operations</em> / <em>HR</em> —
+        supporto investigativo <em>Legal</em>.
+      </li>
+    </ul>
+
+    <h2 id="raci">4. RACI sintetico per processi critici</h2>
+    <p>
+      Legenda: <strong>R</strong> = Responsible, <strong>A</strong> = Accountable,
+      <strong>C</strong> = Consulted, <strong>I</strong> = Informed.
+    </p>
+
+    <h3>Rilascio in produzione</h3>
+    <table class={tbl}>
+      <thead>
+        <tr>
+          <th class={th}>Ruolo</th>
+          <th class={th}>R</th>
+          <th class={th}>A</th>
+          <th class={th}>C</th>
+          <th class={th}>I</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class={td}>Lead Engineer</td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>CTO</td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>Security Lead, DPO, Product Advisor</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>CEO, Customer Success</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Incident response (violazione dei dati)</h3>
+    <table class={tbl}>
+      <thead>
+        <tr>
+          <th class={th}>Ruolo</th>
+          <th class={th}>R</th>
+          <th class={th}>A</th>
+          <th class={th}>C</th>
+          <th class={th}>I</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class={td}>Security Lead</td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>CEO</td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>DPO, Legal, CTO</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>Clienti coinvolti, Board (se impatto elevato)</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Onboarding vendor (sub-processore)</h3>
+    <table class={tbl}>
+      <thead>
+        <tr>
+          <th class={th}>Ruolo</th>
+          <th class={th}>R</th>
+          <th class={th}>A</th>
+          <th class={th}>C</th>
+          <th class={th}>I</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class={td}>Operations</td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>Legal</td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>Security Lead, DPO</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>CTO, Finance</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>DPIA per modulo sanitario o legale</h3>
+    <table class={tbl}>
+      <thead>
+        <tr>
+          <th class={th}>Ruolo</th>
+          <th class={th}>R</th>
+          <th class={th}>A</th>
+          <th class={th}>C</th>
+          <th class={th}>I</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class={td}>DPO</td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>Legal</td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>Product Advisor, CTO, Security Lead</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+          <td class={td}></td>
+        </tr>
+        <tr>
+          <td class={td}>CEO</td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}></td>
+          <td class={td}>●</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="flussi">5. Flussi decisionali rapidi</h2>
+    <ul>
+      <li>
+        <strong>Decisione tecnica ordinaria:</strong> Lead Engineer → CTO (documentare su ticket se
+        impatta rischio o contratti).
+      </li>
+      <li>
+        <strong>Rilascio con impatto privacy o sicurezza:</strong> approvazione obbligatoria di
+        <em>Security Lead</em> e <em>DPO</em> (target: entro 48 ore lavorative).
+      </li>
+      <li>
+        <strong>Incident P0:</strong> <em>Security Lead</em> notifica CEO, DPO e Legal entro 4 ore;
+        escalation al Board se l’impatto è elevato (clienti, regolatori, volumi o classi di dati).
+      </li>
+    </ul>
+
+    <h2 id="controlli">6. Controlli minimi obbligatori (lean)</h2>
+    <ul>
+      <li>IAM con MFA per accesso a produzione e a segreti.</li>
+      <li>CI/CD con SAST e scansione automatica delle dipendenze.</li>
+      <li>SBOM generato automaticamente per ogni release.</li>
+      <li>TLS in transito; cifratura a riposo per dati sensibili.</li>
+      <li>Backup giornalieri e test DR trimestrale (ripristino documentato).</li>
+      <li>Log degli accessi e alerting su anomalie (SIEM o servizio gestito).</li>
+      <li>Checklist pre-release (security/privacy) con traccia digitale di approvazione.</li>
+    </ul>
+
+    <h2 id="kpi">7. KPI essenziali (core metrics)</h2>
+    <ul>
+      <li>
+        <strong>Security:</strong> percentuale di patch critiche entro SLA; MTTD e MTTR per
+        incidenti.
+      </li>
+      <li>
+        <strong>Privacy:</strong> tempo medio di risposta alle DSR; numero di DPIA completate / in
+        corso.
+      </li>
+      <li>
+        <strong>Product:</strong> tempo di ciclo del deploy; copertura test sui moduli critici.
+      </li>
+      <li>
+        <strong>Operations:</strong> uptime rispetto a SLA; tempo medio di risposta del supporto;
+        segnalazioni chiuse nel periodo.
+      </li>
+    </ul>
+
+    <h2 id="documentazione">8. Documentazione minima da mantenere</h2>
+    <ul>
+      <li>Codice etico firmato e registro delle adesioni.</li>
+      <li>Informativa privacy e template di DPA (Data Processing Agreement).</li>
+      <li>DPIA per trattamenti critici.</li>
+      <li>Security whitepaper breve (1–2 pagine) per clienti e audit.</li>
+      <li>Incident response playbook (versione esecutiva).</li>
+      <li>SBOM e registro fornitori / sub-processori.</li>
+      <li>Checklist pre-release e log delle approvazioni.</li>
+    </ul>
+
+    <h2 id="piano-30">9. Primo piano operativo (30 giorni)</h2>
+    <ol>
+      <li>
+        <strong>Giorni 0–3:</strong> nomina formale dei ruoli chiave (Security Lead, DPO frazionale,
+        Legal frazionale).
+      </li>
+      <li>
+        <strong>Giorni 4–10:</strong> integrare la checklist pre-release in CI/CD; abilitare MFA e
+        policy IAM coerenti con il minimo sopra.
+      </li>
+      <li>
+        <strong>Giorni 11–17:</strong> avviare DPIA sul modulo medico/legale più critico; due
+        diligence sui fornitori ad alto rischio.
+      </li>
+      <li>
+        <strong>Giorni 18–24:</strong> pubblicare una Trust Center di base (link al Codice etico,
+        contatti DPO/security, materiali privacy/DPA se disponibili).
+      </li>
+      <li>
+        <strong>Giorni 25–30:</strong> tabletop su incident response; test di rollback deploy e
+        ripristino backup; formazione iniziale obbligatoria (security e privacy).
+      </li>
+    </ol>
+
+    <h2 id="outsourcing">10. Outsourcing consigliato (per restare snelli)</h2>
+    <ul>
+      <li>
+        <strong>Security Ops / SOC:</strong> servizio gestito per log, alerting e penetration test
+        periodici.
+      </li>
+      <li>
+        <strong>DPO e Legal:</strong> consulenti frazionali con esperienza PDPA, GDPR e contesto
+        medico-legale locale.
+      </li>
+      <li>
+        <strong>DevOps / Platform:</strong> servizi cloud gestiti (es. KMS, database gestiti) per
+        ridurre carico operativo interno.
+      </li>
+    </ul>
+
+    <h2 id="note">11. Note pratiche e raccomandazioni</h2>
+    <ul>
+      <li>
+        Mantenere <strong>separazione dei compiti</strong> sui controlli critici (es. chi sviluppa
+        non approva da solo gli accessi a produzione).
+      </li>
+      <li>
+        <strong>Automatizzare</strong> controlli ripetitivi (SAST, SBOM, scansioni dipendenze) nella
+        pipeline.
+      </li>
+      <li>
+        <strong>Documentare</strong> decisioni su rischio e accettazioni (log nel sistema di
+        ticketing) per audit e post-mortem.
+      </li>
+      <li>
+        Coinvolgere <strong>advisor clinici e legali</strong> esterni per convalide su funzionalità ad
+        alto rischio.
+      </li>
+      <li>
+        Prevedere <strong>revisione trimestrale</strong> del modello e aggiornamento delle
+        responsabilità man mano che la società cresce.
+      </li>
+    </ul>
+
+    <h2>Collegamenti</h2>
+    <p>
+      <a class={link} href="/codice-etico">Codice etico</a>
+      <span class="text-nx-muted"> · </span>
+      <a class={link} href="/about">Chi siamo</a>
+      <span class="text-nx-muted"> · </span>
+      <a class={link} href="#indice">Torna all’indice</a>
+    </p>
+  </div>
+</SubpageLayout>
