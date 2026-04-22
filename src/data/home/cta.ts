@@ -1,5 +1,8 @@
 /** Call-to-action (blocco contatti / chiusura pagina) */
 export const cta = {
+  /** Riga sezione (stesso ruolo di FAQ, Stack, …) */
+  eyebrow: 'Contatti',
+
   /** Titolo CTA su due righe (dopo il punto) */
   titleLine1: 'Automatizza il complesso.',
   titleLine2: 'Velocizza il processo.',

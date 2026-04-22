@@ -17,6 +17,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Fallback: la homepage alza il valore misurando l’header in nx-nav-spy.ts */
+    scroll-padding-top: 5.5rem;
   }
   body {
     @apply bg-nx-bg text-nx-fg antialiased;

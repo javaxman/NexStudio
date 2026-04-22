@@ -19,20 +19,9 @@ const linkClass =
   'text-sm text-sky-400/90 transition-colors hover:text-sky-300';
 ---
 
-<footer class="relative z-[1] border-t border-nx-border px-4 py-12 sm:px-6">
+<footer id="site-footer" class="relative z-[1] border-t border-nx-border px-4 py-12 sm:px-6">
   <div class="mx-auto max-w-6xl">
-    <div class="border-b border-nx-border pb-10">
-      <a
-        href="/"
-        class="inline-block text-base font-semibold tracking-tight text-nx-fg hover:text-white sm:text-lg"
-        >{footer.brandName}</a
-      >
-      <p class="mt-2 max-w-xl text-sm leading-relaxed text-nx-muted">
-        {footer.tagline}
-      </p>
-    </div>
-
-    <!-- Quattro colonne omogenee (solo link / elenchi); preferenze cookie sotto, staccate -->
+    <!-- Griglia link; brand + slogan spostati in fondo a fianco al copyright -->
     <div class="border-b border-nx-border py-10">
       <div
         class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:items-start lg:gap-x-10 xl:gap-x-12"
@@ -210,8 +199,17 @@ const linkClass =
       }
     </div>
 
-    <p class="pt-8 text-xs leading-relaxed text-nx-muted sm:text-sm">
-      © {new Date().getFullYear()} NexStudio. {footer.legalLine}
-    </p>
+    <div
+      class="mt-0 flex flex-col gap-3 border-t border-nx-border pt-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
+    >
+      <p class="min-w-0 text-xs leading-relaxed text-nx-muted sm:text-sm">
+        © {new Date().getFullYear()} NexStudio. {footer.legalLine}
+      </p>
+      <p
+        class="max-w-md shrink-0 text-xs leading-relaxed text-nx-muted sm:max-w-lg sm:text-right sm:text-sm"
+      >
+        {footer.tagline}
+      </p>
+    </div>
   </div>
 </footer>

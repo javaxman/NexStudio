@@ -339,13 +339,29 @@ const techSliderItems = stackSection.techSlider.items;
                       {card.body}
                     </p>
                     {'callout' in card && card.callout && (
-                      <div class="mt-4 rounded-xl border border-sky-500/25 bg-sky-950/20 p-4">
-                        <p class="text-sm font-semibold text-sky-200/95">
-                          {card.callout.title}
-                        </p>
-                        <p class="mt-2 text-sm leading-relaxed text-nx-muted">
-                          {card.callout.body}
-                        </p>
+                      <div
+                        class="group relative mt-4 overflow-hidden rounded-xl border border-sky-400/35 bg-gradient-to-br from-sky-500/20 via-slate-900/70 to-violet-950/50 p-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16),0_8px_32px_-6px_rgba(14,165,233,0.18)]"
+                      >
+                        <div
+                          class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.14] via-white/[0.02] to-transparent"
+                          aria-hidden="true"
+                        />
+                        <div
+                          class="pointer-events-none absolute -right-6 -top-12 h-28 w-36 rotate-12 rounded-full bg-gradient-to-br from-cyan-200/30 via-sky-400/15 to-transparent blur-2xl"
+                          aria-hidden="true"
+                        />
+                        <div
+                          class="pointer-events-none absolute -bottom-8 -left-4 h-20 w-32 rotate-[-8deg] rounded-full bg-gradient-to-tr from-violet-500/10 to-transparent blur-xl"
+                          aria-hidden="true"
+                        />
+                        <div class="relative z-10">
+                          <p class="text-sm font-semibold text-sky-100/95">
+                            {card.callout.title}
+                          </p>
+                          <p class="mt-2 text-sm leading-relaxed text-nx-muted">
+                            {card.callout.body}
+                          </p>
+                        </div>
                       </div>
                     )}
                     {'bullets' in card && card.bullets && (
@@ -581,29 +597,47 @@ const techSliderItems = stackSection.techSlider.items;
         </div>
       </section>
 
-      <section id="contatti" class="relative z-10 px-4 pb-16 pt-4 sm:px-6 sm:pb-20">
-        <div
-          id="nx-cta-card"
-          class="relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-nx-border bg-gradient-to-br from-sky-500/15 via-nx-elevated to-violet-600/15 px-5 py-5 sm:px-6 sm:py-6"
-        >
-          <div
-            class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10"
+      <section
+        id="contatti"
+        class="relative z-10 border-t border-nx-border bg-nx-surface/20 px-4 pt-14 pb-16 sm:px-6 sm:pt-20 sm:pb-20"
+      >
+        <div class="mx-auto max-w-6xl">
+          <h2
+            class="text-sm font-semibold uppercase tracking-wider text-sky-400/90"
           >
-            <div class="min-w-0 flex-1 lg:max-w-[min(100%,28rem)] xl:max-w-[min(100%,32rem)]">
-              <h2
-                class="text-2xl font-semibold leading-snug tracking-tight sm:text-3xl"
-              >
-                <span class="block text-nx-fg">{cta.titleLine1}</span>
-                <span class="mt-0.5 block text-sky-200 sm:text-[#bae6fd]">{cta.titleLine2}</span>
-              </h2>
-              <p class="mt-3 max-w-2xl text-nx-muted">
-                {cta.body}
-              </p>
-            </div>
-            <div
-              class="w-full min-w-0 shrink-0 lg:max-w-md xl:max-w-lg"
+            {cta.eyebrow}
+          </h2>
+          <p
+            class="mt-2 text-3xl font-semibold leading-snug tracking-tight text-nx-fg sm:text-4xl"
+          >
+            <span class="block">{cta.titleLine1}</span>
+            <span class="mt-1 block text-sky-200 sm:text-sky-100/95"
+              >{cta.titleLine2}</span
             >
-              <ContactFormInline />
+          </p>
+
+          <div
+            class="mt-8 sm:mt-10"
+          >
+            <div
+              class="nx-cta-card relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-nx-border bg-gradient-to-br from-sky-500/15 via-nx-elevated to-violet-600/15 px-5 py-5 sm:px-6 sm:py-6"
+            >
+              <div
+                class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10"
+              >
+                <div
+                  class="min-w-0 flex-1 lg:max-w-[min(100%,28rem)] xl:max-w-[min(100%,32rem)]"
+                >
+                  <p class="max-w-2xl text-base leading-relaxed text-nx-muted sm:text-lg">
+                    {cta.body}
+                  </p>
+                </div>
+                <div
+                  class="w-full min-w-0 shrink-0 lg:max-w-md xl:max-w-lg"
+                >
+                  <ContactFormInline />
+                </div>
+              </div>
             </div>
           </div>
         </div>
