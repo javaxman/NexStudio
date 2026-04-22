@@ -27,6 +27,26 @@ const printDate = new Intl.DateTimeFormat('it-IT', {
   dateStyle: 'long',
 }).format(new Date());
 const printSource = Astro.url.href;
+const path = Astro.url.pathname;
+const localeMatch = path.match(/^\/(en|th)(\/|$)/);
+const currentLocale = localeMatch?.[1] ?? 'it';
+const strippedPath = path.replace(/^\/(en|th)(?=\/|$)/, '') || '/';
+const localeHref = (locale: 'it' | 'en' | 'th') => {
+  if (locale === 'it') return strippedPath;
+  return `/${locale}${strippedPath === '/' ? '' : strippedPath}`;
+};
+const localize = (href: string) => {
+  if (currentLocale === 'it') return href;
+  if (href.startsWith(`/${currentLocale}`)) return href;
+  if (href.startsWith('/#')) return `/${currentLocale}${href}`;
+  if (href.startsWith('/')) return `/${currentLocale}${href}`;
+  return href;
+};
+const langMeta = {
+  it: { code: 'IT', label: 'Italiano', flagSrc: '/images/flags/it.svg' },
+  en: { code: 'EN', label: 'English', flagSrc: '/images/flags/en.svg' },
+  th: { code: 'TH', label: 'ไทย', flagSrc: '/images/flags/th.svg' },
+} as const;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -43,14 +63,75 @@ const printSource = Astro.url.href;
         class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6"
       >
         <a
-          href="/"
+          href={localize('/')}
           class="text-lg font-semibold tracking-tight text-nx-fg hover:text-white sm:text-xl"
           >NexStudio</a
         >
-        <a
-          class="text-sm font-medium text-sky-400/90 hover:text-sky-300"
-          href="/#contatti">Contattaci</a
-        >
+        <div class="flex items-center gap-2">
+          <details class="relative" data-lang-dropdown>
+            <summary
+              class="inline-flex h-10 cursor-pointer list-none items-center gap-2 rounded-lg border border-nx-border/80 bg-nx-bg/50 px-3 text-xs font-medium text-nx-fg transition-colors hover:border-sky-500/35 hover:text-white"
+              aria-label="Seleziona lingua"
+            >
+              <img src={langMeta[currentLocale].flagSrc} alt="" class="h-3.5 w-5 rounded-[2px] object-cover" loading="lazy" decoding="async" />
+              <span>{langMeta[currentLocale].code}</span>
+              <svg class="h-3.5 w-3.5 text-nx-muted" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.168l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd"></path>
+              </svg>
+            </summary>
+            <div
+              class="absolute right-0 top-12 z-50 min-w-44 overflow-hidden rounded-lg border border-nx-border bg-nx-elevated/95 p-1 shadow-xl backdrop-blur"
+              role="menu"
+            >
+              <a
+                href={localeHref('it')}
+                class:list={[
+                  'flex items-center justify-between rounded-md px-3 py-2 text-sm text-nx-muted transition-colors hover:bg-white/5 hover:text-nx-fg',
+                  currentLocale === 'it' && 'bg-white/5 text-nx-fg',
+                ]}
+                aria-current={currentLocale === 'it' ? 'page' : undefined}
+              >
+                <span class="flex items-center gap-2">
+                  <img src={langMeta.it.flagSrc} alt="" class="h-3.5 w-5 rounded-[2px] object-cover" loading="lazy" decoding="async" />
+                  {langMeta.it.label}
+                </span>
+                <span class="text-xs">{langMeta.it.code}</span>
+              </a>
+              <a
+                href={localeHref('en')}
+                class:list={[
+                  'flex items-center justify-between rounded-md px-3 py-2 text-sm text-nx-muted transition-colors hover:bg-white/5 hover:text-nx-fg',
+                  currentLocale === 'en' && 'bg-white/5 text-nx-fg',
+                ]}
+                aria-current={currentLocale === 'en' ? 'page' : undefined}
+              >
+                <span class="flex items-center gap-2">
+                  <img src={langMeta.en.flagSrc} alt="" class="h-3.5 w-5 rounded-[2px] object-cover" loading="lazy" decoding="async" />
+                  {langMeta.en.label}
+                </span>
+                <span class="text-xs">{langMeta.en.code}</span>
+              </a>
+              <a
+                href={localeHref('th')}
+                class:list={[
+                  'flex items-center justify-between rounded-md px-3 py-2 text-sm text-nx-muted transition-colors hover:bg-white/5 hover:text-nx-fg',
+                  currentLocale === 'th' && 'bg-white/5 text-nx-fg',
+                ]}
+                aria-current={currentLocale === 'th' ? 'page' : undefined}
+              >
+                <span class="flex items-center gap-2">
+                  <img src={langMeta.th.flagSrc} alt="" class="h-3.5 w-5 rounded-[2px] object-cover" loading="lazy" decoding="async" />
+                  {langMeta.th.label}
+                </span>
+                <span class="text-xs">{langMeta.th.code}</span>
+              </a>
+            </div>
+          </details>
+          <a
+            class="text-sm font-medium text-sky-400/90 hover:text-sky-300"
+            href={localize('/#contatti')}>Contattaci</a
+          >
+        </div>
       </div>
     </header>
     <main class="relative z-[1] flex-1 px-4 py-12 sm:px-6 sm:py-16">
@@ -86,3 +167,7 @@ const printSource = Astro.url.href;
     <SiteFooter />
   </div>
 </BaseLayout>
+
+<script>
+  import '../scripts/nx-lang-dropdown.ts';
+</script>

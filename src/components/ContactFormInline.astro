@@ -5,6 +5,7 @@ const cf = cta.contactForm;
 const model = {
   actionUrl: cf.actionUrl,
   mailto: cf.mailto,
+  turnstileSiteKey: cf.turnstileSiteKey,
   notifySubject: cf.notifySubject,
   successRedirect: cf.successRedirect,
   fieldName: cf.fieldName,
@@ -15,6 +16,8 @@ const model = {
 };
 const hasFormspree =
   typeof cf.actionUrl === 'string' && cf.actionUrl.length > 0;
+const hasTurnstile =
+  typeof cf.turnstileSiteKey === 'string' && cf.turnstileSiteKey.length > 0;
 const nextUrl =
   typeof cf.successRedirect === 'string' && cf.successRedirect.length > 0
     ? cf.successRedirect
@@ -178,6 +181,23 @@ const fieldClass =
     >
     </p>
 
+    {
+      hasFormspree && hasTurnstile ? (
+        <div class="pt-1">
+          <div
+            class="cf-turnstile"
+            data-sitekey={cf.turnstileSiteKey}
+            data-theme="dark"
+            data-language="it"
+            data-size="normal"
+          ></div>
+          <p class="mt-1.5 text-xs leading-relaxed text-nx-muted">
+            Verifica anti-spam: completa il controllo prima di inviare il messaggio.
+          </p>
+        </div>
+      ) : null
+    }
+
     <div class="pt-1">
       <button
         type="submit"
@@ -190,6 +210,16 @@ const fieldClass =
     </div>
   </div>
 </div>
+
+{
+  hasFormspree && hasTurnstile ? (
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
+  ) : null
+}
 
 <script>
   import '../scripts/nx-contact-form.ts';

@@ -17,6 +17,16 @@ const notifySubject =
 
 const linkClass =
   'text-sm text-sky-400/90 transition-colors hover:text-sky-300';
+const path = Astro.url.pathname;
+const localeMatch = path.match(/^\/(en|th)(\/|$)/);
+const currentLocale = localeMatch?.[1] ?? 'it';
+const withLocale = (href: string) => {
+  if (currentLocale === 'it') return href;
+  if (href.startsWith(`/${currentLocale}`)) return href;
+  if (href.startsWith('/#')) return `/${currentLocale}${href}`;
+  if (href.startsWith('/')) return `/${currentLocale}${href}`;
+  return href;
+};
 ---
 
 <footer id="site-footer" class="relative z-[1] border-t border-nx-border px-4 py-12 sm:px-6">
@@ -35,7 +45,7 @@ const linkClass =
           <ul class="space-y-2.5">
             {footer.homeNav.map((link) => (
               <li>
-                <a class={linkClass} href={link.href}>
+                <a class={linkClass} href={withLocale(link.href)}>
                   {link.label}
                 </a>
               </li>
@@ -52,7 +62,7 @@ const linkClass =
           <ul class="space-y-2.5">
             {footer.legalColumnNav.map((link) => (
               <li>
-                <a class={linkClass} href={link.href}>
+                <a class={linkClass} href={withLocale(link.href)}>
                   {link.label}
                 </a>
               </li>
@@ -101,7 +111,7 @@ const linkClass =
             {footer.companyNav.map((link) => (
               <li>
                 {link.href ? (
-                  <a class={linkClass} href={link.href}>
+                  <a class={linkClass} href={withLocale(link.href)}>
                     {link.label}
                   </a>
                 ) : (

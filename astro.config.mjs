@@ -37,4 +37,11 @@ export default defineConfig({
 
   adapter: cloudflare(),
   integrations: [alpinejs()],
+  i18n: {
+    defaultLocale: 'it',
+    locales: ['it', 'en', 'th'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
 });

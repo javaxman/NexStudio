@@ -2,6 +2,7 @@
 interface ContactFormCfg {
   actionUrl: string;
   mailto: string;
+  turnstileSiteKey: string;
   notifySubject: string;
   successRedirect: string;
   fieldName: string;
@@ -18,6 +19,7 @@ function readCfg(): ContactFormCfg {
     return {
       actionUrl: '',
       mailto: '',
+      turnstileSiteKey: '',
       notifySubject: '',
       successRedirect: '',
       fieldName: 'name',
@@ -38,6 +40,23 @@ function bind(): void {
     const cfg = readCfg();
     const err = document.getElementById('nx-contact-form-error');
     if (err) err.classList.add('hidden');
+
+    const hasTurnstile =
+      typeof cfg.turnstileSiteKey === 'string' && cfg.turnstileSiteKey.length > 0;
+    if (cfg.actionUrl && hasTurnstile) {
+      const token = form.querySelector<HTMLInputElement>(
+        'input[name="cf-turnstile-response"]',
+      )?.value;
+      if (!token) {
+        e.preventDefault();
+        if (err) {
+          err.textContent =
+            'Completa il controllo anti-spam prima di inviare il messaggio.';
+          err.classList.remove('hidden');
+        }
+        return;
+      }
+    }
 
     if (cfg.actionUrl) {
       return;

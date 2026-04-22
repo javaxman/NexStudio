@@ -12,10 +12,13 @@ const {
   title = 'NexStudio — Software su misura',
   description = 'Studio di sviluppo software: web app, API, automazioni e prodotti digitali, con focus su qualità e time-to-market.',
 } = Astro.props;
+const pathname = Astro.url.pathname;
+const localeMatch = pathname.match(/^\/(en|th)(\/|$)/);
+const htmlLang = localeMatch?.[1] ?? 'it';
 ---
 
 <!doctype html>
-<html lang="it" class="bg-nx-bg">
+<html lang={htmlLang} class="bg-nx-bg">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

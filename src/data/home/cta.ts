@@ -30,6 +30,11 @@ export const cta = {
     actionUrl: '',
     /** Formspree: redirect dopo invio (`_next`) — URL **assoluta** in produzione */
     successRedirect: '',
+    /**
+     * Cloudflare Turnstile (anti-spam): inserisci qui la site key pubblica.
+     * Se vuota, il CAPTCHA non viene mostrato.
+     */
+    turnstileSiteKey: '',
     /** Formspree `_subject` e oggetto mailto */
     notifySubject: 'Richiesta contatto — sito NexStudio',
     /** Se `actionUrl` è vuoto: email per `mailto:` (es. `info@tuodominio.com`) */
