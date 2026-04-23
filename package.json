@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "dev:fresh": "node -e \"require('fs').rmSync('node_modules/.vite',{recursive:true,force:true});\" && astro dev",
     "build": "astro build",
+    "deploy:cf": "npm run build && wrangler deploy --config dist/server/wrangler.json",
     "preview": "astro preview",
     "astro": "astro",
     "generate-types": "wrangler types"

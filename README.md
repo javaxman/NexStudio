@@ -41,3 +41,12 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Cloudflare deploy notes
+
+If you deploy with Wrangler in CI/Cloudflare, build first and deploy using Astro's generated Worker config:
+
+- Build command: `npm run build`
+- Deploy command: `npm run deploy:cf`
+
+This avoids entrypoint errors like `@astrojs/cloudflare/entrypoints/server` not found.
