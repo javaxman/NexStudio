@@ -416,47 +416,19 @@ const langMeta = {
               const hasGlobe =
                 'decoration' in card &&
                 card.decoration === 'wireframe-globe';
-              const hasOchreAccent =
-                card.title === 'Aggiornamento e manutenzione evolutiva';
               return (
                 <article
                   class:list={[
                     card.layout === 'wide' && 'md:col-span-2',
                     card.layout === 'tall' && 'md:row-span-2',
                     hasGlobe && 'relative overflow-hidden',
-                    hasOchreAccent && 'border-amber-500/90 ring-1 ring-inset ring-amber-700/70',
                   ]}
                 >
                   {hasGlobe && <CardBottomRightTexture />}
                   <div class:list={[hasGlobe && 'relative z-10']}>
-                    <h3
-                      class:list={[
-                        'text-lg font-semibold',
-                        hasOchreAccent ? 'text-amber-200/95' : 'text-nx-fg',
-                      ]}
-                    >
-                      {hasOchreAccent ? (
-                        <>
-                          <span class="text-amber-500">Aggiornamento</span>{' '}
-                          <span class="text-white">e manutenzione evolutiva</span>
-                        </>
-                      ) : (
-                        card.title
-                      )}
-                    </h3>
+                    <h3 class="text-lg font-semibold text-nx-fg">{card.title}</h3>
                     <p class="mt-2 text-sm leading-relaxed text-nx-muted">
-                      {hasOchreAccent ? (
-                        <>
-                          Il mondo dell'IA e delle{' '}
-                          <span class="text-amber-500">normative</span> (legali e sanitarie) e'
-                          in costante mutamento. Il nostro servizio include l'aggiornamento continuo
-                          dei motori di analisi, garantendo che il software sia sempre allineato con
-                          le ultime <span class="text-amber-500">tecnologie</span> e le evoluzioni del
-                          mercato di riferimento.
-                        </>
-                      ) : (
-                        card.body
-                      )}
+                      {card.body}
                     </p>
                     {'callout' in card && card.callout && (
                       <div
