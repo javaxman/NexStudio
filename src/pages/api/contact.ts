@@ -79,6 +79,18 @@ async function sendWithResend(apiKey: string, fromEmail: string, toEmail: string
   }
 }
 
+function resolveDepartmentRecipient(runtimeEnv: RuntimeEnv, defaultRecipient: string, department: string): string {
+  const normalized = department.trim().toLowerCase();
+  const map: Record<string, string> = {
+    privacy: readEnv('CONTACT_FORM_TO_EMAIL_PRIVACY', runtimeEnv),
+    security: readEnv('CONTACT_FORM_TO_EMAIL_SECURITY', runtimeEnv),
+    ethics: readEnv('CONTACT_FORM_TO_EMAIL_ETHICS', runtimeEnv),
+    legal: readEnv('CONTACT_FORM_TO_EMAIL_LEGAL', runtimeEnv),
+    hr: readEnv('CONTACT_FORM_TO_EMAIL_HR', runtimeEnv),
+  };
+  return map[normalized] || defaultRecipient;
+}
+
 export const POST: APIRoute = async ({ request, locals, url }) => {
   const runtimeEnv = getRuntimeEnv(locals);
   const mode = readEnv('CONTACT_FORM_MODE', runtimeEnv).toLowerCase() || 'dev';
@@ -98,6 +110,7 @@ export const POST: APIRoute = async ({ request, locals, url }) => {
   const company = required(form.get('company'));
   const email = required(form.get('email'));
   const country = required(form.get('country'));
+  const department = required(form.get('department')) || 'general';
   const message = required(form.get('message'));
 
   if (!name || !email || !country || !message) {
@@ -122,6 +135,7 @@ export const POST: APIRoute = async ({ request, locals, url }) => {
     company ? `Azienda: ${company}` : '',
     `Email: ${email}`,
     `Paese: ${country}`,
+    `Reparto: ${department}`,
     '',
     message,
   ]
@@ -134,13 +148,15 @@ export const POST: APIRoute = async ({ request, locals, url }) => {
         status: 500,
       });
     }
-    await sendWithResend(resendApiKey, fromEmail, toEmail, subject, text);
+    const destination = resolveDepartmentRecipient(runtimeEnv, toEmail, department);
+    await sendWithResend(resendApiKey, fromEmail, destination, subject, text);
   } else {
     console.info('[contact:dev] Contact payload received', {
       name,
       company,
       email,
       country,
+      department,
       subject,
     });
   }

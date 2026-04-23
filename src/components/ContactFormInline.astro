@@ -11,6 +11,7 @@ const model = {
   fieldName: cf.fieldName,
   fieldCompany: cf.fieldCompany,
   fieldCountry: cf.fieldCountry,
+  fieldDepartment: cf.fieldDepartment,
   fieldEmail: cf.fieldEmail,
   fieldMessage: cf.fieldMessage,
 };
@@ -160,6 +161,20 @@ const fieldClass =
         autocomplete="country-name"
         class={fieldClass}
       />
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-nx-muted" for="nx-cf-department">
+        {cf.departmentLabel}
+      </label>
+      <select
+        id="nx-cf-department"
+        name={cf.fieldDepartment}
+        class={fieldClass}
+      >
+        {cf.departmentOptions.map((opt) => (
+          <option value={opt.value}>{opt.label}</option>
+        ))}
+      </select>
     </div>
     <div>
       <label class="block text-xs font-medium text-nx-muted" for="nx-cf-msg">

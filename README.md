@@ -67,12 +67,23 @@ Server-side (Cloudflare runtime / local `.env`):
 - `CONTACT_FORM_MODE` (`dev` or `live`)
 - `CONTACT_FORM_RESEND_API_KEY`
 - `CONTACT_FORM_FROM_EMAIL` (verified sender in Resend)
-- `CONTACT_FORM_TO_EMAIL` (recipient inbox or alias)
+- `CONTACT_FORM_TO_EMAIL` (default recipient inbox or alias)
+- `CONTACT_FORM_TO_EMAIL_PRIVACY`
+- `CONTACT_FORM_TO_EMAIL_SECURITY`
+- `CONTACT_FORM_TO_EMAIL_ETHICS`
+- `CONTACT_FORM_TO_EMAIL_LEGAL`
+- `CONTACT_FORM_TO_EMAIL_HR`
 - `CONTACT_TURNSTILE_SECRET_KEY`
 
 Mode behavior:
 
 - `dev`: accepts form and logs payload server-side (no real email send)
 - `live`: verifies Turnstile (if secret configured) and sends via Resend API
+
+Department routing:
+
+- the contact form includes a department selector
+- if a department-specific env is set, the email is routed to that recipient
+- otherwise it falls back to `CONTACT_FORM_TO_EMAIL`
 
 Copy `.env.example` to `.env` for local development and configure the same keys in Cloudflare Pages/Workers for production.

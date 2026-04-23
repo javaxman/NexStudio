@@ -8,6 +8,7 @@ interface ContactFormCfg {
   fieldName: string;
   fieldCompany: string;
   fieldCountry: string;
+  fieldDepartment: string;
   fieldEmail: string;
   fieldMessage: string;
 }
@@ -25,6 +26,7 @@ function readCfg(): ContactFormCfg {
       fieldName: 'name',
       fieldCompany: 'company',
       fieldCountry: 'country',
+      fieldDepartment: 'department',
       fieldEmail: 'email',
       fieldMessage: 'message',
     };
@@ -67,12 +69,13 @@ function bind(): void {
     const company = String(fd.get(cfg.fieldCompany) ?? '').trim();
     const email = String(fd.get(cfg.fieldEmail) ?? '').trim();
     const country = String(fd.get(cfg.fieldCountry) ?? '').trim();
+    const department = String(fd.get(cfg.fieldDepartment) ?? '').trim();
     const message = String(fd.get(cfg.fieldMessage) ?? '').trim();
     if (cfg.mailto) {
       const subject = encodeURIComponent(cfg.notifySubject || 'Contatto sito');
       const companyLine = company ? `\nAzienda: ${company}` : '';
       const body = encodeURIComponent(
-        `Nome: ${name}${companyLine}\nEmail: ${email}\nPaese: ${country}\n\n${message}`,
+        `Nome: ${name}${companyLine}\nEmail: ${email}\nPaese: ${country}\nReparto: ${department || 'general'}\n\n${message}`,
       );
       window.location.href = `mailto:${cfg.mailto}?subject=${subject}&body=${body}`;
       return;
