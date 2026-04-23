@@ -17,7 +17,7 @@ export const cta = {
    * (si apre il client di posta dell’utente).
    */
   contactForm: {
-    /** Lasciare vuoti i campi endpoint/chiavi nelle fasi di sola UI. */
+    /** Lasciare vuoti endpoint/chiavi nelle fasi di sola UI. */
     title: 'Parliamone',
     description:
       'Lascia i tuoi dati e il messaggio: ti risponde il team NexStudio.',
