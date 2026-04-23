@@ -97,10 +97,51 @@ export const stackSection = {
     ],
   },
   cloudflareBadge: {
-    label: 'Cloudflare',
+    label: 'Ecosistema Cloudflare',
+    slogan: '«Aiutiamo a costruire un Internet migliore.»',
     href: 'https://www.cloudflare.com/',
     /** Simple Icons, in `public/logos/cloudflare.svg` */
     iconSrc: '/logos/cloudflare.svg',
     iconAlt: 'Logo Cloudflare',
+  },
+  awsBadge: {
+    label: 'Ecosistema AWS',
+    slogan: '«La piattaforma cloud più completa e ampiamente adottata al mondo.»',
+    href: 'https://aws.amazon.com/',
+    iconSrc: '/logos/aws.svg',
+    iconAlt: 'Logo AWS',
+  },
+  infrastructureCarousel: {
+    ariaLabel: 'Partner infrastrutturali e tecnologici di NexStudio',
+    items: [
+      {
+        label: 'Ecosistema Cloudflare',
+        slogan: '«Aiutiamo a costruire un Internet migliore.»',
+        href: 'https://www.cloudflare.com/',
+        iconSrc: '/logos/cloudflare.svg',
+        iconAlt: 'Logo Cloudflare',
+      },
+      {
+        label: 'Ecosistema AWS',
+        slogan: '«La piattaforma cloud più completa e ampiamente adottata al mondo.»',
+        href: 'https://aws.amazon.com/',
+        iconSrc: '/logos/aws.svg',
+        iconAlt: 'Logo AWS',
+      },
+      {
+        label: 'Ecosistema GitHub',
+        slogan: '«Build and ship software on a single, collaborative platform.»',
+        href: 'https://github.com/',
+        iconSrc: '/logos/github.svg',
+        iconAlt: 'Logo GitHub',
+      },
+      {
+        label: 'Ecosistema OpenAI',
+        slogan: '«Build with AI that advances your mission.»',
+        href: 'https://openai.com/',
+        iconSrc: '/logos/openai.svg',
+        iconAlt: 'Logo OpenAI',
+      },
+    ] as const,
   },
 } as const;

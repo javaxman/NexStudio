@@ -17,7 +17,7 @@ import {
   cta,
 } from '../data/home';
 
-const techSliderItems = stackSection.techSlider.items;
+const infrastructureCarouselItems = stackSection.infrastructureCarousel.items;
 const path = Astro.url.pathname;
 const localeMatch = path.match(/^\/(en|th)(\/|$)/);
 const currentLocale = localeMatch?.[1] ?? 'it';
@@ -494,46 +494,88 @@ const langMeta = {
           </p>
 
           <div
-            class="relative z-[1] mt-12 flex flex-col gap-8 rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-950/20 to-nx-elevated/40 p-6 sm:flex-row sm:items-center sm:gap-10 sm:p-8"
+            class="relative z-[1] mt-12 rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-950/20 to-nx-elevated/40 p-6 sm:p-8"
           >
-            <a
-              href={stackSection.cloudflareBadge.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group flex shrink-0 items-center gap-4 rounded-xl border border-white/10 bg-nx-bg/60 px-5 py-4 transition hover:border-orange-400/35"
+            <p class="text-xs font-medium uppercase tracking-wider text-orange-200/90">
+              Infrastruttura
+            </p>
+            <div
+              class="nx-infra-carousel mt-5"
+              role="region"
+              aria-label={stackSection.infrastructureCarousel.ariaLabel}
             >
-              <img
-                src={stackSection.cloudflareBadge.iconSrc}
-                alt={stackSection.cloudflareBadge.iconAlt}
-                width="48"
-                height="48"
-                class="h-12 w-12 shrink-0 brightness-0 invert"
-                loading="lazy"
-                decoding="async"
-              />
-              <div>
-                <p class="text-xs font-medium uppercase tracking-wider text-orange-200/90">
-                  Infrastruttura
-                </p>
-                <p class="text-lg font-semibold text-nx-fg group-hover:text-orange-100">
-                  {stackSection.cloudflareBadge.label}
-                </p>
-                <p class="mt-0.5 text-xs text-nx-muted">
-                  Rete globale, sicurezza e edge
-                </p>
+              <div class="nx-infra-carousel__viewport">
+                <div class="nx-infra-carousel__track">
+                  {infrastructureCarouselItems.map((item) => (
+                    <article class="nx-infra-carousel__item">
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group inline-flex h-16 w-[16rem] items-center gap-3 rounded-xl border border-white/10 bg-nx-bg/60 px-4 transition hover:border-orange-400/35"
+                      >
+                        <img
+                          src={item.iconSrc}
+                          alt={item.iconAlt}
+                          width={item.label === 'Ecosistema AWS' ? 84 : 40}
+                          height={item.label === 'Ecosistema AWS' ? 28 : 40}
+                          class:list={[
+                            'shrink-0 object-contain',
+                            item.label === 'Ecosistema AWS' ? 'h-7 w-20' : 'h-9 w-9',
+                          ]}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div class="min-w-0">
+                          <p class="text-sm font-semibold text-nx-fg group-hover:text-orange-100">
+                            {item.label}
+                          </p>
+                        </div>
+                      </a>
+                      <p class="mt-2 text-sm leading-relaxed text-nx-muted">
+                        {item.slogan}
+                      </p>
+                    </article>
+                  ))}
+                  {infrastructureCarouselItems.map((item) => (
+                    <article class:list={['nx-infra-carousel__item', 'nx-infra-carousel__item--dup']}>
+                      <a
+                        href={item.href}
+                        tabindex="-1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-hidden="true"
+                        class="group inline-flex h-16 w-[16rem] items-center gap-3 rounded-xl border border-white/10 bg-nx-bg/60 px-4"
+                      >
+                        <img
+                          src={item.iconSrc}
+                          alt=""
+                          width={item.label === 'Ecosistema AWS' ? 84 : 40}
+                          height={item.label === 'Ecosistema AWS' ? 28 : 40}
+                          class:list={[
+                            'shrink-0 object-contain',
+                            item.label === 'Ecosistema AWS' ? 'h-7 w-20' : 'h-9 w-9',
+                          ]}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div class="min-w-0">
+                          <p class="text-sm font-semibold text-nx-fg">
+                            {item.label}
+                          </p>
+                        </div>
+                      </a>
+                      <p class="mt-2 text-sm leading-relaxed text-nx-muted">
+                        {item.slogan}
+                      </p>
+                    </article>
+                  ))}
+                </div>
               </div>
-            </a>
-            <div class="min-w-0 flex-1">
-              <h3 class="text-lg font-semibold text-nx-fg">
-                {stackSection.cloudflare.title}
-              </h3>
-              <p class="mt-2 text-sm leading-relaxed text-nx-muted sm:text-base">
-                {stackSection.cloudflare.intro}
-              </p>
             </div>
           </div>
 
-          <ul class="relative z-[1] mt-6 space-y-6">
+          <ul class="relative z-[1] mt-16 space-y-6 sm:mt-20">
             {stackSection.cloudflare.points.map((item) => (
               <li class="border-l-2 border-orange-400/40 pl-5">
                 <p class="font-semibold text-orange-100/95">{item.title}</p>
@@ -545,7 +587,7 @@ const langMeta = {
           </ul>
 
           <div
-            class="mt-10 rounded-2xl border border-nx-border bg-nx-elevated/50 p-6 sm:p-8"
+            class="mt-14 rounded-2xl border border-nx-border bg-nx-elevated/50 p-6 sm:p-8 sm:mt-16"
           >
             <h3 class="text-lg font-semibold text-nx-fg">
               {stackSection.continuity.title}
@@ -555,63 +597,7 @@ const langMeta = {
             </p>
           </div>
 
-          <div
-            class="nx-tech-slider mt-6 sm:mt-7"
-            role="region"
-            aria-label={stackSection.techSlider.ariaLabel}
-          >
-            <div class="nx-tech-slider__viewport">
-              <div class="nx-tech-slider__track">
-                {techSliderItems.map((item) => (
-                  <a
-                    class="nx-tech-slider__link"
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={item.name}
-                  >
-                    <img
-                      class:list={[
-                        'nx-tech-slider__logo',
-                        item.name === 'HL7 FHIR' && 'nx-tech-slider__logo--fhir',
-                      ]}
-                      src={item.iconSrc}
-                      alt=""
-                      width="168"
-                      height="48"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </a>
-                ))}
-                {techSliderItems.map((item) => (
-                  <a
-                    class:list={['nx-tech-slider__link', 'nx-tech-slider__link--dup']}
-                    href={item.href}
-                    tabindex="-1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-hidden="true"
-                  >
-                    <img
-                      class:list={[
-                        'nx-tech-slider__logo',
-                        item.name === 'HL7 FHIR' && 'nx-tech-slider__logo--fhir',
-                      ]}
-                      src={item.iconSrc}
-                      alt=""
-                      width="168"
-                      height="48"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-10">
+          <div class="mt-14 sm:mt-16">
             <h3 class="text-lg font-semibold text-nx-fg">
               {stackSection.whyThisChoice.title}
             </h3>

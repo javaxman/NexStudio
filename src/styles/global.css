@@ -204,6 +204,52 @@
     0 0 96px -24px rgba(167, 139, 250, 0.14);
 }
 
+/* Stack: carosello minicard infrastruttura (logo + label + slogan) */
+.nx-infra-carousel__viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+}
+
+.nx-infra-carousel__track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  width: max-content;
+  gap: 2.6rem;
+  animation: nx-infra-marquee 44s linear infinite;
+  will-change: transform;
+}
+
+.nx-infra-carousel__item {
+  display: flex;
+  flex: none;
+  width: 16rem;
+  flex-direction: column;
+}
+
+@keyframes nx-infra-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 /* Stack: carosello loghi (marquee), fade ai bordi */
 .nx-tech-slider__viewport {
   overflow: hidden;
@@ -292,6 +338,23 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .nx-infra-carousel__item--dup {
+    display: none;
+  }
+
+  .nx-infra-carousel__viewport {
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .nx-infra-carousel__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
   .nx-tech-slider__link--dup {
     display: none;
   }
