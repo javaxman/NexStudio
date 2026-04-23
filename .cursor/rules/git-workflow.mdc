@@ -1,0 +1,14 @@
+---
+description: Git workflow standard for significant changes
+alwaysApply: true
+---
+
+# Git Workflow Standard
+
+Use a dedicated branch for every non-secondary change.
+
+- Create a branch before editing code (`feat/*`, `fix/*`, `refactor/*`, `docs/*`, `chore/*`).
+- Keep `main` as stable integration branch and avoid direct significant changes on it.
+- Use focused commits with clear messages that explain intent.
+- Merge to `main` only after validation and review.
+- Keep tiny secondary edits (typos/comments/minor spacing) lightweight when explicitly requested.
