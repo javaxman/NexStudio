@@ -50,3 +50,29 @@ If you deploy with Wrangler in CI/Cloudflare, build first and deploy using Astro
 - Deploy command: `npm run deploy:cf`
 
 This avoids entrypoint errors like `@astrojs/cloudflare/entrypoints/server` not found.
+
+## Contact form configuration
+
+Set these variables for the website contact form.
+
+Public (frontend):
+
+- `PUBLIC_CONTACT_FORM_ACTION_URL` (default `/api/contact`)
+- `PUBLIC_CONTACT_FORM_SUCCESS_REDIRECT` (absolute URL for `_next`)
+- `PUBLIC_CONTACT_FORM_MAILTO` (fallback only if `ACTION_URL` is empty)
+- `PUBLIC_CONTACT_TURNSTILE_SITE_KEY`
+
+Server-side (Cloudflare runtime / local `.env`):
+
+- `CONTACT_FORM_MODE` (`dev` or `live`)
+- `CONTACT_FORM_RESEND_API_KEY`
+- `CONTACT_FORM_FROM_EMAIL` (verified sender in Resend)
+- `CONTACT_FORM_TO_EMAIL` (recipient inbox or alias)
+- `CONTACT_TURNSTILE_SECRET_KEY`
+
+Mode behavior:
+
+- `dev`: accepts form and logs payload server-side (no real email send)
+- `live`: verifies Turnstile (if secret configured) and sends via Resend API
+
+Copy `.env.example` to `.env` for local development and configure the same keys in Cloudflare Pages/Workers for production.

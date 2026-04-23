@@ -1,4 +1,10 @@
 /** Call-to-action (blocco contatti / chiusura pagina) */
+const env = import.meta.env;
+const contactActionUrl = (env.PUBLIC_CONTACT_FORM_ACTION_URL ?? '/api/contact').trim();
+const contactSuccessRedirect = (env.PUBLIC_CONTACT_FORM_SUCCESS_REDIRECT ?? '').trim();
+const contactMailto = (env.PUBLIC_CONTACT_FORM_MAILTO ?? '').trim();
+const contactTurnstileSiteKey = (env.PUBLIC_CONTACT_TURNSTILE_SITE_KEY ?? '').trim();
+
 export const cta = {
   /** Riga sezione (stesso ruolo di FAQ, Stack, …) */
   eyebrow: 'Contatti',
@@ -27,19 +33,19 @@ export const cta = {
     emailLabel: 'Email',
     messageLabel: 'Scrivi qui il tuo messaggio',
     submitLabel: 'Invia messaggio',
-    /** Formspree: `https://formspree.io/f/xxxx` — vuoto = prova `mailto` */
-    actionUrl: '',
-    /** Formspree: redirect dopo invio (`_next`) — URL **assoluta** in produzione */
-    successRedirect: '',
+    /** Formspree: `https://formspree.io/f/xxxx` — valorizzato via `PUBLIC_CONTACT_FORM_ACTION_URL` */
+    actionUrl: contactActionUrl,
+    /** Formspree `_next` — URL assoluta in produzione (`PUBLIC_CONTACT_FORM_SUCCESS_REDIRECT`) */
+    successRedirect: contactSuccessRedirect,
     /**
      * Cloudflare Turnstile (anti-spam): inserisci qui la site key pubblica.
      * Se vuota, il CAPTCHA non viene mostrato.
      */
-    turnstileSiteKey: '',
+    turnstileSiteKey: contactTurnstileSiteKey,
     /** Formspree `_subject` e oggetto mailto */
     notifySubject: 'Richiesta contatto — sito NexStudio',
-    /** Se `actionUrl` è vuoto: email per `mailto:` (es. `info@tuodominio.com`) */
-    mailto: '',
+    /** Fallback se `actionUrl` e' vuoto (`PUBLIC_CONTACT_FORM_MAILTO`) */
+    mailto: contactMailto,
     fieldName: 'name',
     fieldCompany: 'company',
     fieldCountry: 'country',
