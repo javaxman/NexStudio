@@ -1,73 +1,71 @@
-# Astro Starter Kit: Minimal
+# NexStudio Website Runbook
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Sito istituzionale NexStudio basato su Astro, con deploy su Cloudflare e form contatti protetto da Turnstile.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Obiettivo del repository
 
-## 🚀 Project Structure
+- Presentazione aziendale e servizi (homepage e pagine legali).
+- Entry point unico per richieste commerciali e supporto.
+- Base pronta per contenuti multilingua IT/EN/TH.
+- Pipeline di deploy stabile su Cloudflare.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Stack tecnico
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- Astro + Tailwind CSS
+- Adapter Cloudflare (`@astrojs/cloudflare`)
+- Sitemap (`@astrojs/sitemap`)
+- Form backend su endpoint `/api/contact`
+- Turnstile + Resend per anti-spam e invio email
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Struttura essenziale
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- `src/pages/`: pagine pubbliche e route API (`src/pages/api/contact.ts`)
+- `src/components/`: componenti UI condivisi
+- `src/data/`: contenuti testuali e configurazioni pagine
+- `public/`: asset statici (loghi, immagini, robots)
+- `.env.example`: variabili locali di riferimento
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Prerequisiti
 
-## 🧞 Commands
+- Node.js 20+
+- npm 10+
+- Account Cloudflare (Pages/Workers + Turnstile)
+- Account Resend (API key + sender verificato)
 
-All commands are run from the root of the project, from a terminal:
+## Avvio locale
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+1. Installazione dipendenze:
+   - `npm install`
+2. Copia variabili di ambiente:
+   - copia `.env.example` in `.env`
+3. Avvio sviluppo:
+   - `npm run dev`
+4. Se Vite resta in cache incoerente:
+   - `npm run dev:fresh`
 
-## 👀 Want to learn more?
+## Comandi utili
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `npm run dev`: sviluppo locale
+- `npm run dev:fresh`: reset cache `.vite` e `.astro` + avvio dev server
+- `npm run build`: build produzione
+- `npm run preview`: preview locale della build
+- `npm run deploy:cf`: build + deploy con wrangler su output Astro
 
-## Cloudflare deploy notes
+## Configurazione contatti
 
-If you deploy with Wrangler in CI/Cloudflare, build first and deploy using Astro's generated Worker config:
+Variabili pubbliche (frontend):
 
-- Build command: `npm run build`
-- Deploy command: `npm run deploy:cf`
-
-This avoids entrypoint errors like `@astrojs/cloudflare/entrypoints/server` not found.
-
-## Contact form configuration
-
-Set these variables for the website contact form.
-
-Public (frontend):
-
-- `PUBLIC_CONTACT_FORM_ACTION_URL` (default `/api/contact`)
-- `PUBLIC_CONTACT_FORM_SUCCESS_REDIRECT` (absolute URL for `_next`)
-- `PUBLIC_CONTACT_FORM_MAILTO` (fallback only if `ACTION_URL` is empty)
+- `PUBLIC_CONTACT_FORM_ACTION_URL` (default consigliato: `/api/contact`)
+- `PUBLIC_CONTACT_FORM_SUCCESS_REDIRECT` (URL assoluto della pagina post-submit)
+- `PUBLIC_CONTACT_FORM_MAILTO` (fallback se action URL non disponibile)
 - `PUBLIC_CONTACT_TURNSTILE_SITE_KEY`
 
-Server-side (Cloudflare runtime / local `.env`):
+Variabili server (Cloudflare/local):
 
-- `CONTACT_FORM_MODE` (`dev` or `live`)
+- `CONTACT_FORM_MODE` (`dev` oppure `live`)
 - `CONTACT_FORM_RESEND_API_KEY`
-- `CONTACT_FORM_FROM_EMAIL` (verified sender in Resend, recommended `no-reply@nexstudio.com`)
-- `CONTACT_FORM_TO_EMAIL` (default recipient inbox or alias, recommended `info@nexstudio.com`)
+- `CONTACT_FORM_FROM_EMAIL` (consigliato: `no-reply@nexstudio.ai`)
+- `CONTACT_FORM_TO_EMAIL` (default destinatario, es. `info@nexstudio.ai`)
 - `CONTACT_FORM_TO_EMAIL_SUPPORT`
 - `CONTACT_FORM_TO_EMAIL_PRIVACY`
 - `CONTACT_FORM_TO_EMAIL_SECURITY`
@@ -76,29 +74,40 @@ Server-side (Cloudflare runtime / local `.env`):
 - `CONTACT_FORM_TO_EMAIL_HR`
 - `CONTACT_TURNSTILE_SECRET_KEY`
 
-Mode behavior:
+Comportamento:
 
-- `dev`: accepts form and logs payload server-side (no real email send)
-- `live`: verifies Turnstile (if secret configured) and sends via Resend API
+- `dev`: accetta submit e scrive payload nei log (senza invio reale)
+- `live`: valida Turnstile e invia email via Resend
 
-Department routing:
+## Deploy Cloudflare
 
-- the contact form includes a department selector
-- if a department-specific env is set, the email is routed to that recipient
-- otherwise it falls back to `CONTACT_FORM_TO_EMAIL`
+Impostazioni consigliate:
 
-Suggested operational use:
+- Build command: `npm run build`
+- Deploy command: `npm run deploy:cf`
 
-- `info@...` for prospects and generic clarifications (non-clients)
-- `support@...` for existing customers
-- `no-reply@...` as sender for newsletters and automated communications
+Questa configurazione evita errori tipo:
+`The entry-point file at "@astrojs/cloudflare/entrypoints/server" was not found.`
 
-Copy `.env.example` to `.env` for local development and configure the same keys in Cloudflare Pages/Workers for production.
+## Dominio e sicurezza
 
-## Production domain
-
-- Official domain: `https://nexstudio.ai`
-- Keep Turnstile widget hostnames aligned with:
+- Dominio ufficiale: `https://nexstudio.ai`
+- Hostname Turnstile da mantenere allineati:
   - `nexstudio.ai`
-  - `www.nexstudio.ai` (if used)
-  - `localhost` (for local testing)
+  - `www.nexstudio.ai` (se usato)
+  - `localhost` (test locale)
+- Accesso pre-go-live gestito con Cloudflare Zero Trust Access
+
+## Stato operativo attuale
+
+- Issue #1 (contact form live): implementata
+- Issue #2 (anti-spam Turnstile): implementata
+- Issue #3 (SEO base): implementata (sitemap, robots, canonical/OG/Twitter)
+- Issue #4: in avanzamento (contenuti non placeholder)
+- Issue #5: da completare (localizzazione reale IT/EN/TH)
+
+## Note operative
+
+- Per modifiche non minori usare branch dedicato (`feat/*`, `fix/*`) e merge su `main` dopo verifica.
+- Evitare commit su `main` per attivita complesse.
+- Rigenerare eventuali API key esposte e aggiornare subito i secret su Cloudflare.
