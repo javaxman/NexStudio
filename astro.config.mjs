@@ -34,7 +34,7 @@ function viteSsrOptimizeIgnoreOutdated() {
 // https://astro.build/config
 export default defineConfig({
   /** Usato da Astro per URL assoluti (es. sitemap). Imposta il dominio di produzione. */
-  // site: 'https://www.tuodominio.com',
+  site: 'https://nexstudio.ai',
 
   output: 'server', // per il deployment su Cloudflare Pages
 

@@ -94,3 +94,11 @@ Suggested operational use:
 - `no-reply@...` as sender for newsletters and automated communications
 
 Copy `.env.example` to `.env` for local development and configure the same keys in Cloudflare Pages/Workers for production.
+
+## Production domain
+
+- Official domain: `https://nexstudio.ai`
+- Keep Turnstile widget hostnames aligned with:
+  - `nexstudio.ai`
+  - `www.nexstudio.ai` (if used)
+  - `localhost` (for local testing)
