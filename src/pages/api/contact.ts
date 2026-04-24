@@ -82,6 +82,7 @@ async function sendWithResend(apiKey: string, fromEmail: string, toEmail: string
 function resolveDepartmentRecipient(runtimeEnv: RuntimeEnv, defaultRecipient: string, department: string): string {
   const normalized = department.trim().toLowerCase();
   const map: Record<string, string> = {
+    support: readEnv('CONTACT_FORM_TO_EMAIL_SUPPORT', runtimeEnv),
     privacy: readEnv('CONTACT_FORM_TO_EMAIL_PRIVACY', runtimeEnv),
     security: readEnv('CONTACT_FORM_TO_EMAIL_SECURITY', runtimeEnv),
     ethics: readEnv('CONTACT_FORM_TO_EMAIL_ETHICS', runtimeEnv),

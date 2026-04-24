@@ -55,6 +55,7 @@ export const cta = {
     fieldMessage: 'message',
     departmentOptions: [
       { value: 'general', label: 'Generale' },
+      { value: 'support', label: 'Support' },
       { value: 'privacy', label: 'Privacy / DPO' },
       { value: 'security', label: 'Security / Incident Response' },
       { value: 'ethics', label: 'Segnalazioni confidenziali (Ethics)' },

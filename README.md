@@ -66,8 +66,9 @@ Server-side (Cloudflare runtime / local `.env`):
 
 - `CONTACT_FORM_MODE` (`dev` or `live`)
 - `CONTACT_FORM_RESEND_API_KEY`
-- `CONTACT_FORM_FROM_EMAIL` (verified sender in Resend)
-- `CONTACT_FORM_TO_EMAIL` (default recipient inbox or alias)
+- `CONTACT_FORM_FROM_EMAIL` (verified sender in Resend, recommended `no-reply@nexstudio.com`)
+- `CONTACT_FORM_TO_EMAIL` (default recipient inbox or alias, recommended `info@nexstudio.com`)
+- `CONTACT_FORM_TO_EMAIL_SUPPORT`
 - `CONTACT_FORM_TO_EMAIL_PRIVACY`
 - `CONTACT_FORM_TO_EMAIL_SECURITY`
 - `CONTACT_FORM_TO_EMAIL_ETHICS`
@@ -85,5 +86,11 @@ Department routing:
 - the contact form includes a department selector
 - if a department-specific env is set, the email is routed to that recipient
 - otherwise it falls back to `CONTACT_FORM_TO_EMAIL`
+
+Suggested operational use:
+
+- `info@...` for prospects and generic clarifications (non-clients)
+- `support@...` for existing customers
+- `no-reply@...` as sender for newsletters and automated communications
 
 Copy `.env.example` to `.env` for local development and configure the same keys in Cloudflare Pages/Workers for production.
