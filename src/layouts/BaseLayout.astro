@@ -15,6 +15,7 @@ const {
 const pathname = Astro.url.pathname;
 const localeMatch = pathname.match(/^\/(en|th)(\/|$)/);
 const htmlLang = localeMatch?.[1] ?? 'it';
+const canonicalUrl = Astro.url.toString();
 ---
 
 <!doctype html>
@@ -23,7 +24,16 @@ const htmlLang = localeMatch?.[1] ?? 'it';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
     <meta name="theme-color" content="#030712" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NexStudio" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>

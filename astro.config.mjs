@@ -4,6 +4,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
 import alpinejs from '@astrojs/alpinejs';
+import sitemap from '@astrojs/sitemap';
 
 /**
  * Mitiga race su richieste SSR parallele durante l’ottimizzazione dipendenze
@@ -43,7 +44,7 @@ export default defineConfig({
   },
 
   adapter: cloudflare(),
-  integrations: [alpinejs()],
+  integrations: [alpinejs(), sitemap()],
   i18n: {
     defaultLocale: 'it',
     locales: ['it', 'en', 'th'],
