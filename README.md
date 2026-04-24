@@ -66,18 +66,28 @@ Variabili server (Cloudflare/local):
 - `CONTACT_FORM_RESEND_API_KEY`
 - `CONTACT_FORM_FROM_EMAIL` (consigliato: `no-reply@nexstudio.ai`)
 - `CONTACT_FORM_TO_EMAIL` (default destinatario, es. `info@nexstudio.ai`)
-- `CONTACT_FORM_TO_EMAIL_SUPPORT`
+- `CONTACT_FORM_TO_EMAIL_INFO` (opzionale, override esplicito per area "info")
 - `CONTACT_FORM_TO_EMAIL_PRIVACY`
-- `CONTACT_FORM_TO_EMAIL_SECURITY`
-- `CONTACT_FORM_TO_EMAIL_ETHICS`
-- `CONTACT_FORM_TO_EMAIL_LEGAL`
-- `CONTACT_FORM_TO_EMAIL_HR`
+- `CONTACT_FORM_TO_EMAIL_CAREERS`
 - `CONTACT_TURNSTILE_SECRET_KEY`
 
 Comportamento:
 
 - `dev`: accetta submit e scrive payload nei log (senza invio reale)
 - `live`: valida Turnstile e invia email via Resend
+
+Routing pubblico consigliato (portale vetrina):
+
+- `info`: informazioni generali/commerciali
+- `privacy`: richieste privacy e diritti interessato
+- `careers`: candidature e collaborazioni
+
+Indirizzi consigliati portale:
+
+- `info@nexstudio.ai`
+- `privacy@nexstudio.ai`
+- `careers@nexstudio.ai`
+- `no-reply@nexstudio.ai` (solo invio comunicazioni/newsletter, non destinazione inbound)
 
 ## Deploy Cloudflare
 
