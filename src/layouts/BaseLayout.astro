@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import globalStylesheetHref from '../styles/global.css?url';
 import CookieConsent from '../components/CookieConsent.astro';
 import ChatGateModal from '../components/ChatGateModal.astro';
 
@@ -36,6 +37,7 @@ const canonicalUrl = Astro.url.toString();
     <meta name="twitter:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="stylesheet" href={globalStylesheetHref} />
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
