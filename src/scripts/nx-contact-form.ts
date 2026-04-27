@@ -11,6 +11,15 @@ interface ContactFormCfg {
   fieldDepartment: string;
   fieldEmail: string;
   fieldMessage: string;
+  turnstileError: string;
+  configError: string;
+  mailtoFallbackSubject: string;
+  mailtoLabelName: string;
+  mailtoLabelCompany: string;
+  mailtoLabelEmail: string;
+  mailtoLabelCountry: string;
+  mailtoLabelDepartment: string;
+  mailtoDefaultDepartment: string;
 }
 
 function readCfg(): ContactFormCfg {
@@ -29,6 +38,15 @@ function readCfg(): ContactFormCfg {
       fieldDepartment: 'department',
       fieldEmail: 'email',
       fieldMessage: 'message',
+      turnstileError: 'Complete anti-spam verification before sending.',
+      configError: 'Contact form endpoint is not configured.',
+      mailtoFallbackSubject: 'Website contact',
+      mailtoLabelName: 'Name',
+      mailtoLabelCompany: 'Company',
+      mailtoLabelEmail: 'Email',
+      mailtoLabelCountry: 'Country',
+      mailtoLabelDepartment: 'Department',
+      mailtoDefaultDepartment: 'general',
     };
   }
   return JSON.parse(raw) as ContactFormCfg;
@@ -52,8 +70,7 @@ function bind(): void {
       if (!token) {
         e.preventDefault();
         if (err) {
-          err.textContent =
-            'Completa il controllo anti-spam prima di inviare il messaggio.';
+          err.textContent = cfg.turnstileError;
           err.classList.remove('hidden');
         }
         return;
@@ -72,17 +89,20 @@ function bind(): void {
     const department = String(fd.get(cfg.fieldDepartment) ?? '').trim();
     const message = String(fd.get(cfg.fieldMessage) ?? '').trim();
     if (cfg.mailto) {
-      const subject = encodeURIComponent(cfg.notifySubject || 'Contatto sito');
-      const companyLine = company ? `\nAzienda: ${company}` : '';
+      const subject = encodeURIComponent(
+        cfg.notifySubject || cfg.mailtoFallbackSubject || 'Website contact',
+      );
+      const companyLine = company
+        ? `\n${cfg.mailtoLabelCompany}: ${company}`
+        : '';
       const body = encodeURIComponent(
-        `Nome: ${name}${companyLine}\nEmail: ${email}\nPaese: ${country}\nReparto: ${department || 'general'}\n\n${message}`,
+        `${cfg.mailtoLabelName}: ${name}${companyLine}\n${cfg.mailtoLabelEmail}: ${email}\n${cfg.mailtoLabelCountry}: ${country}\n${cfg.mailtoLabelDepartment}: ${department || cfg.mailtoDefaultDepartment}\n\n${message}`,
       );
       window.location.href = `mailto:${cfg.mailto}?subject=${subject}&body=${body}`;
       return;
     }
     if (err) {
-      err.textContent =
-        'Configura `contactForm.actionUrl` (Formspree) o `contactForm.mailto` in `src/data/home/cta.ts`.';
+      err.textContent = cfg.configError;
       err.classList.remove('hidden');
     }
   });

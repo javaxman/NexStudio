@@ -6,21 +6,33 @@ import ContactFormInline from '../components/ContactFormInline.astro';
 import CardBottomRightTexture from '../components/CardBottomRightTexture.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import {
-  siteMeta,
-  navigation,
-  hero,
+  getSiteMeta,
+  getNavigation,
+  getHero,
   stats,
-  services,
-  stackSection,
+  getServices,
+  getStackSection,
   productsSection,
-  faq,
-  cta,
+  getFaq,
+  getCta,
 } from '../data/home';
 
 const infrastructureCarouselItems = stackSection.infrastructureCarousel.items;
 const path = Astro.url.pathname;
 const localeMatch = path.match(/^\/(en|th)(\/|$)/);
-const currentLocale = localeMatch?.[1] ?? 'it';
+const currentLocale = (localeMatch?.[1] ?? 'it') as 'it' | 'en' | 'th';
+const navigation = getNavigation(currentLocale);
+const siteMeta = getSiteMeta(currentLocale);
+const hero = getHero(currentLocale);
+const services = getServices(currentLocale);
+const stackSection = getStackSection(currentLocale);
+const faq = getFaq(currentLocale);
+const cta = getCta(currentLocale);
+const pageLabels = {
+  it: { focus: 'Focus' },
+  en: { focus: 'Focus' },
+  th: { focus: 'จุดเน้น' },
+}[currentLocale];
 const localize = (href: string) => {
   if (currentLocale === 'it') return href;
   if (href.startsWith(`/${currentLocale}`)) return href;
@@ -64,7 +76,7 @@ const langMeta = {
 
         <nav
           class="hidden items-center gap-8 text-sm md:flex"
-          aria-label="Principale"
+          aria-label={navigation.labels.mainNavAria}
         >
           {navigation.items.map((item) => {
             const sectionId = item.href.includes('#')
@@ -87,7 +99,7 @@ const langMeta = {
           <details class="relative hidden sm:block" data-lang-dropdown>
             <summary
               class="inline-flex h-10 cursor-pointer list-none items-center gap-2 rounded-lg border border-nx-border/80 bg-nx-bg/50 px-3 text-xs font-medium text-nx-fg transition-colors hover:border-sky-500/35 hover:text-white"
-              aria-label="Seleziona lingua"
+              aria-label={navigation.labels.languageSelectorAria}
             >
               <img src={langMeta[currentLocale].flagSrc} alt="" class="h-3.5 w-5 rounded-[2px] object-cover" loading="lazy" decoding="async" />
               <span>{langMeta[currentLocale].code}</span>
@@ -157,7 +169,7 @@ const langMeta = {
             @click="mobile = !mobile"
             :aria-expanded="mobile"
             aria-controls="mobile-nav"
-            aria-label="Apri menu"
+            aria-label={navigation.labels.openMenuAria}
           >
             <svg
               x-show="!mobile"
@@ -191,7 +203,7 @@ const langMeta = {
         x-cloak
         class="border-b border-nx-border bg-black px-4 py-4 md:hidden"
       >
-        <nav class="flex flex-col gap-3 text-sm" aria-label="Mobile">
+        <nav class="flex flex-col gap-3 text-sm" aria-label={navigation.labels.mobileNavAria}>
           {navigation.items.map((item) => {
             const sectionId = item.href.includes('#')
               ? item.href.split('#').pop()!
@@ -356,7 +368,7 @@ const langMeta = {
                     pi === 0 ? 'text-sky-200/85' : 'text-emerald-200/85',
                   ]}
                 >
-                  <span class="text-nx-muted font-normal">Focus — </span>
+                  <span class="text-nx-muted font-normal">{pageLabels.focus} — </span>
                   {product.focus}
                 </p>
                 <p class="mt-5 text-sm leading-relaxed text-nx-muted sm:text-base">
@@ -497,7 +509,7 @@ const langMeta = {
             class="relative z-[1] mt-12 rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-950/20 to-nx-elevated/40 p-6 sm:p-8"
           >
             <p class="text-xs font-medium uppercase tracking-wider text-orange-200/90">
-              Infrastruttura
+              {stackSection.infrastructureHeading}
             </p>
             <div
               class="nx-infra-carousel mt-5"
