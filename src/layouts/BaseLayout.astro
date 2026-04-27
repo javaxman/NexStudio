@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import globalStyles from '../styles/global.css?raw';
 import CookieConsent from '../components/CookieConsent.astro';
 import ChatGateModal from '../components/ChatGateModal.astro';
 
@@ -43,6 +43,7 @@ const canonicalUrl = Astro.url.toString();
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <style is:global set:html={globalStyles}></style>
   </head>
   <body class="min-h-screen">
     <slot />
