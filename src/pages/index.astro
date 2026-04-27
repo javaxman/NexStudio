@@ -17,7 +17,6 @@ import {
   getCta,
 } from '../data/home';
 
-const infrastructureCarouselItems = stackSection.infrastructureCarousel.items;
 const path = Astro.url.pathname;
 const localeMatch = path.match(/^\/(en|th)(\/|$)/);
 const currentLocale = (localeMatch?.[1] ?? 'it') as 'it' | 'en' | 'th';
@@ -28,6 +27,7 @@ const services = getServices(currentLocale);
 const stackSection = getStackSection(currentLocale);
 const faq = getFaq(currentLocale);
 const cta = getCta(currentLocale);
+const infrastructureCarouselItems = stackSection.infrastructureCarousel.items;
 const pageLabels = {
   it: { focus: 'Focus' },
   en: { focus: 'Focus' },
