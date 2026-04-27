@@ -1,5 +1,10 @@
 ---
-import { cta } from '../data/home';
+import { getCta } from '../data/home';
+
+const path = Astro.url.pathname;
+const localeMatch = path.match(/^\/(en|th)(\/|$)/);
+const currentLocale = (localeMatch?.[1] ?? 'it') as 'it' | 'en' | 'th';
+const cta = getCta(currentLocale);
 
 const cf = cta.contactForm;
 const model = {
@@ -14,6 +19,15 @@ const model = {
   fieldDepartment: cf.fieldDepartment,
   fieldEmail: cf.fieldEmail,
   fieldMessage: cf.fieldMessage,
+  turnstileError: cf.errors.turnstile,
+  configError: cf.errors.config,
+  mailtoFallbackSubject: cf.mailtoFallbackSubject,
+  mailtoLabelName: cf.mailtoLabels.name,
+  mailtoLabelCompany: cf.mailtoLabels.company,
+  mailtoLabelEmail: cf.mailtoLabels.email,
+  mailtoLabelCountry: cf.mailtoLabels.country,
+  mailtoLabelDepartment: cf.mailtoLabels.department,
+  mailtoDefaultDepartment: cf.mailtoLabels.defaultDepartment,
 };
 const hasFormspree =
   typeof cf.actionUrl === 'string' && cf.actionUrl.length > 0;
@@ -203,11 +217,11 @@ const fieldClass =
             class="cf-turnstile"
             data-sitekey={cf.turnstileSiteKey}
             data-theme="dark"
-            data-language="it"
+            data-language={cf.turnstileLanguage}
             data-size="normal"
           ></div>
           <p class="mt-1.5 text-xs leading-relaxed text-nx-muted">
-            Verifica anti-spam: completa il controllo prima di inviare il messaggio.
+            {cf.turnstileHint}
           </p>
         </div>
       ) : null

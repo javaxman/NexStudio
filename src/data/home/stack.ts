@@ -1,9 +1,12 @@
+import type { SupportedLocale } from './navigation';
+
 /** Sezione stack — infrastruttura Cloudflare e sicurezza */
-export const stackSection = {
+const stackIt = {
   eyebrow: 'Lo stack tecnologico',
   title: 'Infrastruttura e sicurezza',
   lead:
     'In NexStudio, la qualità dell’esperienza utente è inscindibile dalla solidità dell’infrastruttura. Per questo motivo ci affidiamo a partner globali ad alta efficienza che garantiscono i più elevati standard di disponibilità e protezione dei dati.',
+  infrastructureHeading: 'Infrastruttura',
   cloudflare: {
     title: 'Ecosistema Cloudflare',
     intro:
@@ -145,3 +148,168 @@ export const stackSection = {
     ] as const,
   },
 } as const;
+
+const stackByLocale = {
+  it: stackIt,
+  en: {
+    ...stackIt,
+    eyebrow: 'Technology stack',
+    title: 'Infrastructure and security',
+    lead:
+      'At NexStudio, user experience quality is inseparable from infrastructure resilience. That is why we rely on high-efficiency global partners that provide strong availability and data protection standards.',
+    infrastructureHeading: 'Infrastructure',
+    cloudflare: {
+      ...stackIt.cloudflare,
+      title: 'Cloudflare ecosystem',
+      intro:
+        '"Cloudflare helps accelerate performance, secure app availability, and optimize web experiences globally."',
+      points: [
+        {
+          title: 'Performance without compromise',
+          body:
+            'Access to our services remains low-latency worldwide, ensuring fluid usage even during complex data-processing operations.',
+        },
+        {
+          title: 'Advanced security',
+          body:
+            'We apply modern protection layers including end-to-end encryption, DDoS mitigation, and Web Application Firewall controls.',
+        },
+        {
+          title: 'Compliance and data integrity',
+          body:
+            'We use geographic data-control capabilities to align legal and medical data processing with local and international privacy requirements.',
+        },
+      ] as const,
+    },
+    continuity: {
+      title: 'Continuity and scalability',
+      body:
+        'We provide professional-grade SLA uptime. Our cloud-native architecture scales instantly for workload peaks, large offices, and multi-site organizations.',
+    },
+    whyThisChoice: {
+      title: 'Why NexStudio',
+      points: [
+        'Regulated vertical focus: we design for Legal Tech and Health Tech, where traceability, privacy, and service continuity are core product requirements.',
+        'AI in real professional workflows: we embed models and automation with attention to accuracy, auditability, and human oversight.',
+        'End-to-end responsibility: architecture, development, and evolution stay under one ownership model for clearer priorities and delivery.',
+      ] as const,
+    },
+    cloudflareBadge: {
+      ...stackIt.cloudflareBadge,
+      label: 'Cloudflare ecosystem',
+      slogan: '"Helping build a better Internet."',
+    },
+    awsBadge: {
+      ...stackIt.awsBadge,
+      label: 'AWS ecosystem',
+      slogan: '"The world’s most comprehensive and broadly adopted cloud platform."',
+    },
+    infrastructureCarousel: {
+      ...stackIt.infrastructureCarousel,
+      ariaLabel: 'NexStudio infrastructure and technology partners',
+      items: [
+        {
+          ...stackIt.infrastructureCarousel.items[0],
+          label: 'Cloudflare ecosystem',
+          slogan: '"Helping build a better Internet."',
+        },
+        {
+          ...stackIt.infrastructureCarousel.items[1],
+          label: 'AWS ecosystem',
+          slogan: '"The world’s most comprehensive and broadly adopted cloud platform."',
+        },
+        {
+          ...stackIt.infrastructureCarousel.items[2],
+          label: 'GitHub ecosystem',
+        },
+        {
+          ...stackIt.infrastructureCarousel.items[3],
+          label: 'OpenAI ecosystem',
+        },
+      ] as const,
+    },
+  },
+  th: {
+    ...stackIt,
+    eyebrow: 'เทคโนโลยีสแตก',
+    title: 'โครงสร้างพื้นฐานและความปลอดภัย',
+    lead:
+      'ที่ NexStudio คุณภาพประสบการณ์ผู้ใช้แยกไม่ออกจากความมั่นคงของโครงสร้างพื้นฐาน เราจึงเลือกพาร์ตเนอร์ระดับโลกที่มีประสิทธิภาพสูงเพื่อให้ได้มาตรฐานด้านความพร้อมใช้งานและความปลอดภัยของข้อมูล',
+    infrastructureHeading: 'โครงสร้างพื้นฐาน',
+    cloudflare: {
+      ...stackIt.cloudflare,
+      title: 'ระบบนิเวศ Cloudflare',
+      intro:
+        '"Cloudflare ช่วยเร่งประสิทธิภาพ รับประกันความพร้อมใช้งานของแอป และยกระดับประสบการณ์เว็บทั่วโลก"',
+      points: [
+        {
+          title: 'ประสิทธิภาพที่ไม่ประนีประนอม',
+          body:
+            'เข้าถึงบริการของเราได้อย่างหน่วงต่ำจากทุกที่ทั่วโลก แม้ในงานประมวลผลข้อมูลที่ซับซ้อน',
+        },
+        {
+          title: 'ความปลอดภัยขั้นสูง',
+          body:
+            'เราใช้กลไกป้องกันสมัยใหม่ เช่น การเข้ารหัส end-to-end การป้องกัน DDoS และ Web Application Firewall',
+        },
+        {
+          title: 'การปฏิบัติตามข้อกำกับและความถูกต้องของข้อมูล',
+          body:
+            'เราใช้ความสามารถในการกำกับตำแหน่งข้อมูลเพื่อให้การจัดการข้อมูลอ่อนไหวด้านกฎหมายและการแพทย์สอดคล้องกับข้อกำกับความเป็นส่วนตัว',
+        },
+      ] as const,
+    },
+    continuity: {
+      title: 'ความต่อเนื่องและการขยายตัว',
+      body:
+        'เรารับประกัน uptime ระดับมืออาชีพตาม SLA และสถาปัตยกรรม cloud-native ที่ขยายได้ทันทีเมื่อมีโหลดสูง',
+    },
+    whyThisChoice: {
+      title: 'ทำไมต้อง NexStudio',
+      points: [
+        'เชี่ยวชาญอุตสาหกรรมที่มีข้อกำกับ: Legal Tech และ Health Tech',
+        'ผสาน AI เข้ากับงานจริง โดยคำนึงถึงความแม่นยำ การตรวจสอบย้อนหลัง และการกำกับโดยมนุษย์',
+        'รับผิดชอบแบบ end-to-end: สถาปัตยกรรม การพัฒนา และการต่อยอดอยู่ภายใต้ทีมเดียว',
+      ] as const,
+    },
+    cloudflareBadge: {
+      ...stackIt.cloudflareBadge,
+      label: 'ระบบนิเวศ Cloudflare',
+      slogan: '"ช่วยกันสร้างอินเทอร์เน็ตที่ดีกว่า"',
+    },
+    awsBadge: {
+      ...stackIt.awsBadge,
+      label: 'ระบบนิเวศ AWS',
+      slogan: '"แพลตฟอร์มคลาวด์ที่ครอบคลุมและได้รับการใช้งานอย่างกว้างขวางที่สุดในโลก"',
+    },
+    infrastructureCarousel: {
+      ...stackIt.infrastructureCarousel,
+      ariaLabel: 'พาร์ตเนอร์โครงสร้างพื้นฐานและเทคโนโลยีของ NexStudio',
+      items: [
+        {
+          ...stackIt.infrastructureCarousel.items[0],
+          label: 'ระบบนิเวศ Cloudflare',
+          slogan: '"ช่วยกันสร้างอินเทอร์เน็ตที่ดีกว่า"',
+        },
+        {
+          ...stackIt.infrastructureCarousel.items[1],
+          label: 'ระบบนิเวศ AWS',
+          slogan: '"แพลตฟอร์มคลาวด์ที่ครอบคลุมและได้รับการใช้งานอย่างกว้างขวางที่สุดในโลก"',
+        },
+        {
+          ...stackIt.infrastructureCarousel.items[2],
+          label: 'ระบบนิเวศ GitHub',
+        },
+        {
+          ...stackIt.infrastructureCarousel.items[3],
+          label: 'ระบบนิเวศ OpenAI',
+        },
+      ] as const,
+    },
+  },
+} as const;
+
+export const getStackSection = (locale: SupportedLocale) => stackByLocale[locale];
+
+/** Retro-compatibilità: fallback italiano. */
+export const stackSection = stackByLocale.it;

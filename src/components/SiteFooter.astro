@@ -1,5 +1,10 @@
 ---
-import { footer } from '../data/home';
+import { getFooter } from '../data/home';
+
+const path = Astro.url.pathname;
+const localeMatch = path.match(/^\/(en|th)(\/|$)/);
+const currentLocale = (localeMatch?.[1] ?? 'it') as 'it' | 'en' | 'th';
+const footer = getFooter(currentLocale);
 
 const hasNewsletterAction =
   typeof footer.newsletter.actionUrl === 'string' &&
@@ -17,9 +22,6 @@ const notifySubject =
 
 const linkClass =
   'text-sm text-sky-400/90 transition-colors hover:text-sky-300';
-const path = Astro.url.pathname;
-const localeMatch = path.match(/^\/(en|th)(\/|$)/);
-const currentLocale = localeMatch?.[1] ?? 'it';
 const withLocale = (href: string) => {
   if (currentLocale === 'it') return href;
   if (href.startsWith(`/${currentLocale}`)) return href;
@@ -91,7 +93,7 @@ const withLocale = (href: string) => {
                 ) : (
                   <span
                     class="cursor-not-allowed text-nx-muted opacity-50"
-                    title="URL da configurare in footer.ts"
+                    title={footer.labels.socialPlaceholderTitle}
                   >
                     {item.label}
                   </span>
@@ -115,7 +117,7 @@ const withLocale = (href: string) => {
                     {link.label}
                   </a>
                 ) : (
-                  <span class="text-sm text-nx-muted" title="Collegamento in arrivo">
+                  <span class="text-sm text-nx-muted" title={footer.labels.companyPlaceholderTitle}>
                     {link.label}
                   </span>
                 )}
@@ -131,7 +133,7 @@ const withLocale = (href: string) => {
       >
         <div class="min-w-0">
           <p class="text-xs font-semibold uppercase tracking-wider text-nx-fg">
-            Impostazioni cookie
+            {footer.labels.cookieTitle}
           </p>
           <p class="mt-1.5 max-w-xl text-xs leading-relaxed text-nx-muted">
             {footer.cookiePreferences.hint}
@@ -204,7 +206,7 @@ const withLocale = (href: string) => {
                   {nl.buttonLabel}
                 </button>
                 <p id="nx-newsletter-hint" class="text-xs leading-relaxed text-nx-muted">
-                  Iscrizione in arrivo: configura l’endpoint nel progetto per attivare il modulo.
+                  {footer.labels.newsletterComingSoon}
                 </p>
               </div>
             )

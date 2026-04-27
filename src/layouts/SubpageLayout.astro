@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { getNavigation } from '../data/home';
 
 interface Props {
   title: string;
@@ -29,7 +30,8 @@ const printDate = new Intl.DateTimeFormat('it-IT', {
 const printSource = Astro.url.href;
 const path = Astro.url.pathname;
 const localeMatch = path.match(/^\/(en|th)(\/|$)/);
-const currentLocale = localeMatch?.[1] ?? 'it';
+const currentLocale = (localeMatch?.[1] ?? 'it') as 'it' | 'en' | 'th';
+const navigation = getNavigation(currentLocale);
 const strippedPath = path.replace(/^\/(en|th)(?=\/|$)/, '') || '/';
 const localeHref = (locale: 'it' | 'en' | 'th') => {
   if (locale === 'it') return strippedPath;
@@ -71,7 +73,7 @@ const langMeta = {
           <details class="relative" data-lang-dropdown>
             <summary
               class="inline-flex h-10 cursor-pointer list-none items-center gap-2 rounded-lg border border-nx-border/80 bg-nx-bg/50 px-3 text-xs font-medium text-nx-fg transition-colors hover:border-sky-500/35 hover:text-white"
-              aria-label="Seleziona lingua"
+              aria-label={navigation.labels.languageSelectorAria}
             >
               <img src={langMeta[currentLocale].flagSrc} alt="" class="h-3.5 w-5 rounded-[2px] object-cover" loading="lazy" decoding="async" />
               <span>{langMeta[currentLocale].code}</span>
@@ -129,7 +131,7 @@ const langMeta = {
           </details>
           <a
             class="text-sm font-medium text-sky-400/90 hover:text-sky-300"
-            href={localize('/#contatti')}>Contattaci</a
+            href={localize('/#contatti')}>{navigation.items[4]?.label ?? 'Contattaci'}</a
           >
         </div>
       </div>

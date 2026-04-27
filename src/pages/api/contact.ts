@@ -82,12 +82,9 @@ async function sendWithResend(apiKey: string, fromEmail: string, toEmail: string
 function resolveDepartmentRecipient(runtimeEnv: RuntimeEnv, defaultRecipient: string, department: string): string {
   const normalized = department.trim().toLowerCase();
   const map: Record<string, string> = {
-    support: readEnv('CONTACT_FORM_TO_EMAIL_SUPPORT', runtimeEnv),
+    info: readEnv('CONTACT_FORM_TO_EMAIL_INFO', runtimeEnv) || defaultRecipient,
     privacy: readEnv('CONTACT_FORM_TO_EMAIL_PRIVACY', runtimeEnv),
-    security: readEnv('CONTACT_FORM_TO_EMAIL_SECURITY', runtimeEnv),
-    ethics: readEnv('CONTACT_FORM_TO_EMAIL_ETHICS', runtimeEnv),
-    legal: readEnv('CONTACT_FORM_TO_EMAIL_LEGAL', runtimeEnv),
-    hr: readEnv('CONTACT_FORM_TO_EMAIL_HR', runtimeEnv),
+    careers: readEnv('CONTACT_FORM_TO_EMAIL_CAREERS', runtimeEnv),
   };
   return map[normalized] || defaultRecipient;
 }
@@ -111,7 +108,7 @@ export const POST: APIRoute = async ({ request, locals, url }) => {
   const company = required(form.get('company'));
   const email = required(form.get('email'));
   const country = required(form.get('country'));
-  const department = required(form.get('department')) || 'general';
+  const department = required(form.get('department')) || 'info';
   const message = required(form.get('message'));
 
   if (!name || !email || !country || !message) {
